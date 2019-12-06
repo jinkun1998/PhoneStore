@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.MainViews.News.NewsView">
+    <ContentView.Content>
+        <ScrollView>
+            <shimmer:SfShimmer x:Name="orderShimmer" Type="Persona" VerticalOptions="FillAndExpand" IsActive ="True">
+                <shimmer:SfShimmer.Content>
+                    <Grid>
+                        <Label Text="Hello! News Tab" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
+                    </Grid>
+                </shimmer:SfShimmer.Content>
+            </shimmer:SfShimmer>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

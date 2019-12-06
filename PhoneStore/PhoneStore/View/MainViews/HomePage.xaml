@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:home="clr-namespace:PhoneStore.View.MainViews.User"
+             xmlns:tabView="clr-namespace:Syncfusion.XForms.TabView;assembly=Syncfusion.SfTabView.XForms"
+             xmlns:header="clr-namespace:PhoneStore.View.MainViews"
+             xmlns:home11="clr-namespace:PhoneStore.ViewModel"
+             xmlns:home2="clr-namespace:PhoneStore.View.MainViews.Home"
+             xmlns:home1="clr-namespace:PhoneStore.View.MainViews.News"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.MainViews.HomePage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <home11:HomeViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid BackgroundColor="#f9f9f9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <header:Header Grid.Row="0"/>
+            <tabView:SfTabView Grid.Row="1" VisibleHeaderCount="3" DisplayMode="ImageWithText" TabHeaderPosition="Bottom" TabHeaderBackgroundColor="#ffffff" EnableSwiping="False" BackgroundColor="#f9f9f9">
+                <tabView:SfTabView.SelectionIndicatorSettings>
+                    <tabView:SelectionIndicatorSettings
+                    Color="Black" 
+                    Position="Top" 
+                    StrokeThickness="1"/>
+                </tabView:SfTabView.SelectionIndicatorSettings>
+                <tabView:SfTabView.Items>
+                    <tabView:SfTabItem Title="Trang chủ" ImageSource="home.png" SelectionColor="#ff4d00" TitleFontColor="Black" >
+                        <tabView:SfTabItem.Content>
+                            <ContentView>
+                                <home2:HomeView/>
+                            </ContentView>
+                        </tabView:SfTabItem.Content>
+                    </tabView:SfTabItem>
+                    <tabView:SfTabItem Title="Tin tức" ImageSource="newspaper.png" SelectionColor="#ff4d00" TitleFontColor="Black" >
+                        <tabView:SfTabItem.Content>
+                            <ContentView>
+                                <home1:NewsView/>
+                            </ContentView>
+                        </tabView:SfTabItem.Content>
+                    </tabView:SfTabItem>
+                    <tabView:SfTabItem Title="Tài khoản" ImageSource="user.png" SelectionColor="#ff4d00" TitleFontColor="Black" >
+                        <tabView:SfTabItem.Content>
+                            <ContentView>
+                                <home:UserView/>
+                            </ContentView>
+                        </tabView:SfTabItem.Content>
+                    </tabView:SfTabItem>
+                </tabView:SfTabView.Items>
+            </tabView:SfTabView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

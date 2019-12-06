@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.DetailViews.BottomDockView">
+    <ContentView.Content>
+        <Grid Padding="2,2,2,2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <pancakeview:PancakeView CornerRadius="5" WidthRequest="180" HeightRequest="40" Grid.Column="0" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+                <button:SfButton Text="Thêm vào giỏ hàng" Command="{Binding AddCarttapped}" CommandParameter="{Binding .Item}" BackgroundColor="#eb8242" FontSize="15" TextColor="White"/>
+            </pancakeview:PancakeView>
+            <pancakeview:PancakeView CornerRadius="5" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="CenterAndExpand">
+                <button:SfButton Text="Mua ngay" Command="{Binding CartTapped}" CommandParameter="{Binding .Item}" WidthRequest="180" HeightRequest="40" BackgroundColor="#3fc5f0" FontSize="15" TextColor="White"/>
+            </pancakeview:PancakeView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

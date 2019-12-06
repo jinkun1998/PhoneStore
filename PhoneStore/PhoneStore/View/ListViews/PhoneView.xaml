@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PhoneStore.ViewModels"
+             xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.ListViews.PhoneView">
+    <ContentView.BindingContext>
+        <local:PhoneViewModel/>
+    </ContentView.BindingContext>
+    <ContentView.Content>
+        <Grid>
+            <listview:SfListView
+                ItemsSource="{Binding ItemCollection}"
+                ItemSize="300"
+                ItemSpacing="5"
+                TapCommand="{Binding ItemTapped}"
+                >
+                <listview:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <!--<pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10" Padding="10,2,10,2">-->
+                        <Grid HeightRequest="300" BackgroundColor="White" Padding="10,2,10,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Column="0" Source="{Binding Image}"                                                           
+                                                           Aspect="AspectFit"
+                                                           HorizontalOptions="CenterAndExpand"
+                                                           VerticalOptions="CenterAndExpand"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.5*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="0.2*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="{Binding Name}"
+                                                               Padding="2,0,2,0"
+                                                               Grid.Row="0"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="Center"
+                                                               HorizontalTextAlignment="Center"
+                                                               FontSize="Title"
+                                                               TextColor="Black"/>
+                                <Label Text="{Binding Shortdescription}"
+                                                               Grid.Row="1"
+                                                               Padding="10,0,5,0"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="Center"
+                                                               HorizontalTextAlignment="Start"
+                                                               FontSize="Small"
+                                                               TextColor="Black"/>
+                                <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                                               Grid.Row="2"
+                                                               HorizontalOptions="EndAndExpand"
+                                                               VerticalOptions="Center"
+                                                               FontSize="Medium"
+                                                               TextColor="Red"/>
+                            </Grid>
+
+
+                        </Grid>
+                        <!--</pancakeview:PancakeView>-->
+                    </DataTemplate>
+                </listview:SfListView.ItemTemplate>
+            </listview:SfListView>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

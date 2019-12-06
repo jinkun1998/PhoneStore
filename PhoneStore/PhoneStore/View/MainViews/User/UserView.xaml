@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+             xmlns:sfAvatarView="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.MainViews.User.UserView">
+    <ContentView.Content>
+        <ScrollView>
+            <shimmer:SfShimmer Type="Profile" VerticalOptions="FillAndExpand" IsActive ="False">
+                <shimmer:SfShimmer.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Source="background.jpg" Grid.RowSpan="3" Aspect="AspectFill" Opacity="0.6"/>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <sfAvatarView:SfAvatarView HeightRequest="110" WidthRequest="110"
+                                                       ContentType="Custom"
+                                                       ImageSource="background.jpg" Grid.Column="1" Grid.Row="0" AvatarShape="Circle" AvatarSize="Large" AvatarColorMode="Default" BorderColor="White"/>
+                            <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="5"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="Đoàn Lê Quốc Thảo" Grid.Row="0" FontSize="Large" TextColor="White" VerticalTextAlignment="Start" HorizontalTextAlignment="Center"/>
+                                <Label Text="0123456789" Grid.Row="1" FontSize="Small" TextColor="White" VerticalTextAlignment="Start" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.1"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="0.1"/>
+                            </Grid.RowDefinitions>
+
+                            <button:SfButton Text="Đơn hàng của tôi" Grid.Row="1" BorderWidth="1" BorderColor="Black" ImageSource="myorder.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                            <button:SfButton Text="Yêu thích" Grid.Row="2" BorderWidth="1" BorderColor="Black" ImageSource="favorite.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                            <button:SfButton Text="Thông báo" Grid.Row="3" BorderWidth="1" BorderColor="Black" ImageSource="bell.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                            <button:SfButton Text="Cài đặt" BorderWidth="1" BorderColor="Black" Grid.Row="4" ImageSource="settings.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                            <button:SfButton Text="Trợ giúp" Grid.Row="5" BorderWidth="1" BorderColor="Black" ImageSource="asking.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                            <button:SfButton Text="Thông tin ứng dụng" BorderWidth="1" BorderColor="Black" Grid.Row="6" ImageSource="info.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                            <button:SfButton Text="Đăng xuất" Grid.Row="8" BorderWidth="1" BorderColor="Black" ImageSource="logout.png" ShowIcon="True" ImageAlignment="Left" FontSize="15" VerticalOptions="Fill" HorizontalTextAlignment="Start" BackgroundColor="#ffffff " TextColor="Black"/>
+                        </Grid>
+                    </Grid>
+                </shimmer:SfShimmer.Content>
+            </shimmer:SfShimmer>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

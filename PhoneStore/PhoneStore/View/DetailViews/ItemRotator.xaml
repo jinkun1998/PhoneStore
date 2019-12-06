@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rotator="clr-namespace:Syncfusion.SfRotator.XForms;assembly=Syncfusion.SfRotator.XForms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.DetailViews.ItemRotator">
+    <ContentView.Content>
+        <pancakeview:PancakeView CornerRadius="8" VerticalOptions="CenterAndExpand">
+            <Grid BackgroundColor="White">
+                <rotator:SfRotator
+                                               NavigationDirection="Horizontal"
+                                               NavigationStripMode="Thumbnail"
+                                               BackgroundColor="Transparent"
+                                               ItemsSource="{Binding Item.RotatorImages}">
+                    <rotator:SfRotator.ItemTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                        </DataTemplate>
+                    </rotator:SfRotator.ItemTemplate>
+                </rotator:SfRotator>
+            </Grid>
+        </pancakeview:PancakeView>
+    </ContentView.Content>
+</ContentView>
