@@ -50,6 +50,7 @@ namespace PhoneStore.ViewModels
                 Task.Delay(500);
             }
             Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new HomePage()));
+            Application.Current.MainPage = new HomePage();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

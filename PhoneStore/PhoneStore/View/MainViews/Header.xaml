@@ -27,7 +27,7 @@
 
             <ImageButton Source="search.png" Command="{Binding SearchTapped}" Grid.Column="3" BackgroundColor="White"  HorizontalOptions="End" VerticalOptions="End" HeightRequest="40" WidthRequest="40" CornerRadius="50"/>
 
-            <Image Source="logo.png" Aspect="Fill" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" HeightRequest="40"/>
+            <Image Source="logo.png" Aspect="AspectFill" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" HeightRequest="40"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

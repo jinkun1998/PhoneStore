@@ -1,4 +1,5 @@
-﻿using PhoneStore.Firebase;
+﻿using Android.Content.Res;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.View;
 using System;
@@ -33,6 +34,11 @@ namespace PhoneStore.ViewModels
         {
             var item = obj as CartModel;
             Task.Run(async () => await firebase.DeleteUserCartInOrder(item).ConfigureAwait(true));
+            //Application.Current.MainPage.Navigation.PopAsync(false);
+            Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
+            Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+
+
         }
 
         private void TakeOrder(object obj)
@@ -56,7 +62,10 @@ namespace PhoneStore.ViewModels
                 item.Quantity--;
                 if (item.Quantity == 0)
                 {
+                    Items.Remove(item);
                     Task.Run(async () => await firebase.DeleteUserCartInOrder(item).ConfigureAwait(true));
+                    Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
+                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
                 }
                 else
                 {
@@ -75,7 +84,14 @@ namespace PhoneStore.ViewModels
             Task.Run(async () => await firebase.UpdateUserCartItem(item).ConfigureAwait(true));
         }
 
-        public List<CartModel> Items { get; set; }
+        private List<CartModel> _items;
+        public List<CartModel> Items 
+        { 
+            get { return _items; }
+            set { _items = value; OnPropertyChanged(); }
+        }
+
+
         private decimal _totalPrice;
         public decimal TotalPrice
         {

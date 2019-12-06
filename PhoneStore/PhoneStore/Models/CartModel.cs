@@ -8,6 +8,7 @@ namespace PhoneStore.Models
 {
     public class CartModel : INotifyPropertyChanged
     {
+        public string CartCode { get; set; }
         public string Code { get; set; }
 
         public string Image { get; set; }

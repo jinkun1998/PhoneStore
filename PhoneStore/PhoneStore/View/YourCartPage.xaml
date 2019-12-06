@@ -19,13 +19,14 @@
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
 
-            <xforms:SfListView  Grid.Row="0"
+            <xforms:SfListView  Grid.Row="0" x:Name="listview"
                                 ItemsSource="{Binding Items}"
                                 ItemSize="120"
                                 ItemSpacing="5"
                                 Orientation="Vertical"
                                 SelectionBackgroundColor="Transparent"
                                 AllowSwiping="True"
+                                AutoFitMode="DynamicHeight"
                                 >
                 <xforms:SfListView.RightSwipeTemplate>
                     <DataTemplate>
