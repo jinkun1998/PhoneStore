@@ -18,7 +18,7 @@ namespace PhoneStore.ViewModels
         public CartViewModel()
         {
             firebase = new FirebaseHelper();
-            Items = Task.Run(async () => await firebase.GetUserCartItems("tiensieqquocthao@gmail.com")).Result;
+            Items = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
             foreach (var item in Items)
             {
                 TotalPrice += item.Price * item.Quantity;
@@ -33,7 +33,7 @@ namespace PhoneStore.ViewModels
         private void DeleteItem(object obj)
         {
             var item = obj as CartModel;
-            Task.Run(async () => await firebase.DeleteUserCartInOrder(item).ConfigureAwait(true));
+            Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
             //Application.Current.MainPage.Navigation.PopAsync(false);
             Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
             Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
@@ -63,7 +63,7 @@ namespace PhoneStore.ViewModels
                 if (item.Quantity == 0)
                 {
                     Items.Remove(item);
-                    Task.Run(async () => await firebase.DeleteUserCartInOrder(item).ConfigureAwait(true));
+                    Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
                     Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
                     Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
                 }
@@ -73,7 +73,7 @@ namespace PhoneStore.ViewModels
                 }
             }
 
-            Task.Run(async () => await firebase.UpdateUserCartItem(item).ConfigureAwait(true));
+            Task.Run(async () => await firebase.UpdateUserCartItem(item, FirebaseHelper.userToken).ConfigureAwait(true));
         }
 
         private void AddQuantityChanged(object obj)
@@ -81,7 +81,7 @@ namespace PhoneStore.ViewModels
             CartModel item = obj as CartModel;
             item.Quantity++;
             TotalPrice += item.Price;
-            Task.Run(async () => await firebase.UpdateUserCartItem(item).ConfigureAwait(true));
+            Task.Run(async () => await firebase.UpdateUserCartItem(item, FirebaseHelper.userToken).ConfigureAwait(true));
         }
 
         private List<CartModel> _items;

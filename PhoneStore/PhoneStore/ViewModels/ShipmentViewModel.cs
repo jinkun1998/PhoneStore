@@ -37,20 +37,22 @@ namespace PhoneStore.ViewModels
 
         private void CreateNewOrder(object obj)
         {
-            Order.Code = "123456";
-            Order.UserEmail = "tiensieqquocthao@gmail.com";
+            Random rd = new Random();
+            var tempCode = rd.Next(0, 999999);
+            Order.Code = tempCode.ToString("000000");
+            Order.UserEmail = FirebaseHelper.userEmail;
             Order.CreatedOn = DateTime.Now;
             Order.Note = "Test Order";
             Order.Address = "800 Nguyễn Văn Linh";
-            Task.Run(async () => await firebase.AddUserOrder(Order).ConfigureAwait(true));
+            Task.Run(async () => await firebase.AddUserOrder(Order, FirebaseHelper.userToken).ConfigureAwait(true));
             Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
             foreach (var item in Order.Carts)
             {
-                Task.Run(async () => await firebase.DeleteUserCartInOrder(item).ConfigureAwait(true));
+                Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
                 Task.Delay(500);
             }
-            Application.Current.MainPage.Navigation.PushAsync(new NavigationPage(new HomePage()));
-            Application.Current.MainPage = new HomePage();
+            Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+            Application.Current.MainPage = new NavigationPage(new HomePage());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

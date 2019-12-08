@@ -1,4 +1,9 @@
-﻿using System;
+using Syncfusion.XForms.iOS.ProgressBar;
+using Syncfusion.SfBusyIndicator.XForms.iOS;
+using Syncfusion.XForms.iOS.PopupLayout;
+using Syncfusion.XForms.iOS.MaskedEdit;
+using Syncfusion.XForms.iOS.TextInputLayout;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +27,12 @@ namespace PhoneStore.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            global::Xamarin.Forms.Forms.Init();
+global::Xamarin.Forms.Forms.Init();
+SfCircularProgressBarRenderer.Init();
+SfBusyIndicatorRenderer.Init();
+SfPopupLayoutRenderer.Init();
+SfMaskedEditRenderer.Init();
+SfTextInputLayoutRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

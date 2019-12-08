@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:vm="clr-namespace:PhoneStore.ViewModels"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.FirstPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:UserViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="logo_splash.png" Grid.Row="1" Aspect="AspectFill" VerticalOptions="End"/>
+            <StackLayout Grid.Row="2" Padding="70,0,70,0" Spacing="20" Orientation="Vertical">
+                <buttons:SfButton Command="{Binding SignInTapped}" Text="Đăng nhập" CornerRadius="20" HeightRequest="50" BackgroundColor="DeepSkyBlue" FontSize="17"/>
+                <buttons:SfButton Command="{Binding SignUpTapped}" Text="Đăng ký" CornerRadius="20" HeightRequest="50" BackgroundColor="WhiteSmoke" BorderWidth="1" FontSize="15" BorderColor="Black" TextColor="Black"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -2,35 +2,33 @@
 using Firebase.Database;
 using Firebase.Database.Query;
 using PhoneStore.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PhoneStore.Firebase
 {
     public class FirebaseHelper
     {
-        public string ApiKey = "AIzaSyB9e3hsSJPqZ46yYibyQnsodi-65KaxC_k";
-        public FirebaseClient firebaseClient;
-        public FirebaseAuthLink auth;
-        public FirebaseAuthProvider authProvider;
-        public string userEmail = "tiensieqquocthao@gmail.com";
-        public string userPw = "123456789";
+        public static string ApiKey = "AIzaSyB9e3hsSJPqZ46yYibyQnsodi-65KaxC_k";
+        public static string userToken;
+        public static string userEmail;
+        //public string userPw = "123456789";
+        public static UserModel user;
 
         public FirebaseHelper()
         {
-            LoginWithEmail(userEmail, userPw);
+            //LoginWithEmail(userEmail, userPw);
+            user = new UserModel();
         }
 
         public void LoginWithEmail(string email, string password)
         {
-            authProvider = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
-            auth = authProvider.SignInWithEmailAndPasswordAsync(email, password).Result;
+            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(ApiKey));
+            var auth = authProvider.SignInWithEmailAndPasswordAsync(email, password).Result;
             auth = Task.Run(() => auth.GetFreshAuthAsync()).Result;
 
-            firebaseClient = new FirebaseClient(
+            var firebase = new FirebaseClient(
             "https://thebossapp-dee9f.firebaseio.com/",
             new FirebaseOptions
             {
@@ -38,11 +36,18 @@ namespace PhoneStore.Firebase
             });
         }
 
-        public async Task<List<ItemModel>> GetAllItem()
+        public async Task<List<ItemModel>> GetAllItem(string token)
         {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
             return (await firebaseClient
               .Child("Items")
-              .OnceAsync<ItemModel>().ConfigureAwait(true)).Select(item => new ItemModel
+              .OnceAsync<ItemModel>()
+              .ConfigureAwait(true)).Select(item => new ItemModel
               {
                   Code = item.Object.Code,
                   Name = item.Object.Name,
@@ -56,15 +61,27 @@ namespace PhoneStore.Firebase
               }).ToList();
         }
 
-        public async Task AddUserCart(CartModel cart)
+        public async Task AddUserCart(CartModel cart, string token)
         {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
             await firebaseClient
                 .Child("Carts")
                 .PostAsync(cart).ConfigureAwait(true);
         }
 
-        public async Task<List<CartModel>> GetCartItems()
+        public async Task<List<CartModel>> GetCartItems(string token)
         {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
             return (await firebaseClient
               .Child("Carts")
               .OnceAsync<CartModel>().ConfigureAwait(true)).Select(item => new CartModel
@@ -83,17 +100,29 @@ namespace PhoneStore.Firebase
               }).ToList();
         }
 
-        public async Task<List<CartModel>> GetUserCartItems(string userEmail)
+        public async Task<List<CartModel>> GetUserCartItems(string userEmail, string token)
         {
-            var carts = await GetCartItems();
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
+            var carts = await GetCartItems(token);
             await firebaseClient
               .Child("Carts")
               .OnceAsync<CartModel>().ConfigureAwait(true);
             return carts.Where(it => it.UserEmail == userEmail && it.InOrder == false).ToList();
         }
 
-        public async Task UpdateUserCartItem(CartModel cart)
+        public async Task UpdateUserCartItem(CartModel cart, string token)
         {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
             var toUpdateItem = (await firebaseClient
               .Child("Carts")
               .OnceAsync<CartModel>().ConfigureAwait(true)).Where(a => a.Object.UserEmail == cart.UserEmail && a.Object.Code == cart.Code).FirstOrDefault();
@@ -116,9 +145,14 @@ namespace PhoneStore.Firebase
                   InOrder = cart.InOrder,
               }).ConfigureAwait(true);
         }
-        public async Task DeleteUserCartInOrder(CartModel cart)
+        public async Task DeleteUserCartInOrder(CartModel cart, string token)
         {
-
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
             var toDeleteCart = (await firebaseClient
             .Child("Carts")
             .OnceAsync<CartModel>().ConfigureAwait(true)).Where(a => a.Object.UserEmail == cart.UserEmail && a.Object.Code == cart.Code).FirstOrDefault();
@@ -127,11 +161,40 @@ namespace PhoneStore.Firebase
 
         }
 
-        public async Task AddUserOrder(OrderModel order)
+        public async Task AddUserOrder(OrderModel order, string token)
         {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
             await firebaseClient
                 .Child("Orders")
                 .PostAsync(order).ConfigureAwait(true);
+        }
+
+        public async Task<UserModel> GetUser(string token)
+        {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
+            var allUsers = (await firebaseClient
+              .Child("Users")
+              .OnceAsync<UserModel>()
+              .ConfigureAwait(true)).Select(item => new UserModel
+              {
+                  Code = item.Object.Code,
+                  FullName = item.Object.FullName,
+                  Address = item.Object.Address,
+                  Email = item.Object.Email,
+                  Phone = item.Object.Phone,
+                  AvatarLink = item.Object.AvatarLink,
+              }).ToList();
+            return allUsers.Where(it => it.Email == userEmail).FirstOrDefault();
         }
     }
 }

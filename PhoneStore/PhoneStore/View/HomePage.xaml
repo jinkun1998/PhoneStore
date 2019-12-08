@@ -10,7 +10,7 @@
              xmlns:home2="clr-namespace:PhoneStore.View.MainViews.Home"
              xmlns:home1="clr-namespace:PhoneStore.View.MainViews.News"
              mc:Ignorable="d"
-             x:Class="PhoneStore.View.MainViews.HomePage" NavigationPage.HasNavigationBar="False">
+             x:Class="PhoneStore.View.HomePage" NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <home11:HomeViewModel/>
     </ContentPage.BindingContext>

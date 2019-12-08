@@ -19,7 +19,7 @@ namespace PhoneStore.ViewModel
         {
             firebase = new FirebaseHelper();
             //getAllItemAsync();
-            var cart = Task.Run(async () => await firebase.GetUserCartItems("tiensieqquocthao@gmail.com")).Result;
+            var cart = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
             ItemCount = cart.Count;
             ItemModels = Task.Run(async () => await getAllItemAsync().ConfigureAwait(true)).Result;
             this.cmdPhone = new Command(GoToPhone);
@@ -40,7 +40,7 @@ namespace PhoneStore.ViewModel
 
         private async Task<List<ItemModel>> getAllItemAsync()
         {
-            var itemFirebases = await firebase.GetAllItem().ConfigureAwait(true);
+            var itemFirebases = await firebase.GetAllItem(FirebaseHelper.userToken).ConfigureAwait(true);
             List<ItemModel> Items = new List<ItemModel>();
             Items = itemFirebases;
             return Items;

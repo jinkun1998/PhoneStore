@@ -36,7 +36,7 @@ namespace PhoneStore.ViewModels
 
         private void GotoCart(object obj)
         {
-            List<CartModel> allCarts = Task.Run(async () => await firebase.GetUserCartItems("tiensieqquocthao@gmail.com")).Result;
+            List<CartModel> allCarts = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
             var exitsCart = allCarts.Where(it => it.Code == Item.Code).FirstOrDefault();
             if (exitsCart == null)
             {
@@ -49,18 +49,18 @@ namespace PhoneStore.ViewModels
                 cart.Name = Item.Name;
                 cart.Price = Item.Price;
                 cart.Shortdescription = Item.Shortdescription;
-                cart.UserEmail = "tiensieqquocthao@gmail.com";
+                cart.UserEmail = FirebaseHelper.userEmail;
                 cart.Description = Item.Description;
                 cart.DescriptionLink = Item.DescriptionLink;
                 cart.Quantity = 1;
                 //cart.Color = SelectedColor.ToString();
                 cart.InOrder = false;
-                Task.Run(async () => await firebase.AddUserCart(cart).ConfigureAwait(true));
+                Task.Run(async () => await firebase.AddUserCart(cart, FirebaseHelper.userToken).ConfigureAwait(true));
             }
             else
             {
                 exitsCart.Quantity++;
-                Task.Run(async () => await firebase.UpdateUserCartItem(exitsCart).ConfigureAwait(true));
+                Task.Run(async () => await firebase.UpdateUserCartItem(exitsCart, FirebaseHelper.userToken).ConfigureAwait(true));
             }
             //Task.Run(async () => await App.Database.SaveCartItemAsync(cart).ConfigureAwait(true));
             Application.Current.MainPage.Navigation.PushAsync(new YourCartPage());
@@ -68,7 +68,7 @@ namespace PhoneStore.ViewModels
 
         private void AddCart(object obj)
         {
-            List<CartModel> allCarts = Task.Run(async () => await firebase.GetUserCartItems("tiensieqquocthao@gmail.com")).Result;
+            List<CartModel> allCarts = Task.Run(async () => await firebase.GetUserCartItems("tiensieqquocthao@gmail.com", FirebaseHelper.userToken)).Result;
             var exitsCart = allCarts.Where(it => it.Code == Item.Code).FirstOrDefault();
             if (exitsCart == null)
             {
@@ -87,12 +87,12 @@ namespace PhoneStore.ViewModels
                 cart.Quantity = 1;
                 //cart.Color = SelectedColor.ToString();
                 cart.InOrder = false;
-                Task.Run(async () => await firebase.AddUserCart(cart).ConfigureAwait(true));
+                Task.Run(async () => await firebase.AddUserCart(cart, FirebaseHelper.userToken).ConfigureAwait(true));
             }
             else
             {
                 exitsCart.Quantity++;
-                Task.Run(async () => await firebase.UpdateUserCartItem(exitsCart).ConfigureAwait(true));
+                Task.Run(async () => await firebase.UpdateUserCartItem(exitsCart, FirebaseHelper.userToken).ConfigureAwait(true));
             }
             Application.Current.MainPage.DisplayAlert("Thông báo", "Đã thêm vào giỏ hàng thành công!", "Đã hiểu");
         }

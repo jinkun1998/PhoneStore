@@ -15,7 +15,7 @@ namespace PhoneStore
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTU2MDEwQDMxMzcyZTMzMmUzMGR2enYvelhPZmo2UmgxZE1yR2RQWWcxTU85NWREVi9zS0MyMkZSQ2xFZGc9");
 
-            MainPage = new NavigationPage(new HomePage())
+            MainPage = new NavigationPage(new FirstPage())
             {
                 BarTextColor = Xamarin.Forms.Color.Black,
                 BackgroundColor = Xamarin.Forms.Color.White,

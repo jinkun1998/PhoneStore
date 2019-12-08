@@ -23,7 +23,7 @@ namespace PhoneStore.ViewModels
 
         private async Task<List<ItemModel>> getAllItemAsync()
         {
-            var itemFirebases = await firebase.GetAllItem();
+            var itemFirebases = await firebase.GetAllItem(FirebaseHelper.userToken);
             List<ItemModel> Items = new List<ItemModel>();
             foreach (var itemFirebase in itemFirebases)
             {

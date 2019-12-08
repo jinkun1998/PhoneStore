@@ -113,9 +113,64 @@ namespace PhoneStore.Droid
 			global::Syncfusion.XForms.Android.Core.Resource.Drawable.input_layout_drop_down_icon = global::PhoneStore.Droid.Resource.Drawable.input_layout_drop_down_icon;
 			global::Syncfusion.XForms.Android.Core.Resource.Drawable.inputlayout_togglecollapseicon = global::PhoneStore.Droid.Resource.Drawable.inputlayout_togglecollapseicon;
 			global::Syncfusion.XForms.Android.Core.Resource.Drawable.inputlayout_togglevisibleicon = global::PhoneStore.Droid.Resource.Drawable.inputlayout_togglevisibleicon;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorAnimationTypes = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorAnimationTypes;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorIsBusy = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorIsBusy;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorSecondaryColor = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorSecondaryColor;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorTextColor = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorTextColor;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorTextSize = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorTextSize;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorTitle = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorTitle;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorTitlePlacement = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorTitlePlacement;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorViewBoxHeight = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorViewBoxHeight;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Attribute.busyIndicatorViewBoxWidth = global::PhoneStore.Droid.Resource.Attribute.busyIndicatorViewBoxWidth;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.ball = global::PhoneStore.Droid.Resource.Id.ball;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.battery = global::PhoneStore.Droid.Resource.Id.battery;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.bottom = global::PhoneStore.Droid.Resource.Id.bottom;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.box = global::PhoneStore.Droid.Resource.Id.box;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.doubleCircle = global::PhoneStore.Droid.Resource.Id.doubleCircle;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.ecg = global::PhoneStore.Droid.Resource.Id.ecg;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.gearBox = global::PhoneStore.Droid.Resource.Id.gearBox;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.globe = global::PhoneStore.Droid.Resource.Id.globe;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.horizontalPulsingBox = global::PhoneStore.Droid.Resource.Id.horizontalPulsingBox;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.movieTimer = global::PhoneStore.Droid.Resource.Id.movieTimer;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.none = global::PhoneStore.Droid.Resource.Id.none;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.print = global::PhoneStore.Droid.Resource.Id.print;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.rectangle = global::PhoneStore.Droid.Resource.Id.rectangle;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.rollingBall = global::PhoneStore.Droid.Resource.Id.rollingBall;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.singleCircle = global::PhoneStore.Droid.Resource.Id.singleCircle;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.slicedCircle = global::PhoneStore.Droid.Resource.Id.slicedCircle;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.top = global::PhoneStore.Droid.Resource.Id.top;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Id.zoomingTarget = global::PhoneStore.Droid.Resource.Id.zoomingTarget;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.String.library_name = global::PhoneStore.Droid.Resource.String.library_name;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorAnimationTypes = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorAnimationTypes;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorIsBusy = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorIsBusy;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorSecondaryColor = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorSecondaryColor;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorTextColor = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorTextColor;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorTextSize = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorTextSize;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorTitle = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorTitle;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorTitlePlacement = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorTitlePlacement;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorViewBoxHeight = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorViewBoxHeight;
+			global::Com.Syncfusion.Sfbusyindicator.Resource.Styleable.SfBusyIndicator_busyIndicatorViewBoxWidth = global::PhoneStore.Droid.Resource.Styleable.SfBusyIndicator_busyIndicatorViewBoxWidth;
 			global::Syncfusion.ListView.XForms.Android.Resource.String.ApplicationName = global::PhoneStore.Droid.Resource.String.ApplicationName;
 			global::Syncfusion.ListView.XForms.Android.Resource.String.Hello = global::PhoneStore.Droid.Resource.String.Hello;
 			global::Syncfusion.ListView.XForms.Android.Resource.String.Load_More = global::PhoneStore.Droid.Resource.String.Load_More;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_android_close_icon = global::PhoneStore.Droid.Resource.Drawable.popup_forms_android_close_icon;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_android_shadow = global::PhoneStore.Droid.Resource.Drawable.popup_forms_android_shadow;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_dark_theme_close_icon = global::PhoneStore.Droid.Resource.Drawable.popup_forms_dark_theme_close_icon;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Drawable.popup_forms_light_theme_close_icon = global::PhoneStore.Droid.Resource.Drawable.popup_forms_light_theme_close_icon;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.Id.BorderView = global::PhoneStore.Droid.Resource.Id.BorderView;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.accept = global::PhoneStore.Droid.Resource.String.accept;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.decline = global::PhoneStore.Droid.Resource.String.decline;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.library_name = global::PhoneStore.Droid.Resource.String.library_name;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.popup_message = global::PhoneStore.Droid.Resource.String.popup_message;
+			global::Syncfusion.XForms.Android.PopupLayout.Resource.String.title = global::PhoneStore.Droid.Resource.String.title;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.Drawable.sfprogressbar_determinate_linear = global::PhoneStore.Droid.Resource.Drawable.sfprogressbar_determinate_linear;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.Drawable.sfprogressbar_indeterminate_circular = global::PhoneStore.Droid.Resource.Drawable.sfprogressbar_indeterminate_circular;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.Drawable.sfprogressbar_indeterminate_linear = global::PhoneStore.Droid.Resource.Drawable.sfprogressbar_indeterminate_linear;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.Id.sfprogressbar_progress = global::PhoneStore.Droid.Resource.Id.sfprogressbar_progress;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.Id.sfprogressbar_secondary_progress = global::PhoneStore.Droid.Resource.Id.sfprogressbar_secondary_progress;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.Id.sfprogressbar_track = global::PhoneStore.Droid.Resource.Id.sfprogressbar_track;
+			global::Syncfusion.XForms.Android.ProgressBar.Resource.String.library_name = global::PhoneStore.Droid.Resource.String.library_name;
 			global::Com.Syncfusion.Rating.Resource.Attribute.ratingControlValue = global::PhoneStore.Droid.Resource.Attribute.ratingControlValue;
 			global::Com.Syncfusion.Rating.Resource.Attribute.ratingEnableAutoSize = global::PhoneStore.Droid.Resource.Attribute.ratingEnableAutoSize;
 			global::Com.Syncfusion.Rating.Resource.Attribute.ratingItemCount = global::PhoneStore.Droid.Resource.Attribute.ratingItemCount;
@@ -3337,6 +3392,33 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0101c5
 			public const int boxStrokeWidth = 2130772421;
 			
+			// aapt resource value: 0x7f0101f7
+			public const int busyIndicatorAnimationTypes = 2130772471;
+			
+			// aapt resource value: 0x7f0101ff
+			public const int busyIndicatorIsBusy = 2130772479;
+			
+			// aapt resource value: 0x7f0101fd
+			public const int busyIndicatorSecondaryColor = 2130772477;
+			
+			// aapt resource value: 0x7f0101f8
+			public const int busyIndicatorTextColor = 2130772472;
+			
+			// aapt resource value: 0x7f0101fc
+			public const int busyIndicatorTextSize = 2130772476;
+			
+			// aapt resource value: 0x7f0101fb
+			public const int busyIndicatorTitle = 2130772475;
+			
+			// aapt resource value: 0x7f0101fe
+			public const int busyIndicatorTitlePlacement = 2130772478;
+			
+			// aapt resource value: 0x7f0101f9
+			public const int busyIndicatorViewBoxHeight = 2130772473;
+			
+			// aapt resource value: 0x7f0101fa
+			public const int busyIndicatorViewBoxWidth = 2130772474;
+			
 			// aapt resource value: 0x7f010080
 			public const int buttonBarButtonStyle = 2130772096;
 			
@@ -3397,8 +3479,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0100b5
 			public const int checkboxStyle = 2130772149;
 			
-			// aapt resource value: 0x7f0101fa
-			public const int @checked = 2130772474;
+			// aapt resource value: 0x7f010203
+			public const int @checked = 2130772483;
 			
 			// aapt resource value: 0x7f010165
 			public const int checkedChip = 2130772325;
@@ -3592,8 +3674,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f010185
 			public const int cornerRadius = 2130772357;
 			
-			// aapt resource value: 0x7f0101f9
-			public const int cornerradius = 2130772473;
+			// aapt resource value: 0x7f010202
+			public const int cornerradius = 2130772482;
 			
 			// aapt resource value: 0x7f0101b4
 			public const int counterEnabled = 2130772404;
@@ -3865,8 +3947,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f010017
 			public const int isLightTheme = 2130771991;
 			
-			// aapt resource value: 0x7f0101f8
-			public const int isthreestate = 2130772472;
+			// aapt resource value: 0x7f010201
+			public const int isthreestate = 2130772481;
 			
 			// aapt resource value: 0x7f010189
 			public const int itemBackground = 2130772361;
@@ -4219,41 +4301,41 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0100bc
 			public const int seekBarStyle = 2130772156;
 			
-			// aapt resource value: 0x7f0101fc
-			public const int segmentBackColor = 2130772476;
-			
-			// aapt resource value: 0x7f0101fd
-			public const int segmentBorderColor = 2130772477;
-			
-			// aapt resource value: 0x7f0101fe
-			public const int segmentBorderThickness = 2130772478;
-			
-			// aapt resource value: 0x7f0101ff
-			public const int segmentColor = 2130772479;
-			
-			// aapt resource value: 0x7f010204
-			public const int segmentCornerRadius = 2130772484;
+			// aapt resource value: 0x7f010205
+			public const int segmentBackColor = 2130772485;
 			
 			// aapt resource value: 0x7f010206
-			public const int segmentDisplayMode = 2130772486;
+			public const int segmentBorderColor = 2130772486;
 			
-			// aapt resource value: 0x7f010205
-			public const int segmentPosition = 2130772485;
+			// aapt resource value: 0x7f010207
+			public const int segmentBorderThickness = 2130772487;
 			
-			// aapt resource value: 0x7f0101fb
-			public const int segmentSelectedIndex = 2130772475;
+			// aapt resource value: 0x7f010208
+			public const int segmentColor = 2130772488;
 			
-			// aapt resource value: 0x7f010203
-			public const int segmentStrokeThickness = 2130772483;
+			// aapt resource value: 0x7f01020d
+			public const int segmentCornerRadius = 2130772493;
 			
-			// aapt resource value: 0x7f010201
-			public const int segmentedHeight = 2130772481;
+			// aapt resource value: 0x7f01020f
+			public const int segmentDisplayMode = 2130772495;
 			
-			// aapt resource value: 0x7f010200
-			public const int segmentedPadding = 2130772480;
+			// aapt resource value: 0x7f01020e
+			public const int segmentPosition = 2130772494;
 			
-			// aapt resource value: 0x7f010202
-			public const int segmentedWidth = 2130772482;
+			// aapt resource value: 0x7f010204
+			public const int segmentSelectedIndex = 2130772484;
+			
+			// aapt resource value: 0x7f01020c
+			public const int segmentStrokeThickness = 2130772492;
+			
+			// aapt resource value: 0x7f01020a
+			public const int segmentedHeight = 2130772490;
+			
+			// aapt resource value: 0x7f010209
+			public const int segmentedPadding = 2130772489;
+			
+			// aapt resource value: 0x7f01020b
+			public const int segmentedWidth = 2130772491;
 			
 			// aapt resource value: 0x7f010081
 			public const int selectableItemBackground = 2130772097;
@@ -4321,8 +4403,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f010134
 			public const int state_collapsible = 2130772276;
 			
-			// aapt resource value: 0x7f0101f7
-			public const int state_indeterminate = 2130772471;
+			// aapt resource value: 0x7f010200
+			public const int state_indeterminate = 2130772480;
 			
 			// aapt resource value: 0x7f010136
 			public const int state_liftable = 2130772278;
@@ -6182,26 +6264,26 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f020073
 			public const int avd_hide_password = 2130837619;
 			
-			// aapt resource value: 0x7f0200ae
-			public const int avd_hide_password_1 = 2130837678;
+			// aapt resource value: 0x7f0200b5
+			public const int avd_hide_password_1 = 2130837685;
 			
-			// aapt resource value: 0x7f0200af
-			public const int avd_hide_password_2 = 2130837679;
+			// aapt resource value: 0x7f0200b6
+			public const int avd_hide_password_2 = 2130837686;
 			
-			// aapt resource value: 0x7f0200b0
-			public const int avd_hide_password_3 = 2130837680;
+			// aapt resource value: 0x7f0200b7
+			public const int avd_hide_password_3 = 2130837687;
 			
 			// aapt resource value: 0x7f020074
 			public const int avd_show_password = 2130837620;
 			
-			// aapt resource value: 0x7f0200b1
-			public const int avd_show_password_1 = 2130837681;
+			// aapt resource value: 0x7f0200b8
+			public const int avd_show_password_1 = 2130837688;
 			
-			// aapt resource value: 0x7f0200b2
-			public const int avd_show_password_2 = 2130837682;
+			// aapt resource value: 0x7f0200b9
+			public const int avd_show_password_2 = 2130837689;
 			
-			// aapt resource value: 0x7f0200b3
-			public const int avd_show_password_3 = 2130837683;
+			// aapt resource value: 0x7f0200ba
+			public const int avd_show_password_3 = 2130837690;
 			
 			// aapt resource value: 0x7f020075
 			public const int background = 2130837621;
@@ -6335,11 +6417,11 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0200a0
 			public const int notification_icon_background = 2130837664;
 			
-			// aapt resource value: 0x7f0200ac
-			public const int notification_template_icon_bg = 2130837676;
+			// aapt resource value: 0x7f0200b3
+			public const int notification_template_icon_bg = 2130837683;
 			
-			// aapt resource value: 0x7f0200ad
-			public const int notification_template_icon_low_bg = 2130837677;
+			// aapt resource value: 0x7f0200b4
+			public const int notification_template_icon_low_bg = 2130837684;
 			
 			// aapt resource value: 0x7f0200a1
 			public const int notification_tile_bg = 2130837665;
@@ -6348,31 +6430,52 @@ namespace PhoneStore.Droid
 			public const int notify_panel_notification_icon_bg = 2130837666;
 			
 			// aapt resource value: 0x7f0200a3
-			public const int resume = 2130837667;
+			public const int popup_forms_android_close_icon = 2130837667;
 			
 			// aapt resource value: 0x7f0200a4
-			public const int search = 2130837668;
+			public const int popup_forms_android_shadow = 2130837668;
 			
 			// aapt resource value: 0x7f0200a5
-			public const int settings = 2130837669;
+			public const int popup_forms_dark_theme_close_icon = 2130837669;
 			
 			// aapt resource value: 0x7f0200a6
-			public const int shoppingcart = 2130837670;
+			public const int popup_forms_light_theme_close_icon = 2130837670;
 			
 			// aapt resource value: 0x7f0200a7
-			public const int splash = 2130837671;
+			public const int resume = 2130837671;
 			
 			// aapt resource value: 0x7f0200a8
-			public const int splash_screen = 2130837672;
+			public const int search = 2130837672;
 			
 			// aapt resource value: 0x7f0200a9
-			public const int tooltip_frame_dark = 2130837673;
+			public const int settings = 2130837673;
 			
 			// aapt resource value: 0x7f0200aa
-			public const int tooltip_frame_light = 2130837674;
+			public const int sfprogressbar_determinate_linear = 2130837674;
 			
 			// aapt resource value: 0x7f0200ab
-			public const int user = 2130837675;
+			public const int sfprogressbar_indeterminate_circular = 2130837675;
+			
+			// aapt resource value: 0x7f0200ac
+			public const int sfprogressbar_indeterminate_linear = 2130837676;
+			
+			// aapt resource value: 0x7f0200ad
+			public const int shoppingcart = 2130837677;
+			
+			// aapt resource value: 0x7f0200ae
+			public const int splash = 2130837678;
+			
+			// aapt resource value: 0x7f0200af
+			public const int splash_screen = 2130837679;
+			
+			// aapt resource value: 0x7f0200b0
+			public const int tooltip_frame_dark = 2130837680;
+			
+			// aapt resource value: 0x7f0200b1
+			public const int tooltip_frame_light = 2130837681;
+			
+			// aapt resource value: 0x7f0200b2
+			public const int user = 2130837682;
 			
 			static Drawable()
 			{
@@ -6389,6 +6492,9 @@ namespace PhoneStore.Droid
 			
 			// aapt resource value: 0x7f0b0039
 			public const int ALT = 2131427385;
+			
+			// aapt resource value: 0x7f0b00f3
+			public const int BorderView = 2131427571;
 			
 			// aapt resource value: 0x7f0b0070
 			public const int Bottom = 2131427440;
@@ -6444,41 +6550,41 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b006d
 			public const int Vertical = 2131427437;
 			
-			// aapt resource value: 0x7f0b00ca
-			public const int action0 = 2131427530;
+			// aapt resource value: 0x7f0b00d9
+			public const int action0 = 2131427545;
 			
-			// aapt resource value: 0x7f0b00a2
-			public const int action_bar = 2131427490;
+			// aapt resource value: 0x7f0b00b1
+			public const int action_bar = 2131427505;
 			
 			// aapt resource value: 0x7f0b0001
 			public const int action_bar_activity_content = 2131427329;
 			
-			// aapt resource value: 0x7f0b00a1
-			public const int action_bar_container = 2131427489;
+			// aapt resource value: 0x7f0b00b0
+			public const int action_bar_container = 2131427504;
 			
-			// aapt resource value: 0x7f0b009d
-			public const int action_bar_root = 2131427485;
+			// aapt resource value: 0x7f0b00ac
+			public const int action_bar_root = 2131427500;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int action_bar_spinner = 2131427330;
 			
-			// aapt resource value: 0x7f0b0080
-			public const int action_bar_subtitle = 2131427456;
+			// aapt resource value: 0x7f0b008f
+			public const int action_bar_subtitle = 2131427471;
 			
-			// aapt resource value: 0x7f0b007f
-			public const int action_bar_title = 2131427455;
+			// aapt resource value: 0x7f0b008e
+			public const int action_bar_title = 2131427470;
 			
-			// aapt resource value: 0x7f0b00c7
-			public const int action_container = 2131427527;
+			// aapt resource value: 0x7f0b00d6
+			public const int action_container = 2131427542;
 			
-			// aapt resource value: 0x7f0b00a3
-			public const int action_context_bar = 2131427491;
+			// aapt resource value: 0x7f0b00b2
+			public const int action_context_bar = 2131427506;
 			
-			// aapt resource value: 0x7f0b00ce
-			public const int action_divider = 2131427534;
+			// aapt resource value: 0x7f0b00dd
+			public const int action_divider = 2131427549;
 			
-			// aapt resource value: 0x7f0b00c8
-			public const int action_image = 2131427528;
+			// aapt resource value: 0x7f0b00d7
+			public const int action_image = 2131427543;
 			
 			// aapt resource value: 0x7f0b0003
 			public const int action_menu_divider = 2131427331;
@@ -6486,29 +6592,29 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0004
 			public const int action_menu_presenter = 2131427332;
 			
-			// aapt resource value: 0x7f0b009f
-			public const int action_mode_bar = 2131427487;
+			// aapt resource value: 0x7f0b00ae
+			public const int action_mode_bar = 2131427502;
 			
-			// aapt resource value: 0x7f0b009e
-			public const int action_mode_bar_stub = 2131427486;
+			// aapt resource value: 0x7f0b00ad
+			public const int action_mode_bar_stub = 2131427501;
 			
-			// aapt resource value: 0x7f0b0081
-			public const int action_mode_close_button = 2131427457;
+			// aapt resource value: 0x7f0b0090
+			public const int action_mode_close_button = 2131427472;
 			
-			// aapt resource value: 0x7f0b00c9
-			public const int action_text = 2131427529;
+			// aapt resource value: 0x7f0b00d8
+			public const int action_text = 2131427544;
 			
-			// aapt resource value: 0x7f0b00d7
-			public const int actions = 2131427543;
+			// aapt resource value: 0x7f0b00e6
+			public const int actions = 2131427558;
 			
-			// aapt resource value: 0x7f0b0082
-			public const int activity_chooser_view_content = 2131427458;
+			// aapt resource value: 0x7f0b0091
+			public const int activity_chooser_view_content = 2131427473;
 			
 			// aapt resource value: 0x7f0b002e
 			public const int add = 2131427374;
 			
-			// aapt resource value: 0x7f0b0094
-			public const int alertTitle = 2131427476;
+			// aapt resource value: 0x7f0b00a3
+			public const int alertTitle = 2131427491;
 			
 			// aapt resource value: 0x7f0b0064
 			public const int all = 2131427428;
@@ -6522,44 +6628,53 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b004d
 			public const int auto = 2131427405;
 			
+			// aapt resource value: 0x7f0b0079
+			public const int ball = 2131427449;
+			
+			// aapt resource value: 0x7f0b007a
+			public const int battery = 2131427450;
+			
 			// aapt resource value: 0x7f0b0036
 			public const int beginning = 2131427382;
 			
 			// aapt resource value: 0x7f0b0066
 			public const int blocking = 2131427430;
 			
-			// aapt resource value: 0x7f0b007c
-			public const int border = 2131427452;
+			// aapt resource value: 0x7f0b008b
+			public const int border = 2131427467;
 			
 			// aapt resource value: 0x7f0b0044
 			public const int bottom = 2131427396;
 			
-			// aapt resource value: 0x7f0b00b2
-			public const int bottomtab_navarea = 2131427506;
+			// aapt resource value: 0x7f0b00c1
+			public const int bottomtab_navarea = 2131427521;
 			
-			// aapt resource value: 0x7f0b00b3
-			public const int bottomtab_tabbar = 2131427507;
+			// aapt resource value: 0x7f0b00c2
+			public const int bottomtab_tabbar = 2131427522;
 			
-			// aapt resource value: 0x7f0b00b5
-			public const int browser_actions_header_text = 2131427509;
+			// aapt resource value: 0x7f0b007b
+			public const int box = 2131427451;
 			
-			// aapt resource value: 0x7f0b00b7
-			public const int browser_actions_menu_item_icon = 2131427511;
+			// aapt resource value: 0x7f0b00c4
+			public const int browser_actions_header_text = 2131427524;
 			
-			// aapt resource value: 0x7f0b00b8
-			public const int browser_actions_menu_item_text = 2131427512;
+			// aapt resource value: 0x7f0b00c6
+			public const int browser_actions_menu_item_icon = 2131427526;
 			
-			// aapt resource value: 0x7f0b00b6
-			public const int browser_actions_menu_items = 2131427510;
+			// aapt resource value: 0x7f0b00c7
+			public const int browser_actions_menu_item_text = 2131427527;
 			
-			// aapt resource value: 0x7f0b00b4
-			public const int browser_actions_menu_view = 2131427508;
+			// aapt resource value: 0x7f0b00c5
+			public const int browser_actions_menu_items = 2131427525;
 			
-			// aapt resource value: 0x7f0b0087
-			public const int buttonPanel = 2131427463;
+			// aapt resource value: 0x7f0b00c3
+			public const int browser_actions_menu_view = 2131427523;
 			
-			// aapt resource value: 0x7f0b00cb
-			public const int cancel_action = 2131427531;
+			// aapt resource value: 0x7f0b0096
+			public const int buttonPanel = 2131427478;
+			
+			// aapt resource value: 0x7f0b00da
+			public const int cancel_action = 2131427546;
 			
 			// aapt resource value: 0x7f0b004c
 			public const int center = 2131427404;
@@ -6570,14 +6685,14 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0052
 			public const int center_vertical = 2131427410;
 			
-			// aapt resource value: 0x7f0b009b
-			public const int checkbox = 2131427483;
+			// aapt resource value: 0x7f0b00aa
+			public const int checkbox = 2131427498;
 			
-			// aapt resource value: 0x7f0b0079
-			public const int @checked = 2131427449;
+			// aapt resource value: 0x7f0b0088
+			public const int @checked = 2131427464;
 			
-			// aapt resource value: 0x7f0b00d3
-			public const int chronometer = 2131427539;
+			// aapt resource value: 0x7f0b00e2
+			public const int chronometer = 2131427554;
 			
 			// aapt resource value: 0x7f0b0061
 			public const int clip_horizontal = 2131427425;
@@ -6588,56 +6703,62 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0040
 			public const int collapseActionView = 2131427392;
 			
-			// aapt resource value: 0x7f0b00bb
-			public const int container = 2131427515;
+			// aapt resource value: 0x7f0b00ca
+			public const int container = 2131427530;
 			
-			// aapt resource value: 0x7f0b0097
-			public const int content = 2131427479;
+			// aapt resource value: 0x7f0b00a6
+			public const int content = 2131427494;
 			
-			// aapt resource value: 0x7f0b008a
-			public const int contentPanel = 2131427466;
+			// aapt resource value: 0x7f0b0099
+			public const int contentPanel = 2131427481;
 			
-			// aapt resource value: 0x7f0b00bc
-			public const int coordinator = 2131427516;
-			
-			// aapt resource value: 0x7f0b0091
-			public const int custom = 2131427473;
-			
-			// aapt resource value: 0x7f0b0090
-			public const int customPanel = 2131427472;
+			// aapt resource value: 0x7f0b00cb
+			public const int coordinator = 2131427531;
 			
 			// aapt resource value: 0x7f0b00a0
-			public const int decor_content_parent = 2131427488;
+			public const int custom = 2131427488;
 			
-			// aapt resource value: 0x7f0b0084
-			public const int default_activity_button = 2131427460;
+			// aapt resource value: 0x7f0b009f
+			public const int customPanel = 2131427487;
 			
-			// aapt resource value: 0x7f0b00be
-			public const int design_bottom_sheet = 2131427518;
+			// aapt resource value: 0x7f0b00af
+			public const int decor_content_parent = 2131427503;
 			
-			// aapt resource value: 0x7f0b00c3
-			public const int design_menu_item_action_area = 2131427523;
+			// aapt resource value: 0x7f0b0093
+			public const int default_activity_button = 2131427475;
 			
-			// aapt resource value: 0x7f0b00c2
-			public const int design_menu_item_action_area_stub = 2131427522;
+			// aapt resource value: 0x7f0b00cd
+			public const int design_bottom_sheet = 2131427533;
 			
-			// aapt resource value: 0x7f0b00c1
-			public const int design_menu_item_text = 2131427521;
+			// aapt resource value: 0x7f0b00d2
+			public const int design_menu_item_action_area = 2131427538;
 			
-			// aapt resource value: 0x7f0b00c0
-			public const int design_navigation_view = 2131427520;
+			// aapt resource value: 0x7f0b00d1
+			public const int design_menu_item_action_area_stub = 2131427537;
+			
+			// aapt resource value: 0x7f0b00d0
+			public const int design_menu_item_text = 2131427536;
+			
+			// aapt resource value: 0x7f0b00cf
+			public const int design_navigation_view = 2131427535;
 			
 			// aapt resource value: 0x7f0b0027
 			public const int disableHome = 2131427367;
 			
-			// aapt resource value: 0x7f0b00a4
-			public const int edit_query = 2131427492;
+			// aapt resource value: 0x7f0b007c
+			public const int doubleCircle = 2131427452;
+			
+			// aapt resource value: 0x7f0b007d
+			public const int ecg = 2131427453;
+			
+			// aapt resource value: 0x7f0b00b3
+			public const int edit_query = 2131427507;
 			
 			// aapt resource value: 0x7f0b0037
 			public const int end = 2131427383;
 			
-			// aapt resource value: 0x7f0b00d9
-			public const int end_padder = 2131427545;
+			// aapt resource value: 0x7f0b00e8
+			public const int end_padder = 2131427560;
 			
 			// aapt resource value: 0x7f0b0046
 			public const int enterAlways = 2131427398;
@@ -6651,11 +6772,11 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0048
 			public const int exitUntilCollapsed = 2131427400;
 			
-			// aapt resource value: 0x7f0b0083
-			public const int expand_activities_button = 2131427459;
+			// aapt resource value: 0x7f0b0092
+			public const int expand_activities_button = 2131427474;
 			
-			// aapt resource value: 0x7f0b009a
-			public const int expanded_menu = 2131427482;
+			// aapt resource value: 0x7f0b00a9
+			public const int expanded_menu = 2131427497;
 			
 			// aapt resource value: 0x7f0b005e
 			public const int fill = 2131427422;
@@ -6672,20 +6793,26 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b005c
 			public const int @fixed = 2131427420;
 			
-			// aapt resource value: 0x7f0b00c5
-			public const int flyoutcontent_appbar = 2131427525;
+			// aapt resource value: 0x7f0b00d4
+			public const int flyoutcontent_appbar = 2131427540;
 			
-			// aapt resource value: 0x7f0b00c6
-			public const int flyoutcontent_recycler = 2131427526;
+			// aapt resource value: 0x7f0b00d5
+			public const int flyoutcontent_recycler = 2131427541;
 			
 			// aapt resource value: 0x7f0b0067
 			public const int forever = 2131427431;
 			
+			// aapt resource value: 0x7f0b007e
+			public const int gearBox = 2131427454;
+			
 			// aapt resource value: 0x7f0b000a
 			public const int ghost_view = 2131427338;
 			
-			// aapt resource value: 0x7f0b0096
-			public const int group_divider = 2131427478;
+			// aapt resource value: 0x7f0b007f
+			public const int globe = 2131427455;
+			
+			// aapt resource value: 0x7f0b00a5
+			public const int group_divider = 2131427493;
 			
 			// aapt resource value: 0x7f0b0077
 			public const int half = 2131427447;
@@ -6696,26 +6823,29 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0028
 			public const int homeAsUp = 2131427368;
 			
-			// aapt resource value: 0x7f0b0086
-			public const int icon = 2131427462;
+			// aapt resource value: 0x7f0b0080
+			public const int horizontalPulsingBox = 2131427456;
 			
-			// aapt resource value: 0x7f0b00d8
-			public const int icon_group = 2131427544;
+			// aapt resource value: 0x7f0b0095
+			public const int icon = 2131427477;
+			
+			// aapt resource value: 0x7f0b00e7
+			public const int icon_group = 2131427559;
 			
 			// aapt resource value: 0x7f0b0041
 			public const int ifRoom = 2131427393;
 			
-			// aapt resource value: 0x7f0b007d
-			public const int image = 2131427453;
+			// aapt resource value: 0x7f0b008c
+			public const int image = 2131427468;
 			
-			// aapt resource value: 0x7f0b007e
-			public const int imagewithtext = 2131427454;
+			// aapt resource value: 0x7f0b008d
+			public const int imagewithtext = 2131427469;
 			
-			// aapt resource value: 0x7f0b007a
-			public const int indeterminate = 2131427450;
+			// aapt resource value: 0x7f0b0089
+			public const int indeterminate = 2131427465;
 			
-			// aapt resource value: 0x7f0b00d4
-			public const int info = 2131427540;
+			// aapt resource value: 0x7f0b00e3
+			public const int info = 2131427555;
 			
 			// aapt resource value: 0x7f0b0068
 			public const int italic = 2131427432;
@@ -6726,8 +6856,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b004e
 			public const int labeled = 2131427406;
 			
-			// aapt resource value: 0x7f0b00ba
-			public const int largeLabel = 2131427514;
+			// aapt resource value: 0x7f0b00c9
+			public const int largeLabel = 2131427529;
 			
 			// aapt resource value: 0x7f0b0054
 			public const int left = 2131427412;
@@ -6741,35 +6871,38 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0024
 			public const int listMode = 2131427364;
 			
-			// aapt resource value: 0x7f0b0085
-			public const int list_item = 2131427461;
+			// aapt resource value: 0x7f0b0094
+			public const int list_item = 2131427476;
 			
-			// aapt resource value: 0x7f0b00da
-			public const int main_appbar = 2131427546;
+			// aapt resource value: 0x7f0b00e9
+			public const int main_appbar = 2131427561;
+			
+			// aapt resource value: 0x7f0b00eb
+			public const int main_tablayout = 2131427563;
+			
+			// aapt resource value: 0x7f0b00ea
+			public const int main_toolbar = 2131427562;
+			
+			// aapt resource value: 0x7f0b00ec
+			public const int main_viewpager = 2131427564;
+			
+			// aapt resource value: 0x7f0b00f2
+			public const int masked = 2131427570;
 			
 			// aapt resource value: 0x7f0b00dc
-			public const int main_tablayout = 2131427548;
+			public const int media_actions = 2131427548;
 			
-			// aapt resource value: 0x7f0b00db
-			public const int main_toolbar = 2131427547;
-			
-			// aapt resource value: 0x7f0b00dd
-			public const int main_viewpager = 2131427549;
-			
-			// aapt resource value: 0x7f0b00e3
-			public const int masked = 2131427555;
-			
-			// aapt resource value: 0x7f0b00cd
-			public const int media_actions = 2131427533;
-			
-			// aapt resource value: 0x7f0b00b1
-			public const int message = 2131427505;
+			// aapt resource value: 0x7f0b00c0
+			public const int message = 2131427520;
 			
 			// aapt resource value: 0x7f0b0038
 			public const int middle = 2131427384;
 			
 			// aapt resource value: 0x7f0b0059
 			public const int mini = 2131427417;
+			
+			// aapt resource value: 0x7f0b0081
+			public const int movieTimer = 2131427457;
 			
 			// aapt resource value: 0x7f0b0014
 			public const int mtrl_child_content_container = 2131427348;
@@ -6780,8 +6913,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b002f
 			public const int multiply = 2131427375;
 			
-			// aapt resource value: 0x7f0b00bf
-			public const int navigation_header_container = 2131427519;
+			// aapt resource value: 0x7f0b00ce
+			public const int navigation_header_container = 2131427534;
 			
 			// aapt resource value: 0x7f0b0042
 			public const int never = 2131427394;
@@ -6792,14 +6925,14 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0025
 			public const int normal = 2131427365;
 			
-			// aapt resource value: 0x7f0b00d6
-			public const int notification_background = 2131427542;
+			// aapt resource value: 0x7f0b00e5
+			public const int notification_background = 2131427557;
 			
-			// aapt resource value: 0x7f0b00d0
-			public const int notification_main_column = 2131427536;
+			// aapt resource value: 0x7f0b00df
+			public const int notification_main_column = 2131427551;
 			
-			// aapt resource value: 0x7f0b00cf
-			public const int notification_main_column_container = 2131427535;
+			// aapt resource value: 0x7f0b00de
+			public const int notification_main_column_container = 2131427550;
 			
 			// aapt resource value: 0x7f0b0060
 			public const int outline = 2131427424;
@@ -6807,8 +6940,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0057
 			public const int parallax = 2131427415;
 			
-			// aapt resource value: 0x7f0b0089
-			public const int parentPanel = 2131427465;
+			// aapt resource value: 0x7f0b0098
+			public const int parentPanel = 2131427480;
 			
 			// aapt resource value: 0x7f0b000b
 			public const int parent_matrix = 2131427339;
@@ -6816,23 +6949,32 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0058
 			public const int pin = 2131427416;
 			
+			// aapt resource value: 0x7f0b0082
+			public const int print = 2131427458;
+			
 			// aapt resource value: 0x7f0b0006
 			public const int progress_circular = 2131427334;
 			
 			// aapt resource value: 0x7f0b0007
 			public const int progress_horizontal = 2131427335;
 			
-			// aapt resource value: 0x7f0b009c
-			public const int radio = 2131427484;
+			// aapt resource value: 0x7f0b00ab
+			public const int radio = 2131427499;
+			
+			// aapt resource value: 0x7f0b0083
+			public const int rectangle = 2131427459;
 			
 			// aapt resource value: 0x7f0b0055
 			public const int right = 2131427413;
 			
-			// aapt resource value: 0x7f0b00d5
-			public const int right_icon = 2131427541;
+			// aapt resource value: 0x7f0b00e4
+			public const int right_icon = 2131427556;
 			
-			// aapt resource value: 0x7f0b00d1
-			public const int right_side = 2131427537;
+			// aapt resource value: 0x7f0b00e0
+			public const int right_side = 2131427552;
+			
+			// aapt resource value: 0x7f0b0084
+			public const int rollingBall = 2131427460;
 			
 			// aapt resource value: 0x7f0b000c
 			public const int save_image_matrix = 2131427340;
@@ -6849,62 +6991,71 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0049
 			public const int scroll = 2131427401;
 			
-			// aapt resource value: 0x7f0b008f
-			public const int scrollIndicatorDown = 2131427471;
+			// aapt resource value: 0x7f0b009e
+			public const int scrollIndicatorDown = 2131427486;
 			
-			// aapt resource value: 0x7f0b008b
-			public const int scrollIndicatorUp = 2131427467;
+			// aapt resource value: 0x7f0b009a
+			public const int scrollIndicatorUp = 2131427482;
 			
-			// aapt resource value: 0x7f0b008c
-			public const int scrollView = 2131427468;
+			// aapt resource value: 0x7f0b009b
+			public const int scrollView = 2131427483;
 			
 			// aapt resource value: 0x7f0b005d
 			public const int scrollable = 2131427421;
 			
-			// aapt resource value: 0x7f0b00a6
-			public const int search_badge = 2131427494;
+			// aapt resource value: 0x7f0b00b5
+			public const int search_badge = 2131427509;
 			
-			// aapt resource value: 0x7f0b00a5
-			public const int search_bar = 2131427493;
+			// aapt resource value: 0x7f0b00b4
+			public const int search_bar = 2131427508;
 			
-			// aapt resource value: 0x7f0b00a7
-			public const int search_button = 2131427495;
+			// aapt resource value: 0x7f0b00b6
+			public const int search_button = 2131427510;
 			
-			// aapt resource value: 0x7f0b00ac
-			public const int search_close_btn = 2131427500;
+			// aapt resource value: 0x7f0b00bb
+			public const int search_close_btn = 2131427515;
 			
-			// aapt resource value: 0x7f0b00a8
-			public const int search_edit_frame = 2131427496;
+			// aapt resource value: 0x7f0b00b7
+			public const int search_edit_frame = 2131427511;
 			
-			// aapt resource value: 0x7f0b00ae
-			public const int search_go_btn = 2131427502;
+			// aapt resource value: 0x7f0b00bd
+			public const int search_go_btn = 2131427517;
 			
-			// aapt resource value: 0x7f0b00a9
-			public const int search_mag_icon = 2131427497;
+			// aapt resource value: 0x7f0b00b8
+			public const int search_mag_icon = 2131427512;
 			
-			// aapt resource value: 0x7f0b00aa
-			public const int search_plate = 2131427498;
+			// aapt resource value: 0x7f0b00b9
+			public const int search_plate = 2131427513;
 			
-			// aapt resource value: 0x7f0b00ab
-			public const int search_src_text = 2131427499;
+			// aapt resource value: 0x7f0b00ba
+			public const int search_src_text = 2131427514;
 			
-			// aapt resource value: 0x7f0b00af
-			public const int search_voice_btn = 2131427503;
+			// aapt resource value: 0x7f0b00be
+			public const int search_voice_btn = 2131427518;
 			
-			// aapt resource value: 0x7f0b00b0
-			public const int select_dialog_listview = 2131427504;
+			// aapt resource value: 0x7f0b00bf
+			public const int select_dialog_listview = 2131427519;
 			
 			// aapt resource value: 0x7f0b004f
 			public const int selected = 2131427407;
 			
-			// aapt resource value: 0x7f0b00de
-			public const int shellcontent_appbar = 2131427550;
+			// aapt resource value: 0x7f0b00f6
+			public const int sfprogressbar_progress = 2131427574;
 			
-			// aapt resource value: 0x7f0b00df
-			public const int shellcontent_toolbar = 2131427551;
+			// aapt resource value: 0x7f0b00f5
+			public const int sfprogressbar_secondary_progress = 2131427573;
 			
-			// aapt resource value: 0x7f0b0098
-			public const int shortcut = 2131427480;
+			// aapt resource value: 0x7f0b00f4
+			public const int sfprogressbar_track = 2131427572;
+			
+			// aapt resource value: 0x7f0b00ed
+			public const int shellcontent_appbar = 2131427565;
+			
+			// aapt resource value: 0x7f0b00ee
+			public const int shellcontent_toolbar = 2131427566;
+			
+			// aapt resource value: 0x7f0b00a7
+			public const int shortcut = 2131427495;
 			
 			// aapt resource value: 0x7f0b002a
 			public const int showCustom = 2131427370;
@@ -6915,11 +7066,17 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b002c
 			public const int showTitle = 2131427372;
 			
-			// aapt resource value: 0x7f0b00e0
-			public const int sliding_tabs = 2131427552;
+			// aapt resource value: 0x7f0b0085
+			public const int singleCircle = 2131427461;
 			
-			// aapt resource value: 0x7f0b00b9
-			public const int smallLabel = 2131427513;
+			// aapt resource value: 0x7f0b0086
+			public const int slicedCircle = 2131427462;
+			
+			// aapt resource value: 0x7f0b00ef
+			public const int sliding_tabs = 2131427567;
+			
+			// aapt resource value: 0x7f0b00c8
+			public const int smallLabel = 2131427528;
 			
 			// aapt resource value: 0x7f0b0016
 			public const int snackbar_action = 2131427350;
@@ -6933,8 +7090,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b004b
 			public const int snapMargins = 2131427403;
 			
-			// aapt resource value: 0x7f0b0088
-			public const int spacer = 2131427464;
+			// aapt resource value: 0x7f0b0097
+			public const int spacer = 2131427479;
 			
 			// aapt resource value: 0x7f0b0008
 			public const int split_action_bar = 2131427336;
@@ -6954,17 +7111,17 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0056
 			public const int start = 2131427414;
 			
-			// aapt resource value: 0x7f0b00cc
-			public const int status_bar_latest_event_content = 2131427532;
+			// aapt resource value: 0x7f0b00db
+			public const int status_bar_latest_event_content = 2131427547;
 			
 			// aapt resource value: 0x7f0b005b
 			public const int stretch = 2131427419;
 			
-			// aapt resource value: 0x7f0b0099
-			public const int submenuarrow = 2131427481;
+			// aapt resource value: 0x7f0b00a8
+			public const int submenuarrow = 2131427496;
 			
-			// aapt resource value: 0x7f0b00ad
-			public const int submit_area = 2131427501;
+			// aapt resource value: 0x7f0b00bc
+			public const int submit_area = 2131427516;
 			
 			// aapt resource value: 0x7f0b0026
 			public const int tabMode = 2131427366;
@@ -6984,17 +7141,17 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0022
 			public const int text2 = 2131427362;
 			
-			// aapt resource value: 0x7f0b008e
-			public const int textSpacerNoButtons = 2131427470;
+			// aapt resource value: 0x7f0b009d
+			public const int textSpacerNoButtons = 2131427485;
 			
-			// aapt resource value: 0x7f0b008d
-			public const int textSpacerNoTitle = 2131427469;
+			// aapt resource value: 0x7f0b009c
+			public const int textSpacerNoTitle = 2131427484;
 			
 			// aapt resource value: 0x7f0b005a
 			public const int textStart = 2131427418;
 			
-			// aapt resource value: 0x7f0b00c4
-			public const int text_input_password_toggle = 2131427524;
+			// aapt resource value: 0x7f0b00d3
+			public const int text_input_password_toggle = 2131427539;
 			
 			// aapt resource value: 0x7f0b0018
 			public const int textinput_counter = 2131427352;
@@ -7005,29 +7162,29 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b001a
 			public const int textinput_helper_text = 2131427354;
 			
-			// aapt resource value: 0x7f0b00d2
-			public const int time = 2131427538;
+			// aapt resource value: 0x7f0b00e1
+			public const int time = 2131427553;
 			
 			// aapt resource value: 0x7f0b0023
 			public const int title = 2131427363;
 			
-			// aapt resource value: 0x7f0b0095
-			public const int titleDividerNoCustom = 2131427477;
+			// aapt resource value: 0x7f0b00a4
+			public const int titleDividerNoCustom = 2131427492;
 			
-			// aapt resource value: 0x7f0b0093
-			public const int title_template = 2131427475;
+			// aapt resource value: 0x7f0b00a2
+			public const int title_template = 2131427490;
 			
-			// aapt resource value: 0x7f0b00e1
-			public const int toolbar = 2131427553;
+			// aapt resource value: 0x7f0b00f0
+			public const int toolbar = 2131427568;
 			
 			// aapt resource value: 0x7f0b0045
 			public const int top = 2131427397;
 			
-			// aapt resource value: 0x7f0b0092
-			public const int topPanel = 2131427474;
+			// aapt resource value: 0x7f0b00a1
+			public const int topPanel = 2131427489;
 			
-			// aapt resource value: 0x7f0b00bd
-			public const int touch_outside = 2131427517;
+			// aapt resource value: 0x7f0b00cc
+			public const int touch_outside = 2131427532;
 			
 			// aapt resource value: 0x7f0b000f
 			public const int transition_current_scene = 2131427343;
@@ -7044,8 +7201,8 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b0013
 			public const int transition_transform = 2131427347;
 			
-			// aapt resource value: 0x7f0b007b
-			public const int @unchecked = 2131427451;
+			// aapt resource value: 0x7f0b008a
+			public const int @unchecked = 2131427466;
 			
 			// aapt resource value: 0x7f0b0034
 			public const int uniform = 2131427380;
@@ -7062,14 +7219,17 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0b001b
 			public const int view_offset_helper = 2131427355;
 			
-			// aapt resource value: 0x7f0b00e2
-			public const int visible = 2131427554;
+			// aapt resource value: 0x7f0b00f1
+			public const int visible = 2131427569;
 			
 			// aapt resource value: 0x7f0b0043
 			public const int withText = 2131427395;
 			
 			// aapt resource value: 0x7f0b0035
 			public const int wrap_content = 2131427381;
+			
+			// aapt resource value: 0x7f0b0087
+			public const int zoomingTarget = 2131427463;
 			
 			static Id()
 			{
@@ -7430,14 +7590,14 @@ namespace PhoneStore.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f0d0038
-			public const int ApplicationName = 2131558456;
+			// aapt resource value: 0x7f0d003c
+			public const int ApplicationName = 2131558460;
 			
-			// aapt resource value: 0x7f0d0037
-			public const int Hello = 2131558455;
+			// aapt resource value: 0x7f0d003b
+			public const int Hello = 2131558459;
 			
-			// aapt resource value: 0x7f0d0039
-			public const int Load_More = 2131558457;
+			// aapt resource value: 0x7f0d003d
+			public const int Load_More = 2131558461;
 			
 			// aapt resource value: 0x7f0d0000
 			public const int abc_action_bar_home_description = 2131558400;
@@ -7556,6 +7716,9 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0d001a
 			public const int abc_toolbar_collapse_description = 2131558426;
 			
+			// aapt resource value: 0x7f0d0039
+			public const int accept = 2131558457;
+			
 			// aapt resource value: 0x7f0d0028
 			public const int appbar_scrolling_view_behavior = 2131558440;
 			
@@ -7567,6 +7730,9 @@ namespace PhoneStore.Droid
 			
 			// aapt resource value: 0x7f0d002b
 			public const int character_counter_pattern = 2131558443;
+			
+			// aapt resource value: 0x7f0d003a
+			public const int decline = 2131558458;
 			
 			// aapt resource value: 0x7f0d002c
 			public const int fab_transformation_scrim_behavior = 2131558444;
@@ -7598,11 +7764,17 @@ namespace PhoneStore.Droid
 			// aapt resource value: 0x7f0d0034
 			public const int path_password_strike_through = 2131558452;
 			
+			// aapt resource value: 0x7f0d0038
+			public const int popup_message = 2131558456;
+			
 			// aapt resource value: 0x7f0d001b
 			public const int search_menu_title = 2131558427;
 			
 			// aapt resource value: 0x7f0d0035
 			public const int status_bar_notification_info_overflow = 2131558453;
+			
+			// aapt resource value: 0x7f0d0037
+			public const int title = 2131558455;
 			
 			static String()
 			{
@@ -10537,7 +10709,7 @@ namespace PhoneStore.Droid
 			public const int DesignTheme_bottomSheetStyle = 1;
 			
 			public static int[] DrawableStates = new int[] {
-					2130772471};
+					2130772480};
 			
 			// aapt resource value: 0
 			public const int DrawableStates_state_indeterminate = 0;
@@ -11426,10 +11598,48 @@ namespace PhoneStore.Droid
 			// aapt resource value: 12
 			public const int SearchView_voiceIcon = 12;
 			
-			public static int[] SfCheckBox = new int[] {
+			public static int[] SfBusyIndicator = new int[] {
+					2130772471,
 					2130772472,
 					2130772473,
-					2130772474};
+					2130772474,
+					2130772475,
+					2130772476,
+					2130772477,
+					2130772478,
+					2130772479};
+			
+			// aapt resource value: 0
+			public const int SfBusyIndicator_busyIndicatorAnimationTypes = 0;
+			
+			// aapt resource value: 8
+			public const int SfBusyIndicator_busyIndicatorIsBusy = 8;
+			
+			// aapt resource value: 6
+			public const int SfBusyIndicator_busyIndicatorSecondaryColor = 6;
+			
+			// aapt resource value: 1
+			public const int SfBusyIndicator_busyIndicatorTextColor = 1;
+			
+			// aapt resource value: 5
+			public const int SfBusyIndicator_busyIndicatorTextSize = 5;
+			
+			// aapt resource value: 4
+			public const int SfBusyIndicator_busyIndicatorTitle = 4;
+			
+			// aapt resource value: 7
+			public const int SfBusyIndicator_busyIndicatorTitlePlacement = 7;
+			
+			// aapt resource value: 2
+			public const int SfBusyIndicator_busyIndicatorViewBoxHeight = 2;
+			
+			// aapt resource value: 3
+			public const int SfBusyIndicator_busyIndicatorViewBoxWidth = 3;
+			
+			public static int[] SfCheckBox = new int[] {
+					2130772481,
+					2130772482,
+					2130772483};
 			
 			// aapt resource value: 2
 			public const int SfCheckBox_checked = 2;
@@ -11549,18 +11759,18 @@ namespace PhoneStore.Droid
 			public const int SfRotator_rotatorUnselectedDotsColor = 1;
 			
 			public static int[] SfSegmentedControl = new int[] {
-					2130772475,
-					2130772476,
-					2130772477,
-					2130772478,
-					2130772479,
-					2130772480,
-					2130772481,
-					2130772482,
-					2130772483,
 					2130772484,
 					2130772485,
-					2130772486};
+					2130772486,
+					2130772487,
+					2130772488,
+					2130772489,
+					2130772490,
+					2130772491,
+					2130772492,
+					2130772493,
+					2130772494,
+					2130772495};
 			
 			// aapt resource value: 1
 			public const int SfSegmentedControl_segmentBackColor = 1;

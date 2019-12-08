@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:vm="clr-namespace:PhoneStore.ViewModels"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.SignUpPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <vm:UserViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Image Source="logo_splash.png" Grid.Row="1" Aspect="AspectFill" VerticalOptions="End"/>
+            <StackLayout Grid.Row="2" Padding="15,0,15,0" Spacing="10" Orientation="Vertical">
+                <inputLayout:SfTextInputLayout Hint="Email" 
+                                               ContainerType="Outlined"
+                                               ErrorText="Email không hợp lệ!"
+                                               HasError="False"
+                                               ReserveSpaceForAssistiveLabels="False"
+                                               VerticalOptions="End"
+                                               >
+                    <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email"/>
+                </inputLayout:SfTextInputLayout>
+                <inputLayout:SfTextInputLayout Hint="Mật khẩu" 
+                                               ContainerType="Outlined"
+                                               ErrorText="Mật khẩu không hợp lệ!"
+                                               HasError="False"
+                                               ReserveSpaceForAssistiveLabels="False"
+                                               VerticalOptions="End"
+                                               >
+                    <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
+                </inputLayout:SfTextInputLayout>
+                <buttons:SfButton Text="Đăng ký" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/> 
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

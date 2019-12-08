@@ -8,6 +8,16 @@ namespace PhoneStore.Models
 {
     public class UserModel : INotifyPropertyChanged
     {
+        private string _code;
+        public string Code
+        {
+            get { return _code; }
+            set
+            {
+                _code = value;
+                OnPropertyChanged();
+            }
+        }
         private string _email;
         public string Email
         {
@@ -18,13 +28,13 @@ namespace PhoneStore.Models
                 OnPropertyChanged();
             }
         }
-        private string _password;
-        public string Password
+        private string _avatarlink;
+        public string AvatarLink
         {
-            get { return _password; }
+            get { return _avatarlink; }
             set
             {
-                _password = value;
+                _avatarlink = value;
                 OnPropertyChanged();
             }
         }

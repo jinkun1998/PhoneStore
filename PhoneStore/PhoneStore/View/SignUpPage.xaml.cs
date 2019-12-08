@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View.MainViews
+namespace PhoneStore.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class SignUpPage : ContentPage
     {
-        public HomePage()
+        public SignUpPage()
         {
             InitializeComponent();
         }
