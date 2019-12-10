@@ -149,8 +149,8 @@
                         </Grid.RowDefinitions>
                         <Label Text="Phương thức thanh toán >" TextColor="Black" Grid.Row="0" FontSize="17" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
                         <buttons:SfRadioGroup Grid.Row="1" Padding="10,0,10,0">
-                            <buttons:SfRadioButton Text="Thu tiền khi nhận hàng (COD)" FontSize="17" IsChecked="{Binding isChecked, ConverterParameter={StaticResource Key=EnumToBool}}" />
-                            <buttons:SfRadioButton Text="Thanh toán online" IsChecked="{Binding isChecked}" FontSize="17"/>
+                            <buttons:SfRadioButton Text="Thu tiền khi nhận hàng (COD)" FontSize="17" />
+                            <buttons:SfRadioButton Text="Thanh toán online" FontSize="17" IsChecked="{Binding PaymentMethod}"/>
                         </buttons:SfRadioGroup>
                     </Grid>
                 </pancakeview:PancakeView>

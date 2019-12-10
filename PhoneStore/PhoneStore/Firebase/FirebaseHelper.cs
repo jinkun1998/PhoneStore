@@ -36,6 +36,23 @@ namespace PhoneStore.Firebase
             });
         }
 
+        public async Task<List<RotatorModel>> GetRotators(string token)
+        {
+            var firebaseClient = new FirebaseClient(
+              "https://thebossapp-dee9f.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(token)
+              });
+            return (await firebaseClient
+              .Child("Rotators")
+              .OnceAsync<RotatorModel>()
+              .ConfigureAwait(true)).Select(item => new RotatorModel
+              {
+                  Image = item.Object.Image,
+              }).ToList();
+        }
+
         public async Task<List<ItemModel>> GetAllItem(string token)
         {
             var firebaseClient = new FirebaseClient(
@@ -58,6 +75,7 @@ namespace PhoneStore.Firebase
                   DescriptionLink = item.Object.DescriptionLink,
                   Shortdescription = item.Object.Shortdescription,
                   Colors = item.Object.Colors,
+                  RotatorImages = item.Object.RotatorImages,
               }).ToList();
         }
 

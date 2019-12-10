@@ -69,6 +69,28 @@ namespace PhoneStore.Models
             }
         }
 
+        private string _token;
+        public string Token
+        {
+            get { return _token; }
+            set
+            {
+                _token = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _islogged;
+        public bool IsLogged
+        {
+            get { return _islogged; }
+            set
+            {
+                _islogged = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {

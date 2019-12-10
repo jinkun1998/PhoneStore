@@ -74,7 +74,7 @@ namespace PhoneStore.Models
         }
 
         public List<ColorModel> Colors { get; set; }
-        public ObservableCollection<RotatorModel> RotatorImages { get; set; }
+        public List<RotatorModel> RotatorImages { get; set; }
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((propertyName)));

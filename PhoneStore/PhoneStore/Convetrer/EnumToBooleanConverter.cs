@@ -12,11 +12,11 @@ namespace PhoneStore.Convetrer
         {
             if (value.Equals(true))
             {
-                return false;
+                return 0;
             }
             else
             {
-                return true;
+                return 1;
             }
         }
 

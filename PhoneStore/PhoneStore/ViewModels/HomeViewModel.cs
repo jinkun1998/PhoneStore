@@ -1,6 +1,8 @@
 ﻿using PhoneStore.Firebase;
 using PhoneStore.Models;
+using PhoneStore.SQLite;
 using PhoneStore.View;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,13 +16,15 @@ namespace PhoneStore.ViewModel
 {
     public class HomeViewModel : INotifyPropertyChanged
     {
+        public SQLiteConnection conn;
         public FirebaseHelper firebase;
         public HomeViewModel()
         {
             firebase = new FirebaseHelper();
-            //getAllItemAsync();
-            var cart = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
-            ItemCount = cart.Count;
+            var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+            if (cart != null)
+                ItemCount = cart.Count;
+            RotatorModels = Task.Run(async () => await getRotatorsAsync().ConfigureAwait(true)).Result;
             ItemModels = Task.Run(async () => await getAllItemAsync().ConfigureAwait(true)).Result;
             this.cmdPhone = new Command(GoToPhone);
             this.cmdLoadItem = new Command<object>(GotoItemDetail);
@@ -46,6 +50,14 @@ namespace PhoneStore.ViewModel
             return Items;
         }
 
+        private async Task<List<RotatorModel>> getRotatorsAsync()
+        {
+            var rotators = await firebase.GetRotators(FirebaseHelper.userToken).ConfigureAwait(true);
+            List<RotatorModel> rotatorModels = new List<RotatorModel>();
+            rotatorModels = rotators;
+            return rotatorModels;
+        }
+
         private void GotoItemDetail(object obj)
         {
             var detail = (obj as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData as ItemModel;
@@ -57,8 +69,8 @@ namespace PhoneStore.ViewModel
             Application.Current.MainPage.Navigation.PushAsync(new PhonePage());
         }
 
-        private ObservableCollection<RotatorModel> _rotatorModels;
-        public ObservableCollection<RotatorModel> RotatorModels
+        private List<RotatorModel> _rotatorModels;
+        public List<RotatorModel> RotatorModels
         {
             get { return _rotatorModels; }
             set { _rotatorModels = value; }
@@ -74,7 +86,7 @@ namespace PhoneStore.ViewModel
                 OnPropertyChanged(nameof(ItemCount));
             }
         }
-
+        
         public List<ItemModel> ItemModels { get; set; }
         public CartModel Cart { get; set; }
 

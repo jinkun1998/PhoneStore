@@ -40,7 +40,7 @@
                                                >
                     <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
                 </inputLayout:SfTextInputLayout>
-                <buttons:SfButton Text="Đăng ký" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/> 
+                <buttons:SfButton Text="Đăng ký" Command="{Binding RegisterTapped}" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/> 
             </StackLayout>
         </Grid>
     </ContentPage.Content>

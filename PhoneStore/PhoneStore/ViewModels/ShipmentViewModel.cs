@@ -27,13 +27,8 @@ namespace PhoneStore.ViewModels
             }
 
             this.CreateOrder = new Command(CreateNewOrder);
-            this.ChooseDelivery = new Command(Delivery);
         }
 
-        private void Delivery(object obj)
-        {
-            var radioButoon = obj as SfButton;
-        }
 
         private void CreateNewOrder(object obj)
         {
@@ -44,6 +39,7 @@ namespace PhoneStore.ViewModels
             Order.CreatedOn = DateTime.Now;
             Order.Note = "Test Order";
             Order.Address = "800 Nguyễn Văn Linh";
+            var a = isChecked;
             Task.Run(async () => await firebase.AddUserOrder(Order, FirebaseHelper.userToken).ConfigureAwait(true));
             Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
             foreach (var item in Order.Carts)

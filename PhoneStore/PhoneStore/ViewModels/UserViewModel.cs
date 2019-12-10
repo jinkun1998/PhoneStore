@@ -1,6 +1,7 @@
 ﻿using Firebase.Auth;
 using Firebase.Database;
 using PhoneStore.Firebase;
+using PhoneStore.Models;
 using PhoneStore.View;
 using System;
 using System.Collections.Generic;
@@ -39,11 +40,20 @@ namespace PhoneStore.ViewModels
                     AuthTokenAsyncFactory = async () => (await auth.GetFreshAuthAsync().ConfigureAwait(true)).FirebaseToken
                 });
                 FirebaseHelper.userToken = auth.FirebaseToken;
-                FirebaseHelper.userEmail = auth.User.Email;
+
+                UserModel user = new UserModel();
+                user.Email = auth.User.Email;
+                user.AvatarLink = auth.User.PhotoUrl;
+                user.FullName = auth.User.DisplayName;
+                user.Phone = auth.User.PhoneNumber;
+                user.Token = auth.FirebaseToken;
+                user.IsLogged = true;
+                Task.Run(async () => await App.SQLiteDb.SaveUserAsync(user));
+
                 Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                 Application.Current.MainPage = new NavigationPage(new HomePage());
             }
-            catch
+            catch (Exception ex)
             {
                 Application.Current.MainPage.DisplayAlert("Đăng nhập thất bại", "Email hoặc mật khẩu không hợp lệ! \nVui lòng kiểm tra lại.", "Xác nhận");
             }
@@ -51,7 +61,29 @@ namespace PhoneStore.ViewModels
 
         private void Register(object obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(FirebaseHelper.ApiKey));
+                var auth = authProvider.CreateUserWithEmailAndPasswordAsync(Email, Pwd, "", true).Result;
+                auth = Task.Run(() => auth.GetFreshAuthAsync()).Result;
+
+                var firebaseClient = new FirebaseClient(
+                "https://thebossapp-dee9f.firebaseio.com/",
+                new FirebaseOptions
+                {
+                    AuthTokenAsyncFactory = async () => (await auth.GetFreshAuthAsync().ConfigureAwait(true)).FirebaseToken
+                });
+                FirebaseHelper.userToken = auth.FirebaseToken;
+                FirebaseHelper.userEmail = auth.User.Email;
+                Application.Current.MainPage.DisplayAlert("Thông báo", "Đăng ký thành công", "Xác nhận");
+                Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                Application.Current.MainPage = new NavigationPage(new HomePage());
+
+            }
+            catch
+            {
+                Application.Current.MainPage.DisplayAlert("Đăng ký thất bại", "Email hoặc mật khẩu không hợp lệ! \nVui lòng kiểm tra lại.", "Xác nhận");
+            }
         }
 
         private void GotoSignup(object obj)

@@ -1,12 +1,16 @@
 ﻿using Android.Content.Res;
 using PhoneStore.Firebase;
 using PhoneStore.Models;
+using PhoneStore.SQLite;
 using PhoneStore.View;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -14,11 +18,12 @@ namespace PhoneStore.ViewModels
 {
     public class CartViewModel : INotifyPropertyChanged
     {
-        FirebaseHelper firebase;
+        public FirebaseHelper firebase;
         public CartViewModel()
         {
             firebase = new FirebaseHelper();
-            Items = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
+            Items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+            //Items = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
             foreach (var item in Items)
             {
                 TotalPrice += item.Price * item.Quantity;
@@ -33,12 +38,12 @@ namespace PhoneStore.ViewModels
         private void DeleteItem(object obj)
         {
             var item = obj as CartModel;
-            Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
+            Task.Run(async () => await App.SQLiteDb.DeleteItemAsync(item));
+            //Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
             //Application.Current.MainPage.Navigation.PopAsync(false);
+            Thread.Sleep(500);
             Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
             Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
-
-
         }
 
         private void TakeOrder(object obj)

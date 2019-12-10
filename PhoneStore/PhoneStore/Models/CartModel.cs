@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,6 +9,7 @@ namespace PhoneStore.Models
 {
     public class CartModel : INotifyPropertyChanged
     {
+        [PrimaryKey]
         public string CartCode { get; set; }
         public string Code { get; set; }
 

@@ -6,12 +6,12 @@ namespace PhoneStore.Models
 {
     public class RotatorModel
     {
-        public RotatorModel(string imageString)
+        public RotatorModel()
         {
-            Image = imageString;
+
         }
-        private String _image;
-        public String Image
+        private string _image;
+        public string Image
         {
             get { return _image; }
             set { _image = value; }
