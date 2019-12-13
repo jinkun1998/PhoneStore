@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View
+namespace PhoneStore.View.MainViews.User.MyOrderViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShipmentPage : ContentPage
+    public partial class MyOrderDetailPage : ContentPage
     {
-        public ShipmentPage()
+        public MyOrderDetailPage()
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel();
+            MyOrderDetailViewModel vm = new MyOrderDetailViewModel();
             this.BindingContext = vm;
         }
-        public ShipmentPage(OrderModel order)
+        public MyOrderDetailPage(OrderModel order)
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel(order);
+            MyOrderDetailViewModel vm = new MyOrderDetailViewModel(order);
             this.BindingContext = vm;
         }
     }

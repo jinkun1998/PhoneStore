@@ -1,13 +1,12 @@
 ﻿using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.View;
-using PhoneStore.View.MainViews;
-using Syncfusion.XForms.Buttons;
+using PhoneStore.View.ShipmentViews;
+using Plugin.FirebaseAuth;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -16,35 +15,97 @@ namespace PhoneStore.ViewModels
     public class ShipmentViewModel : INotifyPropertyChanged
     {
         FirebaseHelper firebase;
-        public ShipmentViewModel(List<CartModel> carts)
+        public ShipmentViewModel()
         {
             firebase = new FirebaseHelper();
             Order = new OrderModel();
+            var carts = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
             Order.Carts = carts;
+            foreach (var cart in Order.Carts)
+            {
+                TotalPrice += cart.Quantity * cart.Price;
+            }
+            Address = "Chưa có địa chỉ!";
+
+            this.CreateOrder = new Command(CreateNewOrder);
+            this.ChangeLocationTapped = new Command(ChangeLocation);
+        }
+        public ShipmentViewModel(OrderModel order)
+        {
+            this.Order = order;
+            Address = Order.Address;
+            Note = Order.Note;
+            switch (Order.Payment)
+            {
+                case OrderModel.PaymentType.COD:
+                    this.isChecked = true;
+                    break;
+                case OrderModel.PaymentType.Bank:
+                    this.isChecked = false;
+                    break;
+                default:
+                    break;
+            }
+            firebase = new FirebaseHelper();
             foreach (var cart in Order.Carts)
             {
                 TotalPrice += cart.Quantity * cart.Price;
             }
 
             this.CreateOrder = new Command(CreateNewOrder);
+            this.ChangeLocationTapped = new Command(ChangeLocation);
         }
 
+        private void ChangeLocation(object obj)
+        {
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+            Order.UserEmail = user.Email;
+            Order.CreatedOn = DateTime.Now;
+            Order.Note = Note;
+            Order.Address = Address;
+            if (isChecked == false)
+            {
+                Order.Payment = OrderModel.PaymentType.COD;
+            }
+            else
+            {
+                Order.Payment = OrderModel.PaymentType.Bank;
+            }
+            Application.Current.MainPage.Navigation.PushAsync(new MapsPage(Order));
+        }
 
         private void CreateNewOrder(object obj)
         {
-            Random rd = new Random();
-            var tempCode = rd.Next(0, 999999);
+            int tempCode = 000000;
+            var allOrders = Task.Run(async () => await firebase.GetAllOrders()).Result;
+            do
+            {
+                Random rd = new Random();
+                tempCode = rd.Next(0, 999999);
+            } while (allOrders.Where(it => it.Code == tempCode.ToString()).Count() != 0);
+            
             Order.Code = tempCode.ToString("000000");
-            Order.UserEmail = FirebaseHelper.userEmail;
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+            Order.UserEmail = user.Email;
             Order.CreatedOn = DateTime.Now;
-            Order.Note = "Test Order";
-            Order.Address = "800 Nguyễn Văn Linh";
-            var a = isChecked;
-            Task.Run(async () => await firebase.AddUserOrder(Order, FirebaseHelper.userToken).ConfigureAwait(true));
+            Order.Note = Note;
+            Order.Address = Address;
+            Order.TotalPrice = TotalPrice;
+            Order.Status = OrderModel.OrderStatus.Ordered;
+            if (isChecked == false)
+            {
+                Order.Payment = OrderModel.PaymentType.COD;
+            }
+            else
+            {
+                Order.Payment = OrderModel.PaymentType.Bank;
+            }
+            Task.Run(async () => await firebase.AddUserOrder(Order).ConfigureAwait(true));
             Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
             foreach (var item in Order.Carts)
             {
-                Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
+                //Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
+                App.SQLiteDb.DeleteItemAsync(item);
                 Task.Delay(500);
             }
             Application.Current.MainPage.Navigation.PushAsync(new HomePage());
@@ -56,10 +117,19 @@ namespace PhoneStore.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((propertyName)));
         }
-        public OrderModel Order { get; set; }
+
+        #region Propereties
+        private OrderModel _order;
+        public OrderModel Order
+        {
+            get { return _order; }
+            set
+            {
+                _order = value;
+                OnPropertyChanged(nameof(Order));
+            }
+        }
         public bool isChecked { get; set; }
-        public Command CreateOrder { get; }
-        public Command ChooseDelivery { get; }
         private decimal _totalPrice;
         public decimal TotalPrice
         {
@@ -70,5 +140,32 @@ namespace PhoneStore.ViewModels
                 OnPropertyChanged(nameof(TotalPrice));
             }
         }
+        private string _address;
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                _address = value;
+                OnPropertyChanged(nameof(Address));
+            }
+        }
+        private string _note;
+        public string Note
+        {
+            get { return _note; }
+            set
+            {
+                _note = value;
+                OnPropertyChanged(nameof(Note));
+            }
+        }
+        #endregion
+
+        #region Command
+        public Command CreateOrder { get; }
+        public Command ChooseDelivery { get; }
+        public Command ChangeLocationTapped { get; }
+        #endregion
     }
 }

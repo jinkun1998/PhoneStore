@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View
+namespace PhoneStore.View.ShipmentViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShipmentPage : ContentPage
+    public partial class MapsPage : ContentPage
     {
-        public ShipmentPage()
+        public MapsPage()
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel();
+            MapsViewModel vm = new MapsViewModel();
             this.BindingContext = vm;
         }
-        public ShipmentPage(OrderModel order)
+        public MapsPage(OrderModel order)
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel(order);
+            MapsViewModel vm = new MapsViewModel(order);
             this.BindingContext = vm;
         }
     }

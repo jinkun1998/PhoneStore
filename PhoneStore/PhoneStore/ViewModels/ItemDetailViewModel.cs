@@ -3,6 +3,7 @@ using PhoneStore.Models;
 using PhoneStore.SQLite;
 using PhoneStore.View;
 using PhoneStore.View.DetailViews;
+using PhoneStore.ViewModel;
 using SQLite;
 using Syncfusion.XForms.Buttons;
 using System;
@@ -31,11 +32,6 @@ namespace PhoneStore.ViewModels
             this.AddCarttapped = new Command(AddCart);
         }
 
-        private void SelectedColorCmd(object obj)
-        {
-            //SelectedColor = (obj as ColorModel).Value.ToString();
-        }
-
         private void GotoCart(object obj)
         {
             if (SelectedColor == null)
@@ -56,7 +52,6 @@ namespace PhoneStore.ViewModels
                     cart.Name = Item.Name;
                     cart.Price = Item.Price;
                     cart.Shortdescription = Item.Shortdescription;
-                    cart.UserEmail = FirebaseHelper.userEmail;
                     cart.Description = Item.Description;
                     cart.DescriptionLink = Item.DescriptionLink;
                     cart.Quantity = 1;
@@ -95,7 +90,6 @@ namespace PhoneStore.ViewModels
                     cart.Name = Item.Name;
                     cart.Price = Item.Price;
                     cart.Shortdescription = Item.Shortdescription;
-                    cart.UserEmail = FirebaseHelper.userEmail;
                     cart.Description = Item.Description;
                     cart.DescriptionLink = Item.DescriptionLink;
                     cart.Quantity = 1;

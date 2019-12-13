@@ -1,17 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:shipmentviews="clr-namespace:PhoneStore.View.ShipmentViews"
-             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-             xmlns:converter="clr-namespace:PhoneStore.Convetrer"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              mc:Ignorable="d"
-             x:Class="PhoneStore.View.ShipmentPage" NavigationPage.HasNavigationBar="False">
-    
+             x:Class="PhoneStore.View.MainViews.User.MyOrderViews.MyOrderDetailPage">
     <ContentPage.Content>
         <Grid Padding="10" BackgroundColor="#f9f9f9">
             <Grid.RowDefinitions>
@@ -20,14 +16,14 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="70"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="150"/>
-                    <RowDefinition Height="110"/>
+                    <RowDefinition Height="90"/>
                 </Grid.RowDefinitions>
 
                 <!--Địa chỉ-->
-                <buttons:SfButton TextColor="Black" Grid.Row="0" CornerRadius="10" BackgroundColor="White" Padding="5,5,5,0" Command='{Binding ChangeLocationTapped}'>
+                <buttons:SfButton TextColor="Black" Grid.Row="0" CornerRadius="10" BackgroundColor="White" Padding="5,5,5,0">
                     <buttons:SfButton.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -40,7 +36,7 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                             </Grid.ColumnDefinitions>
                             <Image Source="https://i.imgur.com/q4KEogw.png" Grid.Column="0" Grid.RowSpan="2" Aspect="AspectFit"/>
                             <Label Text="Địa chỉ:" Grid.Row="0" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="17" FontAttributes="Bold"/>
-                            <Label Text="{Binding Address}" Grid.Row="1" Grid.Column="1"
+                            <Label Text="{Binding Order.Address}" Grid.Row="1" Grid.Column="1"
                                    HorizontalOptions="StartAndExpand" 
                                    VerticalOptions="CenterAndExpand" 
                                    TextColor="Black" 
@@ -151,7 +147,7 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                         <!--<inputLayout:SfTextInputLayout Hint="Nhập ghi chú ở đây..." Grid.Row="1">
                             <Entry Text="{Binding Note}"/>
                         </inputLayout:SfTextInputLayout>-->
-                        <Editor Text="{Binding Note}" Grid.Row="1" BackgroundColor="WhiteSmoke" AutoSize="TextChanges" Placeholder="Nhập ghi chú ở đây..."/>
+                        <Editor Text="{Binding Order.Note}" Grid.Row="1" BackgroundColor="WhiteSmoke" AutoSize="TextChanges" Placeholder="Nhập ghi chú ở đây..." IsReadOnly="True"/>
                     </Grid>
                 </pancakeview:PancakeView>
                 <!--Phương thức vận chuyển-->
@@ -162,15 +158,35 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Label Text="Phương thức thanh toán >" TextColor="Black" Grid.Row="0" FontSize="17" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-                        <buttons:SfRadioGroup Grid.Row="1" Padding="10,0,10,0">
-                            <buttons:SfRadioButton Text="Thu tiền khi nhận hàng (COD)" FontSize="17" />
-                            <buttons:SfRadioButton Text="Thanh toán online" FontSize="17" IsChecked="{Binding isChecked, Mode=TwoWay}"/>
-                        </buttons:SfRadioGroup>
+                        <Label Text="{Binding Order.Payment}" TextColor="Black" Grid.Row="1" FontSize="17" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
                     </Grid>
                 </pancakeview:PancakeView>
             </Grid>
 
-            <shipmentviews:BottomShipmentView Grid.Row="1"/>
+            <pancakeview:PancakeView CornerRadius="10" Grid.Row="1">
+                <Grid Padding="10" BackgroundColor="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Tổng tiền:" 
+                       Grid.Column="0" 
+                       Grid.Row="0" 
+                       FontSize="20" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="StartAndExpand"
+                       TextColor="Black"/>
+                    <Label Text="{Binding Order.TotalPrice, StringFormat='{0:C}'}" 
+                       Padding="10,0,10,0"
+                       Grid.Column="1" 
+                       Grid.Row="0"
+                       FontSize="20" 
+                       VerticalOptions="Center" 
+                       HorizontalOptions="EndAndExpand"
+                       TextColor="Red"/>
+                </Grid>
+            </pancakeview:PancakeView>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -1,8 +1,9 @@
-﻿using Firebase.Auth;
+﻿
 using PhoneStore.Firebase;
 using PhoneStore.SQLite;
 using PhoneStore.View;
 using PhoneStore.View.MainViews;
+using PhoneStore.View.ShipmentViews;
 using Plugin.FirebaseAuth;
 using System;
 using System.IO;
@@ -22,6 +23,7 @@ namespace PhoneStore
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTU2MDEwQDMxMzcyZTMzMmUzMGR2enYvelhPZmo2UmgxZE1yR2RQWWcxTU85NWREVi9zS0MyMkZSQ2xFZGc9");
             CheckUserSignIn();
+            //MainPage = new NavigationPage(new ShipmentPage());
         }
 
         protected override void OnStart()
@@ -42,15 +44,13 @@ namespace PhoneStore
             {
                 db = new SQLiteHelper(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhoneStore.db3"));
             }
-            var allUser = Task.Run(async () => await db.GetUsersAsync()).Result;
-            var user = allUser.FirstOrDefault();
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
             if (user == null)
             {
                 MainPage = new NavigationPage(new FirstPage());
             }
             else
             {
-                FirebaseHelper.userToken = user.Token;
                 MainPage = new NavigationPage(new HomePage());
             }
         }

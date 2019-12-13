@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "975475580379",
+    "firebase_url": "https://thebossapp-dee9f.firebaseio.com",
+    "project_id": "thebossapp-dee9f",
+    "storage_bucket": "thebossapp-dee9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975475580379:android:aa5154da82a54f1af45bfe",
+        "android_client_info": {
+          "package_name": "com.quocthao.phonestore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975475580379-8opjfkpq0lifiot5gqdt70267275vm61.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quocthao.phonestore",
+            "certificate_hash": "055a6b3cabb86f8e91c31db1959852e753ac5448"
+          }
+        },
+        {
+          "client_id": "975475580379-4ogaefj02nnfav98asajbik3hn6nr9lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxXnKs4VhUK_w0apo1w5zfewDhH5arlCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975475580379-4ogaefj02nnfav98asajbik3hn6nr9lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

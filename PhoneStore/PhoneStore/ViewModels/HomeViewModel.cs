@@ -2,6 +2,8 @@
 using PhoneStore.Models;
 using PhoneStore.SQLite;
 using PhoneStore.View;
+using PhoneStore.View.MainViews.User.MyOrderViews;
+using Plugin.FirebaseAuth;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,18 @@ namespace PhoneStore.ViewModel
             this.cmdLoadItem = new Command<object>(GotoItemDetail);
             this.CartTapped = new Command(GotoCart);
             this.SearchTapped = new Command(GotoSearch);
+            this.MyOrderTapped = new Command(GotoMyOrder);
+            this.SignOutTapped = new Command(SignOutCmd);
+        }
+
+        private void SignOutCmd(object obj)
+        {
+            //Task.Run(async () => await CrossFirebaseAuth.Current.GetInstance("PhoneStore").SignOut());
+        }
+
+        private void GotoMyOrder(object obj)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new MyOrderPage());
         }
 
         private void GotoSearch(object obj)
@@ -44,7 +58,7 @@ namespace PhoneStore.ViewModel
 
         private async Task<List<ItemModel>> getAllItemAsync()
         {
-            var itemFirebases = await firebase.GetAllItem(FirebaseHelper.userToken).ConfigureAwait(true);
+            var itemFirebases = await firebase.GetAllItem().ConfigureAwait(true);
             List<ItemModel> Items = new List<ItemModel>();
             Items = itemFirebases;
             return Items;
@@ -52,7 +66,7 @@ namespace PhoneStore.ViewModel
 
         private async Task<List<RotatorModel>> getRotatorsAsync()
         {
-            var rotators = await firebase.GetRotators(FirebaseHelper.userToken).ConfigureAwait(true);
+            var rotators = await firebase.GetRotators().ConfigureAwait(true);
             List<RotatorModel> rotatorModels = new List<RotatorModel>();
             rotatorModels = rotators;
             return rotatorModels;
@@ -69,6 +83,7 @@ namespace PhoneStore.ViewModel
             Application.Current.MainPage.Navigation.PushAsync(new PhonePage());
         }
 
+        #region Properties
         private List<RotatorModel> _rotatorModels;
         public List<RotatorModel> RotatorModels
         {
@@ -76,8 +91,8 @@ namespace PhoneStore.ViewModel
             set { _rotatorModels = value; }
         }
 
-        private decimal _itemCount;
-        public decimal ItemCount
+        private int _itemCount;
+        public int ItemCount
         {
             get { return _itemCount; }
             set
@@ -89,16 +104,21 @@ namespace PhoneStore.ViewModel
         
         public List<ItemModel> ItemModels { get; set; }
         public CartModel Cart { get; set; }
+        #endregion
 
+        #region Command
         public Command cmdPhone { get; }
         public Command CartTapped { get; }
         public Command SearchTapped { get; }
         public Command<object> cmdLoadItem { get; }
+        public Command MyOrderTapped { get; }
+        public Command SignOutTapped { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((propertyName)));
         }
+        #endregion
     }
 }

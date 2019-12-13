@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:local="clr-namespace:PhoneStore.ViewModels"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.ShipmentViews.MapsPage" NavigationPage.HasNavigationBar="False">
+    
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <maps:Map x:Name="map" 
+                      Grid.Row="0" 
+                      Grid.RowSpan="3"
+                      IsShowingUser="False"
+                      IsEnabled="True" 
+                      HasScrollEnabled="True"
+                      HasZoomEnabled="True"
+                      MapType="Street"
+                      >
+                <x:Arguments>
+                        <maps:MapSpan>
+                            <x:Arguments>
+                                <maps:Position>
+                                    <x:Arguments>
+                                        <x:Double>14.0583</x:Double>
+                                        <x:Double>108.2772</x:Double>
+                                    </x:Arguments>
+                                </maps:Position>
+                            <x:Double>10</x:Double>
+                            <x:Double>11</x:Double>
+                            </x:Arguments>
+                        </maps:MapSpan>
+                    </x:Arguments>
+                </maps:Map>
+
+            <Grid BackgroundColor="Transparent" Grid.Row="0" Padding="10,7,10,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <pancakeview:PancakeView CornerRadius="10" BackgroundColor="White" Grid.Column="0">
+                    <Grid>
+                        <SearchBar Text="{Binding Address, Mode=TwoWay}" 
+                                   SearchCommand="{Binding FindAddressTapped}" 
+                                   SearchCommandParameter="{x:Reference map}" 
+                                   TextColor="Black" 
+                                   BackgroundColor="White"
+                                   Placeholder="Nhập địa điểm..."/>
+                    </Grid>
+                </pancakeview:PancakeView>
+                <ImageButton Source="https://i.imgur.com/zZyU3aq.png" Grid.Column="1" BackgroundColor="Transparent" Aspect="AspectFit" Command="{Binding DetectLocationTapped}" CommandParameter="{x:Reference map}"/>
+            </Grid>
+
+            <Grid BackgroundColor="Transparent" Grid.Row="2" Padding="12,0,60,17">
+                <buttons:SfButton Text="Chọn địa điểm này" 
+                                  TextColor="White" 
+                                  BackgroundColor="#3fc5f0"
+                                  CornerRadius="10"
+                                  Command="{Binding ChooseThisLocationTapped}"
+                                  FontSize="18"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

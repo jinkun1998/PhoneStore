@@ -3,6 +3,7 @@ using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.SQLite;
 using PhoneStore.View;
+using PhoneStore.ViewModel;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace PhoneStore.ViewModels
             }
             else
             {
-                Application.Current.MainPage.Navigation.PushAsync(new ShipmentPage(Items));
+                Application.Current.MainPage.Navigation.PushAsync(new ShipmentPage());
             }
 
         }
@@ -68,7 +69,7 @@ namespace PhoneStore.ViewModels
                 if (item.Quantity == 0)
                 {
                     Items.Remove(item);
-                    Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
+                    App.SQLiteDb.DeleteItemAsync(item);
                     Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
                     Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
                 }
@@ -78,7 +79,7 @@ namespace PhoneStore.ViewModels
                 }
             }
 
-            Task.Run(async () => await firebase.UpdateUserCartItem(item, FirebaseHelper.userToken).ConfigureAwait(true));
+            App.SQLiteDb.SaveItemAsync(item);
         }
 
         private void AddQuantityChanged(object obj)
@@ -86,7 +87,7 @@ namespace PhoneStore.ViewModels
             CartModel item = obj as CartModel;
             item.Quantity++;
             TotalPrice += item.Price;
-            Task.Run(async () => await firebase.UpdateUserCartItem(item, FirebaseHelper.userToken).ConfigureAwait(true));
+            App.SQLiteDb.SaveItemAsync(item);
         }
 
         private List<CartModel> _items;

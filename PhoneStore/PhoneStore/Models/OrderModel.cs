@@ -18,11 +18,21 @@ namespace PhoneStore.Models
         public string Note { get; set; }
         public PaymentType Payment { get; set; }
         public string UserEmail { get; set; }
+        public decimal TotalPrice { get; set; }
+        public OrderStatus Status { get; set; }
+
         public enum PaymentType
         {
             COD = 0,
             Store = 1,
             Bank = 2,
+        }
+        public enum OrderStatus
+        {
+            Ordered = 0,
+            Accepted = 1,
+            Deliverd = 2,
+            Done = 3,
         }
     }
 }
