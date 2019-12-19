@@ -72,6 +72,10 @@ namespace PhoneStore.SQLite
                 return db.InsertAsync(user);
             }
         }
+        public Task<int> DeleteUserAsync(UserModel user)
+        {
+            return db.DeleteAsync(user);
+        }
         #endregion
     }
 }

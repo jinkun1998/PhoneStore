@@ -1,4 +1,5 @@
 ﻿
+using Acr.UserDialogs;
 using PhoneStore.Firebase;
 using PhoneStore.SQLite;
 using PhoneStore.View;
@@ -9,6 +10,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,8 +24,9 @@ namespace PhoneStore
 
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTU2MDEwQDMxMzcyZTMzMmUzMGR2enYvelhPZmo2UmgxZE1yR2RQWWcxTU85NWREVi9zS0MyMkZSQ2xFZGc9");
-            CheckUserSignIn();
-            //MainPage = new NavigationPage(new ShipmentPage());
+            CheckDatabase();
+            CheckNetwork();
+            //MainPage = new NavigationPage(new NoConnecitvityPage());
         }
 
         protected override void OnStart()
@@ -38,12 +41,29 @@ namespace PhoneStore
         {
         }
 
-        public void CheckUserSignIn()
+        public void CheckDatabase()
         {
             if (db == null)
             {
                 db = new SQLiteHelper(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "PhoneStore.db3"));
             }
+        }
+
+        public void CheckNetwork()
+        {
+            var current = Connectivity.NetworkAccess;
+            if (current == NetworkAccess.Internet)
+            {
+                CheckUserSignIn();
+            }
+            else
+            {
+                MainPage = new NavigationPage(new NoConnecitvityPage());
+            }
+        }
+
+        public void CheckUserSignIn()
+        {
             var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
             if (user == null)
             {

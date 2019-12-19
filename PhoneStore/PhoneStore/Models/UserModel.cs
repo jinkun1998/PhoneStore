@@ -68,7 +68,16 @@ namespace PhoneStore.Models
                 OnPropertyChanged();
             }
         }
-
+        private DateTime _dob;
+        public DateTime DoB
+        {
+            get { return _dob; }
+            set
+            {
+                _dob = value;
+                OnPropertyChanged();
+            }
+        }
         private string _token;
         public string Token
         {
@@ -76,17 +85,6 @@ namespace PhoneStore.Models
             set
             {
                 _token = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private bool _islogged;
-        public bool IsLogged
-        {
-            get { return _islogged; }
-            set
-            {
-                _islogged = value;
                 OnPropertyChanged();
             }
         }

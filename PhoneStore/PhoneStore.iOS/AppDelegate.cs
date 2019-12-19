@@ -28,6 +28,7 @@ namespace PhoneStore.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 global::Xamarin.Forms.Forms.Init();
+SfLinearProgressBarRenderer.Init();
 SfCircularProgressBarRenderer.Init();
 SfBusyIndicatorRenderer.Init();
 SfPopupLayoutRenderer.Init();

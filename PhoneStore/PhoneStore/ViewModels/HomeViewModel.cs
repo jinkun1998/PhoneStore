@@ -1,7 +1,10 @@
-﻿using PhoneStore.Firebase;
+﻿using Acr.UserDialogs;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.SQLite;
 using PhoneStore.View;
+using PhoneStore.View.MainViews.User.EditUser;
+using PhoneStore.View.MainViews.User.FavoriteViews;
 using PhoneStore.View.MainViews.User.MyOrderViews;
 using Plugin.FirebaseAuth;
 using SQLite;
@@ -12,6 +15,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace PhoneStore.ViewModel
@@ -22,23 +26,59 @@ namespace PhoneStore.ViewModel
         public FirebaseHelper firebase;
         public HomeViewModel()
         {
+            UserDialogs.Instance.ShowLoading("Vui lòng chờ");
             firebase = new FirebaseHelper();
             var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
             if (cart != null)
                 ItemCount = cart.Count;
             RotatorModels = Task.Run(async () => await getRotatorsAsync().ConfigureAwait(true)).Result;
             ItemModels = Task.Run(async () => await getAllItemAsync().ConfigureAwait(true)).Result;
+            if (RotatorModels.Count > 0 && ItemModels.Count > 0)
+                isVisible = false;
+
             this.cmdPhone = new Command(GoToPhone);
             this.cmdLoadItem = new Command<object>(GotoItemDetail);
             this.CartTapped = new Command(GotoCart);
             this.SearchTapped = new Command(GotoSearch);
             this.MyOrderTapped = new Command(GotoMyOrder);
             this.SignOutTapped = new Command(SignOutCmd);
+            this.MyFavoriteTapped = new Command(FavoriteCmd);
+            this.EditProfile = new Command(EditUser);
+            UserDialogs.Instance.HideLoading();
         }
 
-        private void SignOutCmd(object obj)
+        #region Logic
+
+        private void EditUser(object obj)
         {
-            //Task.Run(async () => await CrossFirebaseAuth.Current.GetInstance("PhoneStore").SignOut());
+            Application.Current.MainPage.Navigation.PushAsync(new EditUserPage());
+        }
+
+        private void FavoriteCmd(object obj)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new FavoritePage());
+        }
+        private async void SignOutCmd(object obj)
+        {
+            var result = await Application.Current.MainPage.DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn đăng xuất?", "Chắc chắn", "Hủy");
+            if (result)
+            {
+                UserDialogs.Instance.ShowLoading("Vui lòng chờ...");
+                CrossFirebaseAuth.Current.Instance.SignOut();
+                await Application.Current.MainPage.Navigation.PushAsync(new FirstPage());
+                Application.Current.MainPage = new NavigationPage(new FirstPage());
+                var items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+                foreach (var item in items)
+                {
+                    await App.SQLiteDb.DeleteItemAsync(item);
+                }
+                var users = Task.Run(async () => await App.SQLiteDb.GetUsersAsync()).Result;
+                foreach (var item in users)
+                {
+                    await App.SQLiteDb.DeleteUserAsync(item);
+                }
+                UserDialogs.Instance.HideLoading();
+            }
         }
 
         private void GotoMyOrder(object obj)
@@ -82,6 +122,7 @@ namespace PhoneStore.ViewModel
         {
             Application.Current.MainPage.Navigation.PushAsync(new PhonePage());
         }
+        #endregion
 
         #region Properties
         private List<RotatorModel> _rotatorModels;
@@ -101,7 +142,7 @@ namespace PhoneStore.ViewModel
                 OnPropertyChanged(nameof(ItemCount));
             }
         }
-        
+         public bool isVisible { get; set; }
         public List<ItemModel> ItemModels { get; set; }
         public CartModel Cart { get; set; }
         #endregion
@@ -112,7 +153,9 @@ namespace PhoneStore.ViewModel
         public Command SearchTapped { get; }
         public Command<object> cmdLoadItem { get; }
         public Command MyOrderTapped { get; }
+        public Command MyFavoriteTapped { get; }
         public Command SignOutTapped { get; }
+        public Command EditProfile { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)

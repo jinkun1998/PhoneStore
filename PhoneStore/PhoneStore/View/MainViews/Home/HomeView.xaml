@@ -14,7 +14,7 @@
     <ContentView.Content>
         <ScrollView BackgroundColor="Transparent">
             <Grid>
-                <shimmer:SfShimmer  Type="Shopping" VerticalOptions="FillAndExpand" IsActive ="False">
+                <shimmer:SfShimmer  Type="Shopping" VerticalOptions="FillAndExpand" IsActive ="{Binding isVisible}">
                     <shimmer:SfShimmer.Content>
                         <Grid Padding="8,0,8,0">
                             <Grid.RowDefinitions>
@@ -65,6 +65,7 @@
                                     ItemSpacing="5"
                                     Orientation="Horizontal"
                                     TapCommand="{Binding cmdLoadItem}"
+                                    AutoFitMode="DynamicHeight"
                                     >
                                     <listview:SfListView.ItemTemplate>
                                         <DataTemplate>

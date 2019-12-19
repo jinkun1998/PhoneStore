@@ -1,9 +1,12 @@
-﻿using PhoneStore.Firebase;
+﻿using Acr.UserDialogs;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.SQLite;
 using PhoneStore.View;
 using PhoneStore.View.DetailViews;
 using PhoneStore.ViewModel;
+using Plugin.FirebaseAuth;
+using Plugin.Toast;
 using SQLite;
 using Syncfusion.XForms.Buttons;
 using System;
@@ -26,10 +29,49 @@ namespace PhoneStore.ViewModels
         {
             firebase = new FirebaseHelper();
             Item = item;
+            CheckFavorite();
             this.DescriptionTapped = new Command(GotoDescription);
             this.CartTapped = new Command(GotoCart);
             this.ShareAction = new Command(ShareUri);
             this.AddCarttapped = new Command(AddCart);
+            this.FavoriteTapped = new Command(FavoriteCmd);
+        }
+
+        #region Logic
+        public void CheckFavorite()
+        {
+            var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+            var exitsFavorite = allItems.Where(it => it.Code == Item.Code && it.UserEmail == user.Email).FirstOrDefault();
+            if (exitsFavorite == null)
+            {
+                IsFavorite = false;
+            }
+            else
+            {
+                IsFavorite = true;
+            }
+        }
+
+        private void FavoriteCmd(object obj)
+        {
+            //SfButton btn = obj as SfButton;
+            var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+            var exitsFavorite = allItems.Where(it => it.Code == Item.Code && it.UserEmail == user.Email).FirstOrDefault();
+            if (exitsFavorite == null)
+            {
+                IsFavorite = true;
+                Item.UserEmail = user.Email;
+                CrossToastPopUp.Current.ShowToastMessage("Đã thích");
+                Task.Run(async () => await firebase.AddUserFavoriteItem(Item));
+            }
+            else
+            {
+                IsFavorite = false;
+                CrossToastPopUp.Current.ShowToastMessage("Đã hủy thích");
+                Task.Run(async () => await firebase.DeleteUserFavoriteItem(exitsFavorite));
+            }
         }
 
         private void GotoCart(object obj)
@@ -119,7 +161,7 @@ namespace PhoneStore.ViewModels
         {
             Application.Current.MainPage.Navigation.PushAsync(new DescriptionPage(Item));
         }
-
+        #endregion
 
         #region Properties
         private ItemModel _item;
@@ -129,7 +171,18 @@ namespace PhoneStore.ViewModels
             set
             {
                 _item = value;
+                OnPropertyChanged(nameof(Item));
+            }
+        }
 
+        private bool _isfavorite;
+        public bool IsFavorite
+        {
+            get { return _isfavorite; }
+            set
+            {
+                _isfavorite = value;
+                OnPropertyChanged(nameof(IsFavorite));
             }
         }
 
@@ -149,6 +202,7 @@ namespace PhoneStore.ViewModels
         public Command CartTapped { get; }
         public Command AddCarttapped { get; }
         public Command ColorTapped { get; }
+        public Command FavoriteTapped { get; }
         #endregion
 
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)

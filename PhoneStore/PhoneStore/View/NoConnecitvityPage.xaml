@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:local="clr-namespace:PhoneStore.ViewModels"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.NoConnecitvityPage">
+    <ContentPage.BindingContext>
+        <local:NoConectivityViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <lottie:AnimationView Grid.Row="0"
+	                Animation="LostSignal.json" 
+	                Loop="True" 
+	                AutoPlay="True"
+	                VerticalOptions="FillAndExpand" 
+	                HorizontalOptions="FillAndExpand"
+                    HeightRequest="100" WidthRequest="100"
+                />
+
+            <Grid Padding="140,0,140,0" Grid.Row="1">
+                <buttons:SfButton Text="Thử lại" BackgroundColor="Transparent" Command="{Binding TryAgainTapped}" TextColor="Gray" FontSize="15" CornerRadius="10" BorderWidth="1" BorderColor="Gray"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

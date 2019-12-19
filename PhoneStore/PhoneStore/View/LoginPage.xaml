@@ -32,7 +32,7 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                                                ReserveSpaceForAssistiveLabels="False"
                                                VerticalOptions="End"
                                                >
-                    <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email"/>
+                    <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email" ClearButtonVisibility="WhileEditing"/>
                 </inputLayout:SfTextInputLayout>
                 <inputLayout:SfTextInputLayout Hint="Mật khẩu" 
                                                ContainerType="Outlined"
@@ -40,8 +40,9 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
                                                VerticalOptions="End"
+                                               EnablePasswordVisibilityToggle ="True"
                                                >
-                    <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
+                    <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" ClearButtonVisibility="WhileEditing" />
                 </inputLayout:SfTextInputLayout>
                 <buttons:SfButton Command="{Binding LoginTapped}" Text="Đăng nhập" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/>
             </StackLayout>

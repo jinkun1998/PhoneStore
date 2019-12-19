@@ -31,6 +31,47 @@ namespace PhoneStore.Firebase
         #endregion
 
         #region Items
+        #region FavoriteItems
+        public async Task<List<ItemModel>> GetAllFavoriteItems()
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            return (await firebaseClient
+              .Child("Favorites")
+              .OnceAsync<ItemModel>()
+              .ConfigureAwait(true)).Select(item => new ItemModel
+              {
+                  Code = item.Object.Code,
+                  Name = item.Object.Name,
+                  Image = item.Object.Image,
+                  Price = item.Object.Price,
+                  Rate = item.Object.Rate,
+                  Description = item.Object.Description,
+                  DescriptionLink = item.Object.DescriptionLink,
+                  Shortdescription = item.Object.Shortdescription,
+                  Colors = item.Object.Colors,
+                  RotatorImages = item.Object.RotatorImages,
+                  UserEmail = item.Object.UserEmail,
+              }).ToList();
+        }
+
+        public async Task AddUserFavoriteItem(ItemModel item)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            await firebaseClient
+                .Child("Favorites")
+                .PostAsync(item).ConfigureAwait(true);
+        }
+
+        public async Task DeleteUserFavoriteItem(ItemModel item)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            var toDeleteCart = (await firebaseClient
+            .Child("Favorites")
+            .OnceAsync<CartModel>().ConfigureAwait(true)).Where(a => a.Object.Code == item.Code && a.Object.UserEmail == item.UserEmail).FirstOrDefault();
+            await firebaseClient.Child("Favorites").Child(toDeleteCart.Key).DeleteAsync().ConfigureAwait(true);
+        }
+        #endregion
+
         public async Task<List<ItemModel>> GetAllItem()
         {
             var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
@@ -129,14 +170,6 @@ namespace PhoneStore.Firebase
         #endregion
 
         #region User
-        public async Task AddUserOrder(OrderModel order)
-        {
-            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
-            await firebaseClient
-                .Child("Orders")
-                .PostAsync(order).ConfigureAwait(true);
-        }
-
         public async Task<UserModel> GetUser(string userEmail)
         {
             var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
@@ -151,12 +184,60 @@ namespace PhoneStore.Firebase
                   Email = item.Object.Email,
                   Phone = item.Object.Phone,
                   AvatarLink = item.Object.AvatarLink,
+                  DoB = item.Object.DoB,
               }).ToList();
             return allUsers.Where(it => it.Email == userEmail).FirstOrDefault();
+        }
+
+        public async Task AddUser(UserModel user)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            await firebaseClient
+                .Child("Users")
+                .PostAsync(user).ConfigureAwait(true);
+        }
+
+        public async Task UpdateUser(UserModel user)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            var toUpdateItem = (await firebaseClient
+              .Child("Users")
+              .OnceAsync<UserModel>().ConfigureAwait(true)).Where(a => a.Object.Email == user.Email && a.Object.Code == user.Code).FirstOrDefault();
+
+            await firebaseClient
+              .Child("Users")
+              .Child(toUpdateItem.Key)
+              .PutAsync(new UserModel()
+              {
+                  Email = user.Email,
+                  Address = user.Address,
+                  AvatarLink = user.AvatarLink,
+                  Code = user.Code,
+                  FullName = user.FullName,
+                  Phone = user.Phone,
+                  DoB = user.DoB,
+              })
+            .ConfigureAwait(true);
         }
         #endregion
 
         #region Order
+        public async Task AddUserOrder(OrderModel order)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            await firebaseClient
+                .Child("Orders")
+                .PostAsync(order).ConfigureAwait(true);
+        }
+
+        public async Task DeleteUserOrder(OrderModel order)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            await firebaseClient
+                .Child("Orders")
+                .PostAsync(order).ConfigureAwait(true);
+        }
+
         public async Task<List<OrderModel>> GetAllOrders()
         {
             var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
@@ -173,22 +254,43 @@ namespace PhoneStore.Firebase
                   Payment = item.Object.Payment,
                   Status = item.Object.Status,
                   TotalPrice = item.Object.TotalPrice,
+                  Shipments = item.Object.Shipments,
               }).ToList();
         }
 
         public async Task<List<OrderModel>> GetAllUserOrders(string userEmail)
         {
             var allOrders = GetAllOrders().Result;
-            return allOrders.Where(it => it.UserEmail == userEmail).ToList();
+            return allOrders.Where(it => it.UserEmail == userEmail && it.Status != OrderModel.OrderStatus.Cancelled).ToList();
+        }
+
+        public async Task UpdateUserOrder(OrderModel order)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            var toUpdateItem = (await firebaseClient
+              .Child("Orders")
+              .OnceAsync<OrderModel>().ConfigureAwait(true)).Where(a => a.Object.UserEmail == order.UserEmail && a.Object.Code == order.Code).FirstOrDefault();
+
+            await firebaseClient
+              .Child("Orders")
+              .Child(toUpdateItem.Key)
+              .PutAsync(new OrderModel()
+              {
+                  Code = order.Code,
+                  Address = order.Address,
+                  Carts = order.Carts,
+                  CreatedOn = order.CreatedOn,
+                  Note = order.Note,
+                  Payment = order.Payment,
+                  Shipments = order.Shipments,
+                  Status = order.Status,
+                  TotalPrice = order.TotalPrice,
+                  UserEmail = order.UserEmail,
+              }).ConfigureAwait(true);
         }
         #endregion
 
         #region SignIn, SignOut
-        //public async Task SignOut()
-        //{
-        //    await CrossFirebaseAuth.Current.Instance.SignOut();
-
-        //}
         #endregion
     }
 }

@@ -56,6 +56,7 @@ namespace PhoneStore.ViewModels
             this.ChangeLocationTapped = new Command(ChangeLocation);
         }
 
+        #region Logic
         private void ChangeLocation(object obj)
         {
             var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
@@ -83,7 +84,7 @@ namespace PhoneStore.ViewModels
                 Random rd = new Random();
                 tempCode = rd.Next(0, 999999);
             } while (allOrders.Where(it => it.Code == tempCode.ToString()).Count() != 0);
-            
+
             Order.Code = tempCode.ToString("000000");
             var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
             Order.UserEmail = user.Email;
@@ -100,6 +101,37 @@ namespace PhoneStore.ViewModels
             {
                 Order.Payment = OrderModel.PaymentType.Bank;
             }
+            #region Tạo thông tin shipment
+            Shipment = new ShipmentDetailModel();
+            Shipment.Title = "Đã đặt hàng";
+            Shipment.Date = DateTime.Now.ToString("dd/MM/yyyy");
+            Shipment.Time = DateTime.Now.ToString("HH:ss");
+            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.InProgress;
+            Shipment.ProgressValue = 0;
+            Order.Shipments.Add(Shipment);
+            Shipment = new ShipmentDetailModel();
+            Shipment.Title = "Đã duyệt";
+            Shipment.Date = "";
+            Shipment.Time = "";
+            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
+            Shipment.ProgressValue = 0;
+            Order.Shipments.Add(Shipment);
+            Shipment = new ShipmentDetailModel();
+            Shipment.Title = "Đang giao";
+            Shipment.Date = "";
+            Shipment.Time = "";
+            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
+            Shipment.ProgressValue = 0;
+            Order.Shipments.Add(Shipment);
+            Shipment = new ShipmentDetailModel();
+            Shipment.Title = "Đã giao";
+            Shipment.Date = "";
+            Shipment.Time = "";
+            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
+            Shipment.ProgressValue = 0;
+            Order.Shipments.Add(Shipment);
+            #endregion
+
             Task.Run(async () => await firebase.AddUserOrder(Order).ConfigureAwait(true));
             Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
             foreach (var item in Order.Carts)
@@ -111,6 +143,7 @@ namespace PhoneStore.ViewModels
             Application.Current.MainPage.Navigation.PushAsync(new HomePage());
             Application.Current.MainPage = new NavigationPage(new HomePage());
         }
+        #endregion 
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
@@ -158,6 +191,16 @@ namespace PhoneStore.ViewModels
             {
                 _note = value;
                 OnPropertyChanged(nameof(Note));
+            }
+        }
+        private ShipmentDetailModel _shipment;
+        public ShipmentDetailModel Shipment
+        {
+            get { return _shipment; }
+            set
+            {
+                _shipment = value;
+                OnPropertyChanged(nameof(Shipment));
             }
         }
         #endregion

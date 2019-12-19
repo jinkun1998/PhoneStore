@@ -6,8 +6,9 @@
              xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:progressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
              mc:Ignorable="d"
-             x:Class="PhoneStore.View.MainViews.User.MyOrderViews.MyOrderDetailPage">
+             x:Class="PhoneStore.View.MainViews.User.MyOrderViews.MyOrderDetailPage" NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <Grid Padding="10" BackgroundColor="#f9f9f9">
             <Grid.RowDefinitions>
@@ -16,14 +17,46 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
                     <RowDefinition Height="70"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="150"/>
-                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="80"/>
                 </Grid.RowDefinitions>
-
+                
+                <!--Thông tin trạng thái đơn hàng-->
+                <pancakeview:PancakeView Grid.Row="0" CornerRadius="10" BackgroundColor="White">
+                    <progressBar:SfStepProgressBar  
+                                               BindableLayout.ItemsSource="{Binding Order.Shipments}" 
+                                               TitleAlignment="Center" BackgroundColor="Transparent"
+                                               TitleSpace="10" 
+                                               VerticalOptions="Center"
+                                               HorizontalOptions="Center"
+                                               Orientation="Horizontal" 
+                                               x:Name="stepProgress">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <progressBar:StepView x:Name="stepView" ProgressValue="{Binding ProgressValue}" Status="{Binding Status}">
+                                    <progressBar:StepView.PrimaryFormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Title}" FontSize="13" FontAttributes="Bold" />
+                                        </FormattedString>
+                                    </progressBar:StepView.PrimaryFormattedText>
+                                    <progressBar:StepView.SecondaryFormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Date}" FontSize="Small" TextColor="#b6b0b2"/>
+                                            <Span Text="&#10;"/>
+                                            <Span Text="{Binding Time}" FontSize="Small" TextColor="#b6b0b2"/>
+                                        </FormattedString>
+                                    </progressBar:StepView.SecondaryFormattedText>
+                                </progressBar:StepView>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </progressBar:SfStepProgressBar>
+                </pancakeview:PancakeView>
+                
                 <!--Địa chỉ-->
-                <buttons:SfButton TextColor="Black" Grid.Row="0" CornerRadius="10" BackgroundColor="White" Padding="5,5,5,0">
+                <buttons:SfButton TextColor="Black" Grid.Row="1" CornerRadius="10" BackgroundColor="White" Padding="5,5,5,0">
                     <buttons:SfButton.Content>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -47,7 +80,7 @@
                 </buttons:SfButton>
 
                 <!--Danh sách sản phẩm-->
-                <pancakeview:PancakeView BackgroundColor="White" Grid.Row="1" CornerRadius="10" Padding="5,0,5,0">
+                <pancakeview:PancakeView BackgroundColor="White" Grid.Row="2" CornerRadius="10" Padding="5,0,5,0">
                     <xforms:SfListView  
                                     ItemsSource="{Binding Order.Carts}"
                                     ItemSize="120"
@@ -137,7 +170,7 @@
                 </pancakeview:PancakeView>
 
                 <!--Ghi chú-->
-                <pancakeview:PancakeView CornerRadius="10" Grid.Row="2">
+                <pancakeview:PancakeView CornerRadius="10" Grid.Row="3">
                     <Grid BackgroundColor="White">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
@@ -151,7 +184,7 @@
                     </Grid>
                 </pancakeview:PancakeView>
                 <!--Phương thức vận chuyển-->
-                <pancakeview:PancakeView CornerRadius="10" Grid.Row="3">
+                <pancakeview:PancakeView CornerRadius="10" Grid.Row="4">
                     <Grid BackgroundColor="White">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
@@ -166,14 +199,15 @@
             <pancakeview:PancakeView CornerRadius="10" Grid.Row="1">
                 <Grid Padding="10" BackgroundColor="White">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="90"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Text="Tổng tiền:" 
                        Grid.Column="0" 
                        Grid.Row="0" 
-                       FontSize="20" 
+                       FontSize="18" 
                        VerticalOptions="Center" 
                        HorizontalOptions="StartAndExpand"
                        TextColor="Black"/>
@@ -181,10 +215,17 @@
                        Padding="10,0,10,0"
                        Grid.Column="1" 
                        Grid.Row="0"
-                       FontSize="20" 
+                       FontSize="18" 
                        VerticalOptions="Center" 
                        HorizontalOptions="EndAndExpand"
                        TextColor="Red"/>
+                    <buttons:SfButton Text="Hủy đơn"  
+                                      Grid.Column="2"
+                                      FontSize="18" 
+                                      CornerRadius="10"
+                                      BackgroundColor="#3fc5f0"
+                                      TextColor="White"
+                                      Command="{Binding CancelOrderTapped}"/>
                 </Grid>
             </pancakeview:PancakeView>
         </Grid>

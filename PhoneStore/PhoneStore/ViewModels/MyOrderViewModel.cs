@@ -57,6 +57,7 @@ namespace PhoneStore.ViewModels
         #region Command
         public Command ItemTapped { get; }
         #endregion
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {

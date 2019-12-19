@@ -7,6 +7,9 @@ using Android.Widget;
 using Android.OS;
 using Android;
 using Plugin.Permissions;
+using Lottie.Forms.Droid;
+using Acr.UserDialogs;
+using Plugin.Media;
 
 namespace PhoneStore.Droid
 {
@@ -23,6 +26,9 @@ namespace PhoneStore.Droid
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            UserDialogs.Init(this);
+            CrossMedia.Current.Initialize();
+
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
             LoadApplication(new App());

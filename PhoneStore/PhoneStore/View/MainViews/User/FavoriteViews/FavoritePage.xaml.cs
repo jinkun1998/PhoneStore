@@ -1,5 +1,4 @@
-﻿using PhoneStore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View.ListViews
+namespace PhoneStore.View.MainViews.User.FavoriteViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PhoneView : ContentView
+    public partial class FavoritePage : ContentPage
     {
-        public PhoneView()
+        public FavoritePage()
         {
             InitializeComponent();
         }

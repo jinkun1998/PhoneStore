@@ -8,8 +8,12 @@
              xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+             xmlns:convetrer="clr-namespace:PhoneStore.Convetrer"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.ItemDetailPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Resources>
+        <convetrer:BoolToStringConverter x:Key="BoolToString"/>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -59,7 +63,9 @@
                                TextColor="Red"
                                HorizontalOptions="EndAndExpand"
                                VerticalOptions="Center"/>
-                            <button1:SfButton Grid.Column="0" Grid.Row="2" ImageSource="https://i.imgur.com/psoBZew.png" ShowIcon="True" BackgroundColor="White" HorizontalOptions="Center"/>
+                            
+                            <button1:SfButton x:Name="btnUnFavorite" Grid.Column="0" Grid.Row="2" Command="{Binding FavoriteTapped}" ImageSource="https://i.imgur.com/psoBZew.png" ShowIcon="True" BackgroundColor="White" HorizontalOptions="Center"/>
+                            <button1:SfButton x:Name="btnFavorite" IsVisible="{Binding IsFavorite}" Grid.Column="0" Grid.Row="2" Command="{Binding FavoriteTapped}" ImageSource="https://i.imgur.com/KhQoI5p.png" ShowIcon="True" BackgroundColor="White" HorizontalOptions="Center"/>
                             <button1:SfButton Grid.Column="1" Command="{Binding ShareAction}" ImageSource="https://i.imgur.com/OmcgcUD.png" ShowIcon="True"  Grid.Row="2" BackgroundColor="White" HorizontalOptions="Center"/>
                         </Grid>
                     </pancakeview:PancakeView>

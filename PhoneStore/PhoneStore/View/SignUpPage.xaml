@@ -37,6 +37,7 @@
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
                                                VerticalOptions="End"
+                                               EnablePasswordVisibilityToggle ="True"
                                                >
                     <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
                 </inputLayout:SfTextInputLayout>

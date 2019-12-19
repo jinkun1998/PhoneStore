@@ -14,6 +14,7 @@ namespace PhoneStore.Models
 
         }
 
+        public string UserEmail { get; set; }
         private string _code;
         public string Code
         {

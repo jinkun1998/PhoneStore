@@ -1,5 +1,4 @@
-﻿using PhoneStore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View.ListViews
+namespace PhoneStore.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PhoneView : ContentView
+    public partial class AddnewUserPage : ContentPage
     {
-        public PhoneView()
+        public AddnewUserPage()
         {
             InitializeComponent();
         }

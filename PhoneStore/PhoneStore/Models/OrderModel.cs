@@ -9,10 +9,12 @@ namespace PhoneStore.Models
         public OrderModel()
         {
             Carts = new List<CartModel>();
+            Shipments = new List<ShipmentDetailModel>();
         }
 
         public string Code { get; set; }
         public List<CartModel> Carts { get; set; }
+        public List<ShipmentDetailModel> Shipments { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Address { get; set; }
         public string Note { get; set; }
@@ -33,6 +35,7 @@ namespace PhoneStore.Models
             Accepted = 1,
             Deliverd = 2,
             Done = 3,
+            Cancelled = 4,
         }
     }
 }
