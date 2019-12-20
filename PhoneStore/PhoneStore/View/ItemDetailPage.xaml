@@ -17,10 +17,24 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <ScrollView Padding="12,0,12,0" BackgroundColor="#f9f9f9">
+
+            <!--ActionBar-->
+            <pancakeview:PancakeView CornerRadius="10,10,0,0" Grid.Row="0" HasShadow="True">
+                <Grid BackgroundColor="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <button1:SfButton Command="{Binding BackButton}" ImageSource="backbutton.png" Grid.Column="0" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" ShowIcon="True"/>
+                    <Label Text="Chi tiết" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                </Grid>
+            </pancakeview:PancakeView>
+            <ScrollView Padding="12,0,12,0" BackgroundColor="#f9f9f9" Grid.Row="1">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="300"/>
@@ -128,7 +142,7 @@
                 </Grid>
             </ScrollView>
 
-            <local:BottomDockView Grid.Row="1"/>
+            <local:BottomDockView Grid.Row="2"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

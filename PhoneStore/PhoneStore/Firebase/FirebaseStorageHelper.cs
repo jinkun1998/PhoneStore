@@ -9,7 +9,7 @@ namespace PhoneStore.Firebase
 {
     public class FirebaseStorageHelper
     {
-        public FirebaseStorage firebaseStorage = new FirebaseStorage("gs://thebossapp-dee9f.appspot.com/");
+        public FirebaseStorage firebaseStorage = new FirebaseStorage("thebossapp-dee9f.appspot.com");
 
         public async Task<string> UploadFile(Stream fileStream, string fileName)
         {
@@ -18,6 +18,23 @@ namespace PhoneStore.Firebase
                 .Child(fileName)
                 .PutAsync(fileStream);
             return imageUrl;
+        }
+
+        public async Task<string> GetFile(string fileName)
+        {
+            return await firebaseStorage
+                .Child("UserAvatars")
+                .Child(fileName)
+                .GetDownloadUrlAsync();
+        }
+
+        public async Task DeleteFile(string fileName)
+        {
+            await firebaseStorage
+                 .Child("UserAvatars")
+                 .Child(fileName)
+                 .DeleteAsync();
+
         }
     }
 }

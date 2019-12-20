@@ -6,6 +6,7 @@
              xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:local="clr-namespace:PhoneStore.ViewModels"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              mc:Ignorable="d"
              x:Name="MyOrders"
              x:Class="PhoneStore.View.MainViews.User.MyOrderViews.MyOrderPage" NavigationPage.HasNavigationBar="False">
@@ -14,7 +15,24 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
-            <listview:SfListView
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--ActionBar-->
+            <pancakeview:PancakeView CornerRadius="10,10,0,0" Grid.Row="0" HasShadow="True">
+                <Grid BackgroundColor="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <buttons:SfButton Command="{Binding BackButton}" ImageSource="backbutton.png" Grid.Column="0" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" ShowIcon="True"/>
+                    <Label Text="Đơn hàng của tôi" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                </Grid>
+            </pancakeview:PancakeView>
+            <listview:SfListView Grid.Row="0"
                 ItemsSource="{Binding Orders}"
                 ItemSize="150"
                 ItemSpacing="5"

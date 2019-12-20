@@ -22,20 +22,26 @@ namespace PhoneStore.ViewModel
 {
     public class HomeViewModel : INotifyPropertyChanged
     {
-        public SQLiteConnection conn;
         public FirebaseHelper firebase;
         public HomeViewModel()
         {
-            UserDialogs.Instance.ShowLoading("Vui lòng chờ");
             firebase = new FirebaseHelper();
             var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
             if (cart != null)
                 ItemCount = cart.Count;
             RotatorModels = Task.Run(async () => await getRotatorsAsync().ConfigureAwait(true)).Result;
             ItemModels = Task.Run(async () => await getAllItemAsync().ConfigureAwait(true)).Result;
+            var currentUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
+            User = Task.Run(async () => await App.SQLiteDb.GetUserAsync(currentUser.Email)).Result;
+            if (User != null)
+            {
+                Name = User.FullName;
+                Image = User.AvatarLink;
+            }
             if (RotatorModels.Count > 0 && ItemModels.Count > 0)
                 isVisible = false;
 
+            UserDialogs.Instance.ShowLoading("Vui lòng chờ...");
             this.cmdPhone = new Command(GoToPhone);
             this.cmdLoadItem = new Command<object>(GotoItemDetail);
             this.CartTapped = new Command(GotoCart);
@@ -45,18 +51,19 @@ namespace PhoneStore.ViewModel
             this.MyFavoriteTapped = new Command(FavoriteCmd);
             this.EditProfile = new Command(EditUser);
             UserDialogs.Instance.HideLoading();
+
         }
 
         #region Logic
 
-        private void EditUser(object obj)
+        private async void EditUser(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new EditUserPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new InfomationPage());
         }
 
-        private void FavoriteCmd(object obj)
+        private async void FavoriteCmd(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new FavoritePage());
+            await Application.Current.MainPage.Navigation.PushAsync(new FavoritePage());
         }
         private async void SignOutCmd(object obj)
         {
@@ -81,19 +88,19 @@ namespace PhoneStore.ViewModel
             }
         }
 
-        private void GotoMyOrder(object obj)
+        private async void GotoMyOrder(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new MyOrderPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new MyOrderPage());
         }
 
-        private void GotoSearch(object obj)
+        private async void GotoSearch(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new SearchPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new SearchPage());
         }
 
-        private void GotoCart(object obj)
+        private async void GotoCart(object obj)
         {
-            Application.Current.MainPage.Navigation.PushAsync(new YourCartPage());
+            await Application.Current.MainPage.Navigation.PushAsync(new YourCartPage());
         }
 
         private async Task<List<ItemModel>> getAllItemAsync()
@@ -142,9 +149,30 @@ namespace PhoneStore.ViewModel
                 OnPropertyChanged(nameof(ItemCount));
             }
         }
-         public bool isVisible { get; set; }
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        private string _image;
+        public string Image
+        {
+            get { return _image; }
+            set
+            {
+                _image = value;
+                OnPropertyChanged(nameof(Image));
+            }
+        }
+        public bool isVisible { get; set; }
         public List<ItemModel> ItemModels { get; set; }
         public CartModel Cart { get; set; }
+        public UserModel User { get; set; }
         #endregion
 
         #region Command

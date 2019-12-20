@@ -35,9 +35,14 @@ namespace PhoneStore.ViewModels
             this.ShareAction = new Command(ShareUri);
             this.AddCarttapped = new Command(AddCart);
             this.FavoriteTapped = new Command(FavoriteCmd);
+            this.BackButton = new Command(Back);
         }
 
         #region Logic
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
         public void CheckFavorite()
         {
             var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;
@@ -203,6 +208,7 @@ namespace PhoneStore.ViewModels
         public Command AddCarttapped { get; }
         public Command ColorTapped { get; }
         public Command FavoriteTapped { get; }
+        public Command BackButton { get; set; }
         #endregion
 
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)

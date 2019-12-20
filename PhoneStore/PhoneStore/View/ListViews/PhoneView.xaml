@@ -5,65 +5,67 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:PhoneStore.ViewModels"
              xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.ListViews.PhoneView">
-    <ContentView.BindingContext>
-        <local:PhoneViewModel/>
-    </ContentView.BindingContext>
     <ContentView.Content>
-        <Grid>
+        <Grid Padding="10,0,10,0">
             <listview:SfListView
                 ItemsSource="{Binding ItemCollection}"
-                ItemSize="300"
+                ItemSize="230"
                 ItemSpacing="5"
                 TapCommand="{Binding ItemTapped}"
+                LoadMoreOption="AutoOnScroll"
+                SelectionMode="Single"
+                SelectionBackgroundColor="Transparent"
+                LoadMorePosition="Bottom"
                 >
                 <listview:SfListView.ItemTemplate>
                     <DataTemplate>
-                        <!--<pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10" Padding="10,2,10,2">-->
-                        <Grid HeightRequest="300" BackgroundColor="White" Padding="10,2,10,2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
+                            <Grid HeightRequest="300" BackgroundColor="White" Padding="10,2,10,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-                            <Image Grid.Column="0" Source="{Binding Image}"                                                           
-                                                           Aspect="AspectFit"
-                                                           HorizontalOptions="CenterAndExpand"
-                                                           VerticalOptions="CenterAndExpand"/>
-                            <Grid Grid.Column="1">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.5*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="0.2*"/>
-                                </Grid.RowDefinitions>
-                                <Label Text="{Binding Name}"
-                                                               Padding="2,0,2,0"
-                                                               Grid.Row="0"
+                                <Image Grid.Column="0" Source="{Binding Image}"                                                           
+                                                               Aspect="AspectFit"
                                                                HorizontalOptions="CenterAndExpand"
-                                                               VerticalOptions="Center"
-                                                               HorizontalTextAlignment="Center"
-                                                               FontSize="Title"
-                                                               TextColor="Black"/>
-                                <Label Text="{Binding Shortdescription}"
-                                                               Grid.Row="1"
-                                                               Padding="10,0,5,0"
-                                                               HorizontalOptions="CenterAndExpand"
-                                                               VerticalOptions="Center"
-                                                               HorizontalTextAlignment="Start"
-                                                               FontSize="Small"
-                                                               TextColor="Black"/>
-                                <Label Text="{Binding Price, StringFormat='{0:C}'}"
-                                                               Grid.Row="2"
-                                                               HorizontalOptions="EndAndExpand"
-                                                               VerticalOptions="Center"
-                                                               FontSize="Medium"
-                                                               TextColor="Red"/>
+                                                               VerticalOptions="CenterAndExpand"/>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.5*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="0.2*"/>
+                                    </Grid.RowDefinitions>
+                                    <Label Text="{Binding Name}"
+                                                                   Padding="2,0,2,0"
+                                                                   Grid.Row="0"
+                                                                   HorizontalOptions="CenterAndExpand"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalTextAlignment="Center"
+                                                                   FontSize="Title"
+                                                                   TextColor="Black"/>
+                                    <Label Text="{Binding Shortdescription}"
+                                                                   Grid.Row="1"
+                                                                   Padding="10,0,5,0"
+                                                                   HorizontalOptions="CenterAndExpand"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalTextAlignment="Start"
+                                                                   FontSize="Small"
+                                                                   TextColor="Black"/>
+                                    <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                                                   Grid.Row="2"
+                                                                   HorizontalOptions="EndAndExpand"
+                                                                   VerticalOptions="Center"
+                                                                   FontSize="Medium"
+                                                                   TextColor="Red"/>
+                                </Grid>
+
+
                             </Grid>
-
-
-                        </Grid>
-                        <!--</pancakeview:PancakeView>-->
+                        </pancakeview:PancakeView>
                     </DataTemplate>
                 </listview:SfListView.ItemTemplate>
             </listview:SfListView>

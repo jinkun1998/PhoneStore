@@ -3,19 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:PhoneStore.ViewModels"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:avatarview="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
              xmlns:textinputlayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
-             x:Class="PhoneStore.View.MainViews.User.EditUser.EditUserPage" NavigationPage.HasNavigationBar="False">
+             x:Class="PhoneStore.View.MainViews.User.EditUser.InfomationPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <local:EditUserViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid Padding="10">
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <!--ActionBar-->
             <pancakeview:PancakeView CornerRadius="10,10,0,0" Grid.Row="0" HasShadow="True">
                 <Grid BackgroundColor="White">
@@ -26,10 +30,12 @@
                     </Grid.ColumnDefinitions>
                     <buttons:SfButton Command="{Binding BackButton}" ImageSource="backbutton.png" Grid.Column="0" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" ShowIcon="True"/>
                     <Label Text="Thông tin của tôi" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                    <buttons:SfButton ImageSource="https://i.imgur.com/GGaDpv1.png" ShowIcon="True" Command="{Binding EditTapped}" FontAttributes="Bold" CornerRadius="10" BackgroundColor="White" Grid.Column="2"/>
+                    <buttons:SfButton ImageSource="https://i.imgur.com/HXcVViN.png" IsVisible="{Binding IsEdit, Mode=TwoWay}" ShowIcon="True" Command="{Binding SaveUserTapped}" FontAttributes="Bold" CornerRadius="10" BackgroundColor="White" Grid.Column="2"/>
                 </Grid>
             </pancakeview:PancakeView>
             <ScrollView Grid.Row="1">
-                <Grid Padding="5" BackgroundColor="#f9f9f9">
+                <Grid Padding="5" BackgroundColor="#f9f9f9" IsEnabled="{Binding IsEdit, Mode=TwoWay}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="200"/>
@@ -63,9 +69,8 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Text="Thông tin cá nhân" Grid.Column="0" HorizontalOptions="StartAndExpand" VerticalOptions="Center" TextColor="Gray" FontSize="15" FontAttributes="Bold"/>
-                        <buttons:SfButton Text="Sửa" FontAttributes="Bold" CornerRadius="10" FontSize="15" TextColor="Red" VerticalTextAlignment="End" HorizontalOptions="EndAndExpand" BackgroundColor="Transparent" Grid.Column="1"/>
                     </Grid>
-                    <pancakeview:PancakeView Grid.Row="3" CornerRadius="10" IsEnabled="False">
+                    <pancakeview:PancakeView Grid.Row="3" CornerRadius="10" >
                         <Grid BackgroundColor="White">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20"/>
@@ -78,13 +83,15 @@
                                 <RowDefinition Height="70"/>
                                 <RowDefinition Height="20"/>
                                 <RowDefinition Height="70"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="50"/>
                             </Grid.RowDefinitions>
                             <Label Text="Họ và tên" Grid.Row="0" HorizontalOptions="StartAndExpand" VerticalOptions="End" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
                             <textinputlayout:SfTextInputLayout Grid.Row="1" ContainerType="Outlined">
                                 <Entry Text="{Binding Name, Mode=TwoWay}"/>
                             </textinputlayout:SfTextInputLayout>
                             <Label Text="Email" Grid.Row="2" HorizontalOptions="StartAndExpand" VerticalOptions="End" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
-                            <textinputlayout:SfTextInputLayout  Grid.Row="3" ContainerType="Outlined">
+                            <textinputlayout:SfTextInputLayout  Grid.Row="3" ContainerType="Outlined" IsEnabled="False">
                                 <Entry Text="{Binding Email, Mode=TwoWay}"/>
                             </textinputlayout:SfTextInputLayout>
                             <Label Text="Số điện thoại" Grid.Row="4" HorizontalOptions="StartAndExpand" VerticalOptions="End" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
@@ -95,15 +102,14 @@
                             <textinputlayout:SfTextInputLayout Grid.Row="7" ContainerType="Outlined">
                                 <Entry Text="{Binding Address, Mode=TwoWay}"/>
                             </textinputlayout:SfTextInputLayout>
-                            <Label Text="Họ và tên" Grid.Row="8" HorizontalOptions="StartAndExpand" VerticalOptions="End" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
-                            <textinputlayout:SfTextInputLayout Grid.Row="9" ContainerType="Outlined">
-                                <Entry />
-                            </textinputlayout:SfTextInputLayout>
+                            <Label Text="Ngày sinh" Grid.Row="8" HorizontalOptions="StartAndExpand" VerticalOptions="End" FontSize="15" FontAttributes="Bold" TextColor="Black"/>
+                            <DatePicker Date="{Binding DoB, Mode=TwoWay}" VerticalOptions="Center"  Grid.Row="9"/>
+                            <!--<buttons:SfButton Text="Lưu thay đổi" Command="{Binding SaveUserTapped}" BackgroundColor="#3fc5f0" Grid.Row="11" FontSize="15" CornerRadius="10"/>-->
                         </Grid>
                     </pancakeview:PancakeView>
 
                     <!--Nút lưu-->
-                    <buttons:SfButton Text="Lưu thay đổi" BackgroundColor="#3fc5f0" Grid.Row="4" FontSize="15" CornerRadius="10"/>
+                    
                 </Grid>
             </ScrollView>
         </Grid>

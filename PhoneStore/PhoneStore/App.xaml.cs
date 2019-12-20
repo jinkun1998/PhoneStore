@@ -69,6 +69,10 @@ namespace PhoneStore
             {
                 MainPage = new NavigationPage(new FirstPage());
             }
+            //else if (user != null && !user.IsEmailVerified)
+            //{
+            //    MainPage = new NavigationPage(new VerifyEmailPage());
+            //}
             else
             {
                 MainPage = new NavigationPage(new HomePage());

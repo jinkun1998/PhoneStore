@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -18,7 +19,9 @@ namespace PhoneStore.Models
                 OnPropertyChanged();
             }
         }
+        
         private string _email;
+        [PrimaryKey]
         public string Email
         {
             get { return _email; }

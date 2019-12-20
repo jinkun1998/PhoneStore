@@ -21,18 +21,18 @@
     <PackageReference Include="Plugin.Toast" Version="2.1.2" />
     <PackageReference Include="Plugin.UserDialogs" Version="1.0.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="17.3.0.34" />
-    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.3.0.34" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPicker" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfProgressBar" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRating" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfRotator" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfTabView" Version="17.4.0.39" />
     <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
     <PackageReference Include="Xam.Plugin.Media" Version="4.0.1.5" />
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
@@ -85,7 +85,7 @@
     <EmbeddedResource Update="View\MainViews\News\NewsView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="View\MainViews\User\EditUser\EditUserPage.xaml">
+    <EmbeddedResource Update="View\MainViews\User\EditUser\InfomationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\MainViews\User\FavoriteViews\FavoritePage.xaml">
@@ -119,6 +119,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\SignUpPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\VerifyEmailPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\YourCartPage.xaml">

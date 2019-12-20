@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View.MainViews.User
+namespace PhoneStore.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserView : ContentView
+    public partial class VerifyEmailPage : ContentPage
     {
-        public UserView()
+        public VerifyEmailPage()
         {
             InitializeComponent();
         }
-
     }
 }

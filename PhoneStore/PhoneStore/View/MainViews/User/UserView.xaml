@@ -6,6 +6,7 @@
              xmlns:button="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
              xmlns:sfAvatarView="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.MainViews.User.UserView">
     <ContentView.Content>
@@ -14,38 +15,43 @@
                 <shimmer:SfShimmer.Content>
                     <Grid Padding="10">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="5"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="150"/>
+                            <RowDefinition Height="120"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Image Source="background.jpg" Grid.RowSpan="3" Aspect="AspectFill" Opacity="0.6"/>
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="1*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="70"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                        <pancakeview:PancakeView Grid.Row="0" CornerRadius="10">
+                            <Grid  BackgroundColor="Black" Padding="20" Opacity="0.8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="40"/>
+                                </Grid.ColumnDefinitions>
 
-                            <sfAvatarView:SfAvatarView HeightRequest="110" WidthRequest="110"
+                                <sfAvatarView:SfAvatarView HeightRequest="80" WidthRequest="80"
                                                        ContentType="Custom" CornerRadius="10"
-                                                       ImageSource="background.jpg" Grid.Column="1" Grid.Row="0" AvatarShape="Circle" AvatarSize="Large" AvatarColorMode="Default" BorderColor="White"/>
-                            <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="5"/>
-                                </Grid.RowDefinitions>
+                                                       ImageSource="{Binding Image}" Grid.Column="0" AvatarShape="Circle" AvatarSize="Large" AvatarColorMode="Default" BorderColor="White"/>
+                                <Grid Grid.Column="1">
+                                    <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="5"/>
+                                    </Grid.RowDefinitions>-->
 
-                                <Label Text="Đoàn Lê Quốc Thảo" Grid.Row="0" FontSize="Large" TextColor="White" VerticalTextAlignment="Start" HorizontalTextAlignment="Center"/>
-                                <Label Text="0123456789" Grid.Row="1" FontSize="Small" TextColor="White" VerticalTextAlignment="Start" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Name}" FontSize="18" LineBreakMode="MiddleTruncation" TextColor="White" VerticalOptions="Center" HorizontalOptions="Start" VerticalTextAlignment="Center" HorizontalTextAlignment="Start"/>
+                                    <!--<Label Text="0123456789" Grid.Row="1" FontSize="Small" TextColor="White" VerticalTextAlignment="Start" HorizontalTextAlignment="Center"/>-->
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <!--<Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="5"/>
+                                    </Grid.RowDefinitions>-->
+
+                                    <button:SfButton ShowIcon="True" CornerRadius="10" ImageSource="https://i.imgur.com/xBzFz74.png" FontSize="10" TextColor="White" VerticalTextAlignment="Start" HorizontalOptions="Center"/>
+                                    <!--<Label Text="0123456789" Grid.Row="1" FontSize="Small" TextColor="White" VerticalTextAlignment="Start" HorizontalTextAlignment="Center"/>-->
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid Grid.Row="3">
+                        </pancakeview:PancakeView>
+                        <Grid Grid.Row="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.1"/>
                                 <RowDefinition Height="50"/>

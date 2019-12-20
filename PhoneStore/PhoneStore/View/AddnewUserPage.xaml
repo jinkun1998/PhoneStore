@@ -6,7 +6,7 @@
              xmlns:vm="clr-namespace:PhoneStore.ViewModels"
              xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-             xmlns:pickers="clr-namespace:Syncfusion.XForms.Pickers;assembly=Syncfusion.SfPicker.XForms"
+             xmlns:avatarview="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.AddnewUserPage" NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
@@ -25,11 +25,12 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <Image Source="logo_splash.png" Grid.Row="1" Aspect="AspectFill" VerticalOptions="EndAndExpand"/>
-                <Label Text="Cập nhật thông tin" Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" FontSize="25" TextColor="DeepSkyBlue" FontAttributes="Bold"/>
+                <Image Source="logo_splash.png" Grid.Row="1" Aspect="AspectFill" VerticalOptions="Center"/>
+                <Label Text="Cập nhật thông tin" Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand" FontSize="22" TextColor="DeepSkyBlue" FontAttributes="Bold"/>
             </Grid>
             <Grid Grid.Row="1" Padding="15,0,15,0" VerticalOptions="StartAndExpand">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="60"/>
@@ -37,7 +38,22 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <inputLayout:SfTextInputLayout Hint="Họ và tên" Grid.Row="0"
+                <!--Avatar-->
+                <Grid Grid.Row="0" Padding="135,0,135,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+                    <buttons:SfButton Text="Thay đổi ảnh" Command="{Binding ChangeAvatarTapped}" CornerRadius="10" TextColor="Black" BackgroundColor="White" Grid.Row="1"/>
+                    <avatarview:SfAvatarView Grid.Row="0"
+                                             ContentType="Custom" CornerRadius="10"
+                                             ImageSource="{Binding Image}" 
+                                             AvatarShape="Circle" 
+                                             AvatarSize="Large" 
+                                             AvatarColorMode="Default" 
+                                             BorderColor="Black"/>
+                </Grid>
+                <inputLayout:SfTextInputLayout Hint="Họ và tên" Grid.Row="1"
                                                ContainerType="None"
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
@@ -45,7 +61,7 @@
                                                >
                     <Entry Text="{Binding Name, Mode=TwoWay}" />
                 </inputLayout:SfTextInputLayout>
-                <inputLayout:SfTextInputLayout Hint="Số điện thoại"  Grid.Row="1"
+                <inputLayout:SfTextInputLayout Hint="Số điện thoại"  Grid.Row="2"
                                                ContainerType="None"
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
@@ -53,7 +69,7 @@
                                                >
                     <Entry Text="{Binding Phone, Mode=TwoWay}" Keyboard="Telephone"/>
                 </inputLayout:SfTextInputLayout>
-                <inputLayout:SfTextInputLayout Hint="Địa chỉ"  Grid.Row="2"
+                <inputLayout:SfTextInputLayout Hint="Địa chỉ"  Grid.Row="3"
                                                ContainerType="None"
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
@@ -61,8 +77,8 @@
                                                >
                     <Entry Text="{Binding Address, Mode=TwoWay}"  Keyboard="Plain"/>
                 </inputLayout:SfTextInputLayout>
-                <DatePicker Date="{Binding DoB, Mode=TwoWay}" VerticalOptions="Center"  Grid.Row="3"/>
-                <buttons:SfButton Text="Tiếp tục" Command="{Binding ContinueTapped}" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"  Grid.Row="4"/>
+                <DatePicker Date="{Binding DoB, Mode=TwoWay}" VerticalOptions="Center"  Grid.Row="4"/>
+                <buttons:SfButton Text="Tiếp tục" Command="{Binding ContinueTapped}" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"  Grid.Row="5"/>
             </Grid>
         </Grid>
     </ContentPage.Content>

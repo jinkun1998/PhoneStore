@@ -1,8 +1,11 @@
-﻿using PhoneStore.Firebase;
+﻿using Acr.UserDialogs;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
+using PhoneStore.View;
 using Plugin.FirebaseAuth;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+using Syncfusion.XForms.Buttons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,17 +26,24 @@ namespace PhoneStore.ViewModels
             firebase = new FirebaseHelper();
             firebaseStorage = new FirebaseStorageHelper();
             var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
-            User = App.SQLiteDb.GetUserAsync(User.Email).Result;
+            User = Task.Run(async () => await App.SQLiteDb.GetUserAsync(user.Email)).Result;
             Image = User.AvatarLink;
             Name = User.FullName;
             Email = User.Email;
             Phone = User.Phone;
             Address = User.Address;
             DoB = User.DoB;
+            IsEdit = false;
 
             this.SaveUserTapped = new Command(SaveUser);
             this.BackButton = new Command(Back);
             this.ChangeAvatarTapped = new Command(ChangeAvatar);
+            this.EditTapped = new Command(Edit);
+        }
+
+        private void Edit(object obj)
+        {
+            IsEdit = true;
         }
 
         private async void ChangeAvatar(object obj)
@@ -47,14 +57,17 @@ namespace PhoneStore.ViewModels
                 var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
                 if (selectedImage != null)
                 {
-                    var imageLink = Task.Run(async () => await firebaseStorage.UploadFile(selectedImage.GetStream(), Path.GetFileName(selectedImage.Path))).Result;
+                    UserDialogs.Instance.ShowLoading("Đang xử lý...");
+                    var imageLink = Task.Run(async () => await firebaseStorage.UploadFile(selectedImage.GetStream(), Path.GetFileName(User.Email))).Result;
                     if (imageLink != null)
                     {
                         Image = imageLink;
+                        UserDialogs.Instance.HideLoading();
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThwur lại sau.", "Đã hiểu");
+                        UserDialogs.Instance.HideLoading();
+                        await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThử lại sau.", "Đã hiểu");
                     }
                 }
                 else
@@ -71,8 +84,21 @@ namespace PhoneStore.ViewModels
 
         private async void SaveUser(object obj)
         {
-            await App.SQLiteDb.SaveUserAsync(User);
-            await firebase.UpdateUser(User);
+            UserDialogs.Instance.ShowLoading("Vui lòng chờ");
+            UserModel user = new UserModel();
+            user.Address = Address;
+            user.AvatarLink = Image;
+            user.DoB = DoB;
+            user.Email = Email;
+            user.FullName = Name;
+            user.Phone = Phone;
+            await App.SQLiteDb.SaveUserAsync(user);
+            await firebase.UpdateUser(user);
+            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+            Application.Current.MainPage = new NavigationPage(new HomePage());
+            UserDialogs.Instance.HideLoading();
+            await Application.Current.MainPage.DisplayAlert("Thông báo", "Đã sửa đổi thông tin thành công!", "Đã hiểu");
+            IsEdit = false;
         }
 
         #region Propereties
@@ -146,12 +172,23 @@ namespace PhoneStore.ViewModels
                 OnPropertyChanged(nameof(DoB));
             }
         }
+        private bool _isedit;
+        public bool IsEdit
+        {
+            get { return _isedit; }
+            set
+            {
+                _isedit = value;
+                OnPropertyChanged(nameof(IsEdit));
+            }
+        }
         #endregion
 
         #region Command
         public Command SaveUserTapped { get; }
         public Command BackButton { get; }
         public Command ChangeAvatarTapped { get; }
+        public Command EditTapped { get; }
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

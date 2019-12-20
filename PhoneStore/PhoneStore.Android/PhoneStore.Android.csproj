@@ -91,40 +91,40 @@
       <Version>1.6.292</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Buttons">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Core">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfBadgeView">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPicker">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRotator">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfTabView">
-      <Version>17.3.0.34</Version>
+      <Version>17.4.0.39</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>4.0.1.5</Version>
@@ -156,11 +156,11 @@
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />
     <AndroidAsset Include="Assets\LostSignal.json" />
+    <AndroidAsset Include="Assets\mailverification.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\drawable\splash.json" />
-    <AndroidAsset Include="Assets\lossconnection.json" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.xml" />

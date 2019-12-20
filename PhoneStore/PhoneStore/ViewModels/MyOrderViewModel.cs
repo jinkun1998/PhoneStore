@@ -23,8 +23,14 @@ namespace PhoneStore.ViewModels
             OrdersCount = Orders.Count;
 
             this.ItemTapped = new Command(GotoOrderDetail);
+            this.BackButton = new Command(Back);
         }
 
+
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
         private void GotoOrderDetail(object obj)
         {
             var detail = (obj as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData as OrderModel;
@@ -56,6 +62,7 @@ namespace PhoneStore.ViewModels
 
         #region Command
         public Command ItemTapped { get; }
+        public Command BackButton { get; }
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

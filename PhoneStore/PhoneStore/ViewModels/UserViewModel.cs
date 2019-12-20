@@ -5,9 +5,12 @@ using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.View;
 using Plugin.FirebaseAuth;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -19,14 +22,53 @@ namespace PhoneStore.ViewModels
     public class UserViewModel : INotifyPropertyChanged
     {
         FirebaseHelper firebase;
+        FirebaseStorageHelper storageHelper;
         public UserViewModel()
         {
             firebase = new FirebaseHelper();
+            storageHelper = new FirebaseStorageHelper();
+            DoB = DateTime.Now;
+
             this.SignInTapped = new Command(GotoSignin);
             this.SignUpTapped = new Command(GotoSignup);
             this.LoginTapped = new Command(LoginAsync);
             this.RegisterTapped = new Command(Register);
             this.ContinueTapped = new Command(Continue);
+            this.ChangeAvatarTapped = new Command(ChangeAvatar);
+            this.ForgotPassTapped = new Command(ResetPass);
+        }
+
+        private async void ResetPass(object obj)
+        {
+            await CrossFirebaseAuth.Current.Instance.SendPasswordResetEmailAsync(Email);
+        }
+
+        private async void ChangeAvatar(object obj)
+        {
+            if (CrossMedia.Current.IsPickPhotoSupported)
+            {
+                var mediaOptions = new PickMediaOptions()
+                {
+                    PhotoSize = PhotoSize.Medium,
+                };
+                var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
+                if (selectedImage != null)
+                {
+                    var imageLink = Task.Run(async () => await storageHelper.UploadFile(selectedImage.GetStream(), Path.GetFileName(selectedImage.Path))).Result;
+                    if (imageLink != null)
+                    {
+                        Image = imageLink;
+                    }
+                    else
+                    {
+                        await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThwur lại sau.", "Đã hiểu");
+                    }
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Lỗi!", "Lỗi chọn hình ảnh!\nThwur lại sau.", "Đã hiểu");
+                }
+            }
         }
 
         private async void Continue(object obj)
@@ -42,10 +84,9 @@ namespace PhoneStore.ViewModels
             newUser.Phone = Phone;
             await App.SQLiteDb.SaveUserAsync(newUser);
             await firebase.AddUser(newUser);
-
+            //await Application.Current.MainPage.Navigation.PushAsync(new VerifyEmailPage());
             await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
             Application.Current.MainPage = new NavigationPage(new HomePage());
-            UserDialogs.Instance.HideLoading();
         }
 
         #region logic
@@ -54,10 +95,19 @@ namespace PhoneStore.ViewModels
             try
             {
                 UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-                var auth = await CrossFirebaseAuth.Current.Instance.SignInWithEmailAndPasswordAsync(Email, Pwd);
-                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-                Application.Current.MainPage = new NavigationPage(new HomePage());
-                UserDialogs.Instance.HideLoading();
+                await CrossFirebaseAuth.Current.Instance.SignInWithEmailAndPasswordAsync(Email, Pwd);
+                var checkUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                //if (checkUser.IsEmailVerified)
+                //{
+                    var user = Task.Run(async () => await firebase.GetUser(Email)).Result;
+                    await App.SQLiteDb.SaveUserAsync(user);
+                    await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                    Application.Current.MainPage = new NavigationPage(new HomePage());
+                //}
+                //else
+                //{
+                    //await Application.Current.MainPage.Navigation.PushAsync(new VerifyEmailPage());
+                //}
             }
             catch (Exception ex)
             {
@@ -72,7 +122,8 @@ namespace PhoneStore.ViewModels
             try
             {
                 UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-                var auth = await CrossFirebaseAuth.Current.Instance.CreateUserWithEmailAndPasswordAsync(Email, Pwd);
+                await CrossFirebaseAuth.Current.Instance.CreateUserWithEmailAndPasswordAsync(Email, Pwd);
+                await CrossFirebaseAuth.Current.Instance.CurrentUser.SendEmailVerificationAsync();
                 await Application.Current.MainPage.Navigation.PushAsync(new AddnewUserPage());
                 UserDialogs.Instance.HideLoading();
             }
@@ -174,6 +225,8 @@ namespace PhoneStore.ViewModels
         public Command LoginTapped { get; }
         public Command RegisterTapped { get; }
         public Command ContinueTapped { get; }
+        public Command ChangeAvatarTapped { get; }
+        public Command ForgotPassTapped { get; }
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

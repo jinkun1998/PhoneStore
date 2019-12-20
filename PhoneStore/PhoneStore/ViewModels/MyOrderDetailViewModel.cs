@@ -16,7 +16,12 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public MyOrderDetailViewModel()
         {
-            
+            this.BackButton = new Command(Back);
+        }
+
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
         public MyOrderDetailViewModel(OrderModel order)
         {
@@ -50,6 +55,7 @@ namespace PhoneStore.ViewModels
 
         #region Command
         public Command CancelOrderTapped { get; set; }
+        public Command BackButton { get; }
         #endregion
     }
 }

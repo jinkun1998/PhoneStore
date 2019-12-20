@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PhoneStore.View.MainViews.User.EditUser
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EditUserPage : ContentPage
+    public partial class InfomationPage : ContentPage
     {
-        public EditUserPage()
+        public InfomationPage()
         {
             InitializeComponent();
         }

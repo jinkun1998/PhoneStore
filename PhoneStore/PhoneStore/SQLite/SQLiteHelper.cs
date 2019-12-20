@@ -62,7 +62,7 @@ namespace PhoneStore.SQLite
 
         public Task<int> SaveUserAsync(UserModel user)
         {
-            var exitsUser = Task.Run(async () => await GetItemAsync(user.Email)).Result;
+            var exitsUser = Task.Run(async () => await GetUserAsync(user.Email)).Result;
             if (exitsUser != null)
             {
                 return db.UpdateAsync(user);

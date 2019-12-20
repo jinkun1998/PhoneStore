@@ -34,6 +34,12 @@ namespace PhoneStore.ViewModels
             this.RemoveQuantityTapped = new Command(RemoveQuantityChanged);
             this.TakeOrderTapped = new Command(TakeOrder);
             this.DeleteItemTapped = new Command(DeleteItem);
+            this.BackButton = new Command(Back);
+        }
+
+        private void Back(object obj)
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
         }
 
         private void DeleteItem(object obj)
@@ -116,7 +122,7 @@ namespace PhoneStore.ViewModels
         public Command RemoveQuantityTapped { get; }
         public Command TakeOrderTapped { get; }
         public Command DeleteItemTapped { get; }
-
+        public Command BackButton { get; }
 
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {

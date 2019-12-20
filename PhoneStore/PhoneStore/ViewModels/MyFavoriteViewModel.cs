@@ -22,9 +22,14 @@ namespace PhoneStore.ViewModels
             Items = GetUserFavoriteItems();
 
             this.cmdLoadItem = new Command(LoadItem);
+            this.BackButton = new Command(Back);
         }
 
         #region Logic
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
         public List<ItemModel> GetUserFavoriteItems()
         {
             var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
@@ -55,6 +60,7 @@ namespace PhoneStore.ViewModels
 
         #region Command
         public Command cmdLoadItem { get; }
+        public Command BackButton { get; }
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;

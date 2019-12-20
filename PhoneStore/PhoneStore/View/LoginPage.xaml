@@ -45,6 +45,7 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                     <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" ClearButtonVisibility="WhileEditing" />
                 </inputLayout:SfTextInputLayout>
                 <buttons:SfButton Command="{Binding LoginTapped}" Text="Đăng nhập" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/>
+                <buttons:SfButton Command="{Binding ForgotPassTapped}" Text="Quên mật khẩu?" CornerRadius="20" BackgroundColor="Transparent" TextColor="Black" FontAttributes="Bold" FontSize="15" HeightRequest="35"/>
             </StackLayout>
         </Grid>
     </ContentPage.Content>

@@ -29,6 +29,12 @@ namespace PhoneStore.ViewModels
 
             this.CreateOrder = new Command(CreateNewOrder);
             this.ChangeLocationTapped = new Command(ChangeLocation);
+            this.BackButton = new Command(Back);
+        }
+
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
         public ShipmentViewModel(OrderModel order)
         {
@@ -209,6 +215,7 @@ namespace PhoneStore.ViewModels
         public Command CreateOrder { get; }
         public Command ChooseDelivery { get; }
         public Command ChangeLocationTapped { get; }
+        public Command BackButton { get; }
         #endregion
     }
 }

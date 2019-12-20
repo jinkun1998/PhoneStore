@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:local="clr-namespace:PhoneStore.ViewModels"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.VerifyEmailPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <local:VerifyEmailViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <lottie:AnimationView Grid.Row="0"
+	                Animation="mailverification.json" 
+	                Loop="True" 
+	                AutoPlay="True"
+	                VerticalOptions="FillAndExpand" 
+	                HorizontalOptions="FillAndExpand"
+                    HeightRequest="100" WidthRequest="100"
+                />
+
+            <Grid Padding="120,0,120,0" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="Hãy kiểm tra email để kích hoạt tài khoản" FontSize="16" Grid.Row="0" TextColor="Black" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <buttons:SfButton Text="Tiếp theo" Grid.Row="1" BackgroundColor="Transparent" Command="{Binding CheckTapped}" TextColor="Gray" FontSize="15" CornerRadius="10" BorderWidth="1" BorderColor="Gray"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

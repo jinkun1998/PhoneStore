@@ -18,9 +18,13 @@ namespace PhoneStore.ViewModels
             firebase = new FirebaseHelper();
             ItemCollection = Task.Run(async () => await getAllItemAsync()).Result;
             this.ItemTapped = new Command(GotoDetail);
-
+            this.BackButton = new Command(Back);
         }
 
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
         private async Task<List<ItemModel>> getAllItemAsync()
         {
             var itemFirebases = await firebase.GetAllItem();
@@ -34,7 +38,8 @@ namespace PhoneStore.ViewModels
                 item.Shortdescription = itemFirebase.Shortdescription;
                 item.Description = itemFirebase.Description;
                 item.DescriptionLink = itemFirebase.DescriptionLink;
-                //item.Colors = itemFirebase.Colors;
+                item.Colors = itemFirebase.Colors;
+                item.RotatorImages = itemFirebase.RotatorImages;
                 Items.Add(item);
             }
             return Items;
@@ -61,5 +66,6 @@ namespace PhoneStore.ViewModels
         }
 
         public Command ItemTapped { get; }
+        public Command BackButton { get; }
     }
 }
