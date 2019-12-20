@@ -23,7 +23,7 @@ namespace PhoneStore
             InitializeComponent();
 
             //Register Syncfusion license
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTU2MDEwQDMxMzcyZTMzMmUzMGR2enYvelhPZmo2UmgxZE1yR2RQWWcxTU85NWREVi9zS0MyMkZSQ2xFZGc9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTg1NTE1QDMxMzcyZTM0MmUzMEdlQnpRaWd6MEVKbjgxdXErL20xQ1VyTzg5bWljRTFtWERER2lpcUUvclU9");
             CheckDatabase();
             CheckNetwork();
             //MainPage = new NavigationPage(new NoConnecitvityPage());

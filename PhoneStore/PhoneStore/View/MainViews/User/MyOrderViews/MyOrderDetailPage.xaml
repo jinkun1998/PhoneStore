@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              x:Class="PhoneStore.View.MainViews.User.MyOrderViews.MyOrderDetailPage" NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
-        <Grid Padding="10" BackgroundColor="#f9f9f9">
+        <Grid BackgroundColor="#f9f9f9">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>

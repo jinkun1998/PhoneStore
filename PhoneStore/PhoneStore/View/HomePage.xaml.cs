@@ -16,5 +16,27 @@ namespace PhoneStore.View
         {
             InitializeComponent();
         }
+
+        public static Action EmulateBackPressed;
+
+        private bool AcceptBack;
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (AcceptBack)
+                return false;
+
+            PromptForExit();
+            return true;
+        }
+
+        private async void PromptForExit()
+        {
+            if (await DisplayAlert("", "Bạn có chắc muốn thoát?", "Có", "Không"))
+            {
+                AcceptBack = true;
+                EmulateBackPressed();
+            }
+        }
     }
 }

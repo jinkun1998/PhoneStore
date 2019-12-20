@@ -32,7 +32,7 @@
                     <Label Text="Đơn hàng của tôi" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
                 </Grid>
             </pancakeview:PancakeView>
-            <listview:SfListView Grid.Row="0"
+            <listview:SfListView Grid.Row="1"
                 ItemsSource="{Binding Orders}"
                 ItemSize="150"
                 ItemSpacing="5"

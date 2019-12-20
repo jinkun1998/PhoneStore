@@ -21,7 +21,7 @@ namespace PhoneStore.ViewModels
             firebase = new FirebaseHelper();
             Items = GetUserFavoriteItems();
 
-            this.cmdLoadItem = new Command(LoadItem);
+            this.cmdLoadItem = new Command<object>(LoadItem);
             this.BackButton = new Command(Back);
         }
 
@@ -59,7 +59,7 @@ namespace PhoneStore.ViewModels
         #endregion
 
         #region Command
-        public Command cmdLoadItem { get; }
+        public Command<object> cmdLoadItem { get; }
         public Command BackButton { get; }
         #endregion
 

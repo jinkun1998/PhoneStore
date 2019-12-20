@@ -7,27 +7,30 @@
              mc:Ignorable="d"
              x:Class="PhoneStore.View.MainViews.Header">
     <ContentView.Content>
-        <Grid BackgroundColor="#ffffff">
+        <Grid BackgroundColor="#ffffff" Padding="10,0,10,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
+                <!--<ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="30"/>
                 <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="1"/>-->
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-            <badgeview:SfBadgeView BadgeText="{Binding ItemCount}" Grid.Column="4"  HorizontalOptions="End" VerticalOptions="Center">
+            <!--<badgeview:SfBadgeView x:Name="countItem" BadgeText="{Binding ItemCount}" Grid.Column="4"  HorizontalOptions="End" VerticalOptions="Center">
                 <badgeview:SfBadgeView.Content>
                     <ImageButton Source="shoppingcart.png" Command="{Binding CartTapped}" HeightRequest="30" WidthRequest="30" BackgroundColor="White"  HorizontalOptions="End" VerticalOptions="Start" CornerRadius="50"/>
                 </badgeview:SfBadgeView.Content>
                 <badgeview:SfBadgeView.BadgeSettings>
                     <badgeview:BadgeSetting BadgeType="Error" Offset="0,0" BadgeAlignment="Center" BadgePosition="TopRight" BadgeAnimation="Scale"/>
                 </badgeview:SfBadgeView.BadgeSettings>
-            </badgeview:SfBadgeView>
+            </badgeview:SfBadgeView>-->
+            <ImageButton Source="shoppingcart.png" Aspect="AspectFit" Grid.Column="2" Command="{Binding CartTapped}" HeightRequest="30" WidthRequest="30" BackgroundColor="White"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="50"/>
+            <ImageButton Source="search.png" Aspect="AspectFit" Command="{Binding SearchTapped}" Grid.Column="1" BackgroundColor="White"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" HeightRequest="30" WidthRequest="30" CornerRadius="50"/>
 
-            <ImageButton Source="search.png" Command="{Binding SearchTapped}" Grid.Column="3" BackgroundColor="White"  HorizontalOptions="End" VerticalOptions="End" HeightRequest="40" WidthRequest="40" CornerRadius="50"/>
-
-            <Image Source="logo.png" Aspect="AspectFill" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" HeightRequest="40"/>
+            <Image Source="logo.png" Aspect="AspectFill" Grid.Column="0" HorizontalOptions="StartAndExpand" VerticalOptions="EndAndExpand" HeightRequest="45"/>
         </Grid>
     </ContentView.Content>
 </ContentView>

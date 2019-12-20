@@ -10,18 +10,20 @@ using Plugin.Permissions;
 using Lottie.Forms.Droid;
 using Acr.UserDialogs;
 using Plugin.Media;
+using PhoneStore.View;
 
 namespace PhoneStore.Droid
 {
-    [Activity(Label = "PhoneStore", Theme = "@style/MainTheme")]
+    [Activity(Label = "PhoneStore", Theme = "@style/MainTheme", HardwareAccelerated = true, MultiProcess = true)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.OnCreate(savedInstanceState);
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
             RequestedOrientation = ScreenOrientation.Portrait;
-            base.OnCreate(savedInstanceState);
+            HomePage.EmulateBackPressed = OnBackPressed;
 
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);
             Xamarin.FormsMaps.Init(this, savedInstanceState);

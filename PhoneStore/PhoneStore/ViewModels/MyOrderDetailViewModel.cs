@@ -29,6 +29,7 @@ namespace PhoneStore.ViewModels
             Order = order;
 
             this.CancelOrderTapped = new Command(CancelOrder);
+            this.BackButton = new Command(Back);
         }
 
         #region Logic

@@ -17,7 +17,7 @@ namespace PhoneStore.ViewModels
         {
             firebase = new FirebaseHelper();
             ItemCollection = Task.Run(async () => await getAllItemAsync()).Result;
-            this.ItemTapped = new Command(GotoDetail);
+            this.ItemTapped = new Command<object>(GotoDetail);
             this.BackButton = new Command(Back);
         }
 
@@ -65,7 +65,7 @@ namespace PhoneStore.ViewModels
             set { _rotatorModels = value; }
         }
 
-        public Command ItemTapped { get; }
+        public Command<object> ItemTapped { get; }
         public Command BackButton { get; }
     }
 }
