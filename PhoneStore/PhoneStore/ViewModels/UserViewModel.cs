@@ -45,6 +45,7 @@ namespace PhoneStore.ViewModels
 
         private async void ChangeAvatar(object obj)
         {
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
             if (CrossMedia.Current.IsPickPhotoSupported)
             {
                 var mediaOptions = new PickMediaOptions()
@@ -54,7 +55,7 @@ namespace PhoneStore.ViewModels
                 var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
                 if (selectedImage != null)
                 {
-                    var imageLink = Task.Run(async () => await storageHelper.UploadFile(selectedImage.GetStream(), Path.GetFileName(selectedImage.Path))).Result;
+                    var imageLink = Task.Run(async () => await storageHelper.UploadFile(selectedImage.GetStream(), Path.GetFileName(user.Email))).Result;
                     if (imageLink != null)
                     {
                         Image = imageLink;
