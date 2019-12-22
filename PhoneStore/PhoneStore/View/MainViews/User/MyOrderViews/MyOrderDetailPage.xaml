@@ -234,7 +234,7 @@
                        VerticalOptions="Center" 
                        HorizontalOptions="EndAndExpand"
                        TextColor="Red"/>
-                    <buttons:SfButton Text="Hủy đơn"  
+                    <buttons:SfButton Text="Hủy đơn" x:Name="btnCancel"
                                       Grid.Column="2"
                                       FontSize="18" 
                                       CornerRadius="10"

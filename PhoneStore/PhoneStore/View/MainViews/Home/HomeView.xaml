@@ -21,6 +21,8 @@
                                 <RowDefinition Height="200"/>
                                 <RowDefinition Height="100"/>
                                 <RowDefinition Height="350"/>
+                                <RowDefinition Height="350"/>
+                                <RowDefinition Height="350"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" >
@@ -49,8 +51,8 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
                                 <sfbutton:SfButton Command="{Binding cmdPhone}" BackgroundColor="White" TextColor="Black" Grid.Column="0" HorizontalTextAlignment="Center" ShowIcon="True" ImageSource="https://i.imgur.com/dTCvdWa.png" Text="Điện thoại" ImageAlignment="Top" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <sfbutton:SfButton BackgroundColor="White" TextColor="Black" Grid.Column="1" HorizontalTextAlignment="Center" ShowIcon="True" ImageSource="https://i.imgur.com/dK0Kx4k.png" Text="Máy tính bảng" ImageAlignment="Top" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                <sfbutton:SfButton BackgroundColor="White" TextColor="Black" Grid.Column="2" HorizontalTextAlignment="Center" ShowIcon="True" ImageSource="https://i.imgur.com/TLJwVvZ.png" Text="Đồng hồ" ImageAlignment="Top" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <sfbutton:SfButton Command="{Binding cmdTablet}" BackgroundColor="White" TextColor="Black" Grid.Column="1" HorizontalTextAlignment="Center" ShowIcon="True" ImageSource="https://i.imgur.com/dK0Kx4k.png" Text="Máy tính bảng" ImageAlignment="Top" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                <sfbutton:SfButton Command="{Binding cmdWatch}" BackgroundColor="White" TextColor="Black" Grid.Column="2" HorizontalTextAlignment="Center" ShowIcon="True" ImageSource="https://i.imgur.com/TLJwVvZ.png" Text="Đồng hồ" ImageAlignment="Top" HorizontalOptions="Center" VerticalOptions="Center"/>
                             </Grid>
                             <Grid Grid.Row="2">
                                 <Grid.RowDefinitions>
@@ -60,65 +62,210 @@
                                 <sfbutton:SfButton Grid.Row="0" Text="HOT >" TextColor="Black" ImageSource="https://i.imgur.com/K0jWX6r.png" ShowIcon="True" ImageAlignment="Left" HorizontalTextAlignment="Start" BackgroundColor="White" Padding="10,0,10,0" FontSize="15" />
                                 <listview:SfListView
                                     Grid.Row="1"
-                                    ItemsSource="{Binding ItemModels}"
+                                    ItemsSource="{Binding HotItems}"
                                     ItemSize="300"
                                     ItemSpacing="5"
                                     Orientation="Horizontal"
                                     TapCommand="{Binding cmdLoadItem}"
+                                    SelectionBackgroundColor="Transparent"
                                     AutoFitMode="DynamicHeight"
                                     >
                                     <listview:SfListView.ItemTemplate>
                                         <DataTemplate>
-                                            <!--<pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10" Padding="10,2,10,2">-->
-                                            <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="2.5*"/>
-                                                    <RowDefinition Height="1*"/>
-                                                </Grid.RowDefinitions>
-
-                                                <Image Grid.Row="0" Source="{Binding Image}"                                                           
-                                                           Aspect="AspectFit"
-                                                           HorizontalOptions="CenterAndExpand"
-                                                           VerticalOptions="CenterAndExpand"/>
-                                                <Grid Grid.Row="1">
+                                            <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
+                                                <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
                                                     <Grid.RowDefinitions>
-                                                        <RowDefinition Height="*"/>
-                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="2.5*"/>
+                                                        <RowDefinition Height="1*"/>
                                                     </Grid.RowDefinitions>
-                                                    <Label Text="{Binding Name}"
-                                                               Padding="2,0,2,0"
-                                                               Grid.Row="0"
-                                                               HorizontalOptions="CenterAndExpand"
-                                                               VerticalOptions="Center"
-                                                               HorizontalTextAlignment="Center"
-                                                               FontSize="17"
-                                                               TextColor="Black"/>
-                                                    <Grid Grid.Row="1">
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="*"/>
-                                                            <ColumnDefinition Width="*"/>
-                                                        </Grid.ColumnDefinitions>
 
-                                                        <rating:SfRating
-                                                            Grid.Column="0"
-                                                            ItemCount="5"
-                                                            Value="{Binding Rate}"
-                                                            ReadOnly="True"
-                                                            ItemSize="15"
-                                                            Precision="Exact"
-                                                            >
-                                                        </rating:SfRating>
-                                                        <Label Grid.Column="1" 
-                                                               Text="{Binding Price, StringFormat='{0:C}'}"
-                                                               HorizontalOptions="EndAndExpand"
-                                                               VerticalOptions="Start"
-                                                               Padding="0,0,10,5"
-                                                               FontSize="Small"
-                                                               TextColor="Red"/>
+                                                    <Image Grid.Row="0" Source="{Binding Image}"                                                           
+                                                               Aspect="AspectFit"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="CenterAndExpand"/>
+                                                    <Grid Grid.Row="1">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Text="{Binding Name}"
+                                                                   Padding="2,0,2,0"
+                                                                   Grid.Row="0"
+                                                                   HorizontalOptions="CenterAndExpand"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalTextAlignment="Center"
+                                                                   FontSize="17"
+                                                                   TextColor="Black"/>
+                                                        <Grid Grid.Row="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <rating:SfRating
+                                                                Grid.Column="0"
+                                                                ItemCount="5"
+                                                                Value="{Binding Rate}"
+                                                                ReadOnly="True"
+                                                                ItemSize="15"
+                                                                Precision="Exact"
+                                                                >
+                                                            </rating:SfRating>
+                                                            <Label Grid.Column="1" 
+                                                                   Text="{Binding Price, StringFormat='{0:C}'}"
+                                                                   HorizontalOptions="EndAndExpand"
+                                                                   VerticalOptions="Start"
+                                                                   Padding="0,0,10,5"
+                                                                   FontSize="Small"
+                                                                   TextColor="Red"/>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
-                                            <!--</pancakeview:PancakeView>-->
+                                            </pancakeview:PancakeView>
+                                        </DataTemplate>
+                                    </listview:SfListView.ItemTemplate>
+                                </listview:SfListView>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <sfbutton:SfButton Grid.Row="0" Text="MỚI >" TextColor="Black" ImageSource="https://i.imgur.com/rfVkEo0.png" ShowIcon="True" ImageAlignment="Left" HorizontalTextAlignment="Start" BackgroundColor="White" Padding="10,0,10,0" FontSize="15" />
+                                <listview:SfListView
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding NewItems}"
+                                    ItemSize="300"
+                                    ItemSpacing="5"
+                                    Orientation="Horizontal"
+                                    TapCommand="{Binding cmdLoadItem}"
+                                    SelectionBackgroundColor="Transparent"
+                                    AutoFitMode="DynamicHeight"
+                                    >
+                                    <listview:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
+                                                <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="2.5*"/>
+                                                        <RowDefinition Height="1*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Image Grid.Row="0" Source="{Binding Image}"                                                           
+                                                               Aspect="AspectFit"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="CenterAndExpand"/>
+                                                    <Grid Grid.Row="1">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Text="{Binding Name}"
+                                                                   Padding="2,0,2,0"
+                                                                   Grid.Row="0"
+                                                                   HorizontalOptions="CenterAndExpand"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalTextAlignment="Center"
+                                                                   FontSize="17"
+                                                                   TextColor="Black"/>
+                                                        <Grid Grid.Row="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <rating:SfRating
+                                                                Grid.Column="0"
+                                                                ItemCount="5"
+                                                                Value="{Binding Rate}"
+                                                                ReadOnly="True"
+                                                                ItemSize="15"
+                                                                Precision="Exact"
+                                                                >
+                                                            </rating:SfRating>
+                                                            <Label Grid.Column="1" 
+                                                                   Text="{Binding Price, StringFormat='{0:C}'}"
+                                                                   HorizontalOptions="EndAndExpand"
+                                                                   VerticalOptions="Start"
+                                                                   Padding="0,0,10,5"
+                                                                   FontSize="Small"
+                                                                   TextColor="Red"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </pancakeview:PancakeView>
+                                        </DataTemplate>
+                                    </listview:SfListView.ItemTemplate>
+                                </listview:SfListView>
+                            </Grid>
+                            <Grid Grid.Row="4">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <sfbutton:SfButton Grid.Row="0" Text="GIÁ TỐT >" TextColor="Black" ImageSource="https://i.imgur.com/26PCyuP.png" ShowIcon="True" ImageAlignment="Left" HorizontalTextAlignment="Start" BackgroundColor="White" Padding="10,0,10,0" FontSize="15" />
+                                <listview:SfListView
+                                    Grid.Row="1"
+                                    ItemsSource="{Binding DiscountItems}"
+                                    ItemSize="300"
+                                    ItemSpacing="5"
+                                    Orientation="Horizontal"
+                                    TapCommand="{Binding cmdLoadItem}"
+                                    SelectionBackgroundColor="Transparent"
+                                    AutoFitMode="DynamicHeight"
+                                    >
+                                    <listview:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
+                                                <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="2.5*"/>
+                                                        <RowDefinition Height="1*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Image Grid.Row="0" Source="{Binding Image}"                                                           
+                                                               Aspect="AspectFit"
+                                                               HorizontalOptions="CenterAndExpand"
+                                                               VerticalOptions="CenterAndExpand"/>
+                                                    <Grid Grid.Row="1">
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="*"/>
+                                                            <RowDefinition Height="*"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Label Text="{Binding Name}"
+                                                                   Padding="2,0,2,0"
+                                                                   Grid.Row="0"
+                                                                   HorizontalOptions="CenterAndExpand"
+                                                                   VerticalOptions="Center"
+                                                                   HorizontalTextAlignment="Center"
+                                                                   FontSize="17"
+                                                                   TextColor="Black"/>
+                                                        <Grid Grid.Row="1">
+                                                            <Grid.ColumnDefinitions>
+                                                                <ColumnDefinition Width="*"/>
+                                                                <ColumnDefinition Width="*"/>
+                                                            </Grid.ColumnDefinitions>
+
+                                                            <rating:SfRating
+                                                                Grid.Column="0"
+                                                                ItemCount="5"
+                                                                Value="{Binding Rate}"
+                                                                ReadOnly="True"
+                                                                ItemSize="15"
+                                                                Precision="Exact"
+                                                                >
+                                                            </rating:SfRating>
+                                                            <Label Grid.Column="1" 
+                                                                   Text="{Binding Price, StringFormat='{0:C}'}"
+                                                                   HorizontalOptions="EndAndExpand"
+                                                                   VerticalOptions="Start"
+                                                                   Padding="0,0,10,5"
+                                                                   FontSize="Small"
+                                                                   TextColor="Red"/>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </pancakeview:PancakeView>
                                         </DataTemplate>
                                     </listview:SfListView.ItemTemplate>
                                 </listview:SfListView>

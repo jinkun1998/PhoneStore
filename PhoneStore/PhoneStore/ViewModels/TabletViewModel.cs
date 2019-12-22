@@ -12,16 +12,16 @@ using Xamarin.Forms;
 
 namespace PhoneStore.ViewModels
 {
-    public class PhoneViewModel
+    public class TabletViewModel
     {
         FirebaseHelper firebase;
-        public PhoneViewModel()
+        public TabletViewModel()
         {
             using (UserDialogs.Instance.Loading("Đang tải..."))
             {
                 firebase = new FirebaseHelper();
                 var Items = Task.Run(async () => await firebase.GetAllItems()).Result;
-                ItemCollection = Items.Where(it => it.Type == ItemModel.Category.Phone).ToList();
+                ItemCollection = Items.Where(it => it.Type == ItemModel.Category.Tablet).ToList();
                 this.ItemTapped = new Command<object>(GotoDetail);
                 this.BackButton = new Command(Back);
             }
@@ -31,7 +31,7 @@ namespace PhoneStore.ViewModels
         {
             await Application.Current.MainPage.Navigation.PopAsync();
         }
-
+        
         private void GotoDetail(object obj)
         {
             var detail = (obj as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData as ItemModel;

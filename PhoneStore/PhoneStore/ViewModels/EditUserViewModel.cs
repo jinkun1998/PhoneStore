@@ -23,22 +23,25 @@ namespace PhoneStore.ViewModels
         public FirebaseStorageHelper firebaseStorage;
         public EditUserViewModel()
         {
-            firebase = new FirebaseHelper();
-            firebaseStorage = new FirebaseStorageHelper();
-            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
-            User = Task.Run(async () => await App.SQLiteDb.GetUserAsync(user.Email)).Result;
-            Image = User.AvatarLink;
-            Name = User.FullName;
-            Email = User.Email;
-            Phone = User.Phone;
-            Address = User.Address;
-            DoB = User.DoB;
-            IsEdit = false;
+            using (UserDialogs.Instance.Loading("Đang tải..."))
+            {
+                firebase = new FirebaseHelper();
+                firebaseStorage = new FirebaseStorageHelper();
+                var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                User = Task.Run(async () => await App.SQLiteDb.GetUserAsync(user.Email)).Result;
+                Image = User.AvatarLink;
+                Name = User.FullName;
+                Email = User.Email;
+                Phone = User.Phone;
+                Address = User.Address;
+                DoB = User.DoB;
+                IsEdit = false;
 
-            this.SaveUserTapped = new Command(SaveUser);
-            this.BackButton = new Command(Back);
-            this.ChangeAvatarTapped = new Command(ChangeAvatar);
-            this.EditTapped = new Command(Edit);
+                this.SaveUserTapped = new Command(SaveUser);
+                this.BackButton = new Command(Back);
+                this.ChangeAvatarTapped = new Command(ChangeAvatar);
+                this.EditTapped = new Command(Edit);
+            }
         }
 
         private void Edit(object obj)
@@ -57,17 +60,17 @@ namespace PhoneStore.ViewModels
                 var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
                 if (selectedImage != null)
                 {
-                    UserDialogs.Instance.ShowLoading("Đang xử lý...");
-                    var imageLink = Task.Run(async () => await firebaseStorage.UploadFile(selectedImage.GetStream(), Path.GetFileName(User.Email))).Result;
-                    if (imageLink != null)
+                    using (UserDialogs.Instance.Loading("Đang xử lý..."))
                     {
-                        Image = imageLink;
-                        UserDialogs.Instance.HideLoading();
-                    }
-                    else
-                    {
-                        UserDialogs.Instance.HideLoading();
-                        await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThử lại sau.", "Đã hiểu");
+                        var imageLink = Task.Run(async () => await firebaseStorage.UploadFile(selectedImage.GetStream(), Path.GetFileName(User.Email))).Result;
+                        if (imageLink != null)
+                        {
+                            Image = imageLink;
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThử lại sau.", "Đã hiểu");
+                        }
                     }
                 }
                 else
@@ -84,19 +87,20 @@ namespace PhoneStore.ViewModels
 
         private async void SaveUser(object obj)
         {
-            UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-            UserModel user = new UserModel();
-            user.Address = Address;
-            user.AvatarLink = Image;
-            user.DoB = DoB;
-            user.Email = Email;
-            user.FullName = Name;
-            user.Phone = Phone;
-            await App.SQLiteDb.SaveUserAsync(user);
-            await firebase.UpdateUser(user);
-            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-            Application.Current.MainPage = new NavigationPage(new HomePage());
-            UserDialogs.Instance.HideLoading();
+            using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+            {
+                UserModel user = new UserModel();
+                user.Address = Address;
+                user.AvatarLink = Image;
+                user.DoB = DoB;
+                user.Email = Email;
+                user.FullName = Name;
+                user.Phone = Phone;
+                await App.SQLiteDb.SaveUserAsync(user);
+                await firebase.UpdateUser(user);
+                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                Application.Current.MainPage = new NavigationPage(new HomePage());
+            }
             await Application.Current.MainPage.DisplayAlert("Thông báo", "Đã sửa đổi thông tin thành công!", "Đã hiểu");
             IsEdit = false;
         }

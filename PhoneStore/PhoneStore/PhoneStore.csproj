@@ -24,6 +24,7 @@
     <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="17.4.0.39" />
     <PackageReference Include="Syncfusion.Xamarin.Core" Version="17.4.0.39" />
     <PackageReference Include="Syncfusion.Xamarin.SfBadgeView" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Xamarin.SfBarcode" Version="17.4.0.39" />
     <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator" Version="17.4.0.39" />
     <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="17.4.0.39" />
     <PackageReference Include="Syncfusion.Xamarin.SfMaskedEdit" Version="17.4.0.39" />
@@ -40,6 +41,8 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
     <PackageReference Include="Xamarin.Forms.Maps" Version="4.4.0.991265" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="1.3.6" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
+    <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -73,6 +76,12 @@
     <EmbeddedResource Update="View\ListViews\PhoneView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="View\ListViews\TabletPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\ListViews\WatchPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="View\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -104,6 +113,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\PhonePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\QRPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="View\SearchPage.xaml">

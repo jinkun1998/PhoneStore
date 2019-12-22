@@ -1,4 +1,5 @@
-﻿using Android.Content.Res;
+﻿using Acr.UserDialogs;
+using Android.Content.Res;
 using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.SQLite;
@@ -24,7 +25,8 @@ namespace PhoneStore.ViewModels
         {
             firebase = new FirebaseHelper();
             Items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
-            //Items = Task.Run(async () => await firebase.GetUserCartItems(FirebaseHelper.userEmail, FirebaseHelper.userToken)).Result;
+            if (Items.Count == 0)
+                IsVisbile = true;
             foreach (var item in Items)
             {
                 TotalPrice += item.Price * item.Quantity;
@@ -44,13 +46,16 @@ namespace PhoneStore.ViewModels
 
         private void DeleteItem(object obj)
         {
-            var item = obj as CartModel;
-            Task.Run(async () => await App.SQLiteDb.DeleteItemAsync(item));
-            //Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
-            //Application.Current.MainPage.Navigation.PopAsync(false);
-            Thread.Sleep(500);
-            Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
-            Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+            using (UserDialogs.Instance.Loading("Đang xử lý..."))
+            {
+                var item = obj as CartModel;
+                Task.Run(async () => await App.SQLiteDb.DeleteItemAsync(item));
+                //Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
+                //Application.Current.MainPage.Navigation.PopAsync(false);
+                Thread.Sleep(500);
+                Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
+                Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+            }
         }
 
         private void TakeOrder(object obj)
@@ -115,6 +120,16 @@ namespace PhoneStore.ViewModels
             }
         }
 
+        private bool _isvisible;
+        public bool IsVisbile
+        {
+            get { return _isvisible; }
+            set
+            {
+                _isvisible = value;
+                OnPropertyChanged(nameof(IsVisbile));
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
 

@@ -30,6 +30,7 @@ namespace PhoneStore.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             UserDialogs.Init(this);
             CrossMedia.Current.Initialize();
+            ZXing.Net.Mobile.Forms.Android.Platform.Init();
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this, savedInstanceState);

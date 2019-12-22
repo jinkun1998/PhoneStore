@@ -25,6 +25,8 @@ namespace PhoneStore.View.MainViews.User.MyOrderViews
             InitializeComponent();
             MyOrderDetailViewModel vm = new MyOrderDetailViewModel(order);
             this.BindingContext = vm;
+            if (vm.Order.Status != OrderModel.OrderStatus.Ordered)
+                btnCancel.IsEnabled = false;
         }
     }
 }

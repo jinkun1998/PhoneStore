@@ -51,6 +51,8 @@ namespace PhoneStore.Firebase
                   Colors = item.Object.Colors,
                   RotatorImages = item.Object.RotatorImages,
                   UserEmail = item.Object.UserEmail,
+                  CreatedDate = item.Object.CreatedDate,
+                  Type = item.Object.Type,
               }).ToList();
         }
 
@@ -72,7 +74,7 @@ namespace PhoneStore.Firebase
         }
         #endregion
 
-        public async Task<List<ItemModel>> GetAllItem()
+        public async Task<List<ItemModel>> GetAllItems()
         {
             var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
             return (await firebaseClient
@@ -90,6 +92,8 @@ namespace PhoneStore.Firebase
                   Shortdescription = item.Object.Shortdescription,
                   Colors = item.Object.Colors,
                   RotatorImages = item.Object.RotatorImages,
+                  CreatedDate = item.Object.CreatedDate,
+                  Type = item.Object.Type,
               }).ToList();
         }
         #endregion
@@ -170,6 +174,23 @@ namespace PhoneStore.Firebase
         #endregion
 
         #region User
+        public async Task<List<UserModel>> GetAllUsers()
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            return (await firebaseClient
+              .Child("Users")
+              .OnceAsync<UserModel>()
+              .ConfigureAwait(true)).Select(item => new UserModel
+              {
+                  Code = item.Object.Code,
+                  FullName = item.Object.FullName,
+                  Address = item.Object.Address,
+                  Email = item.Object.Email,
+                  Phone = item.Object.Phone,
+                  AvatarLink = item.Object.AvatarLink,
+                  DoB = item.Object.DoB,
+              }).ToList();
+        }
         public async Task<UserModel> GetUser(string userEmail)
         {
             var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
@@ -291,6 +312,34 @@ namespace PhoneStore.Firebase
         #endregion
 
         #region SignIn, SignOut
+        #endregion
+
+        #region Promo
+        public async Task AddUserPromo(QRPromoModel promo)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            await firebaseClient
+                .Child("Promos")
+                .PostAsync(promo).ConfigureAwait(true);
+        }
+        public async Task<List<QRPromoModel>> GetAllPromos()
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            return (await firebaseClient
+              .Child("Promos")
+              .OnceAsync<QRPromoModel>().ConfigureAwait(true)).Select(item => new QRPromoModel
+              {
+                  UserEmail = item.Object.UserEmail,
+                  QREmail = item.Object.QREmail,
+                  IsUsed = item.Object.IsUsed,
+                  Discount = item.Object.Discount,
+              }).ToList();
+        }
+        public async Task<List<QRPromoModel>> GetAllUserPromo(string userEmail)
+        {
+            var allOrders = GetAllPromos().Result;
+            return allOrders.Where(it => it.UserEmail == userEmail && it.IsUsed == false).ToList();
+        }
         #endregion
     }
 }

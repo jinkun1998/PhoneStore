@@ -1,4 +1,5 @@
-﻿using PhoneStore.Firebase;
+﻿using Acr.UserDialogs;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.View;
 using Plugin.FirebaseAuth;
@@ -20,7 +21,8 @@ namespace PhoneStore.ViewModels
         {
             firebase = new FirebaseHelper();
             Items = GetUserFavoriteItems();
-
+            if (Items.Count == 0)
+                IsVisible = true;
             this.cmdLoadItem = new Command<object>(LoadItem);
             this.BackButton = new Command(Back);
         }
@@ -32,10 +34,14 @@ namespace PhoneStore.ViewModels
         }
         public List<ItemModel> GetUserFavoriteItems()
         {
-            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
-            var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;
-            var userItems = allItems.Where(it => it.UserEmail == user.Email).ToList();
-            return userItems;
+            using (UserDialogs.Instance.Loading("Đang tải..."))
+            {
+                var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;
+                var userItems = allItems.Where(it => it.UserEmail == user.Email).ToList();
+                return userItems;
+            }
+            
         }
 
         private void LoadItem(object obj)
@@ -54,6 +60,16 @@ namespace PhoneStore.ViewModels
             {
                 _items = value;
                 OnPropertyChanged(nameof(Items));
+            }
+        }
+        private bool _isvisible;
+        public bool IsVisible
+        {
+            get { return _isvisible; }
+            set
+            {
+                _isvisible = value;
+                OnPropertyChanged(nameof(IsVisible));
             }
         }
         #endregion

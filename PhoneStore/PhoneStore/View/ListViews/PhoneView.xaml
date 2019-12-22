@@ -16,7 +16,7 @@
                 ItemSpacing="5"
                 TapCommand="{Binding ItemTapped}"
                 LoadMoreOption="AutoOnScroll"
-                SelectionMode="Single"
+                SelectionMode="None"
                 SelectionBackgroundColor="Transparent"
                 LoadMorePosition="Bottom"
                 >

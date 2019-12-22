@@ -1,3 +1,4 @@
+using Syncfusion.SfBarcode.XForms.iOS;
 using Syncfusion.XForms.iOS.ProgressBar;
 using Syncfusion.SfBusyIndicator.XForms.iOS;
 using Syncfusion.XForms.iOS.PopupLayout;
@@ -28,6 +29,7 @@ namespace PhoneStore.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
 global::Xamarin.Forms.Forms.Init();
+SfBarcodeRenderer.Init();
 SfLinearProgressBarRenderer.Init();
 SfCircularProgressBarRenderer.Init();
 SfBusyIndicatorRenderer.Init();

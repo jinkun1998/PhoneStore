@@ -4,15 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
-             xmlns:local="clr-namespace:PhoneStore.ViewModel"
-             xmlns:local1="clr-namespace:PhoneStore.ViewModels"
-             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:local1="clr-namespace:PhoneStore.ViewModels"
              mc:Ignorable="d"
-             x:Class="PhoneStore.View.MainViews.User.FavoriteViews.FavoritePage" NavigationPage.HasNavigationBar="False">
+             x:Class="PhoneStore.View.ListViews.TabletPage" NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
-        <local1:MyFavoriteViewModel/>
+        <local1:TabletViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
@@ -20,7 +18,6 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
             <!--ActionBar-->
             <pancakeview:PancakeView CornerRadius="10,10,0,0" Grid.Row="0" HasShadow="True">
                 <Grid BackgroundColor="White">
@@ -30,41 +27,40 @@
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
                     <buttons:SfButton Command="{Binding BackButton}" ImageSource="backbutton.png" Grid.Column="0" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" ShowIcon="True"/>
-                    <Label Text="Yêu thích" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                    <Label Text="Máy tính bảng" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
                 </Grid>
             </pancakeview:PancakeView>
-            <listview:SfListView
-                Grid.Row="1"
-                ItemsSource="{Binding Items}"
+            <Grid Padding="10,0,10,0" Grid.Row="1">
+                <listview:SfListView
+                ItemsSource="{Binding ItemCollection}"
                 ItemSize="230"
                 ItemSpacing="5"
-                TapCommand="{Binding cmdLoadItem}"
+                TapCommand="{Binding ItemTapped}"
                 LoadMoreOption="AutoOnScroll"
-                SelectionMode="Single"
+                SelectionMode="None"
                 SelectionBackgroundColor="Transparent"
                 LoadMorePosition="Bottom"
-                 Padding="10,2,10,2"
                 >
-                <listview:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
-                            <Grid HeightRequest="300" BackgroundColor="White" Padding="10,2,10,2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                    <listview:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
+                                <Grid HeightRequest="300" BackgroundColor="White" Padding="10,2,10,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0" Source="{Binding Image}"                                                           
+                                    <Image Grid.Column="0" Source="{Binding Image}"                                                           
                                                                Aspect="AspectFit"
                                                                HorizontalOptions="CenterAndExpand"
                                                                VerticalOptions="CenterAndExpand"/>
-                                <Grid Grid.Column="1">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0.5*"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="0.2*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Text="{Binding Name}"
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.5*"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="0.2*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Text="{Binding Name}"
                                                                    Padding="2,0,2,0"
                                                                    Grid.Row="0"
                                                                    HorizontalOptions="CenterAndExpand"
@@ -72,7 +68,7 @@
                                                                    HorizontalTextAlignment="Center"
                                                                    FontSize="Title"
                                                                    TextColor="Black"/>
-                                    <Label Text="{Binding Shortdescription}"
+                                        <Label Text="{Binding Shortdescription}"
                                                                    Grid.Row="1"
                                                                    Padding="10,0,5,0"
                                                                    HorizontalOptions="CenterAndExpand"
@@ -80,29 +76,21 @@
                                                                    HorizontalTextAlignment="Start"
                                                                    FontSize="Small"
                                                                    TextColor="Black"/>
-                                    <Label Text="{Binding Price, StringFormat='{0:C}'}"
+                                        <Label Text="{Binding Price, StringFormat='{0:C}'}"
                                                                    Grid.Row="2"
                                                                    HorizontalOptions="EndAndExpand"
                                                                    VerticalOptions="Center"
                                                                    FontSize="Medium"
                                                                    TextColor="Red"/>
+                                    </Grid>
+
+
                                 </Grid>
-
-
-                            </Grid>
-                        </pancakeview:PancakeView>
-                    </DataTemplate>
-                </listview:SfListView.ItemTemplate>
-            </listview:SfListView>
-
-            <forms:AnimationView Grid.Row="1"
-                                 Animation="favorite.json"
-                                 Loop="True"
-                                 AutoPlay="True"
-                                 BackgroundColor="#f9f9f9f9"
-                                 HorizontalOptions="FillAndExpand"
-                                 VerticalOptions="FillAndExpand"
-                                 IsVisible="{Binding IsVisible}"/>
+                            </pancakeview:PancakeView>
+                        </DataTemplate>
+                    </listview:SfListView.ItemTemplate>
+                </listview:SfListView>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

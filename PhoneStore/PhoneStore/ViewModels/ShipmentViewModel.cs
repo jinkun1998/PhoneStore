@@ -1,4 +1,5 @@
-﻿using PhoneStore.Firebase;
+﻿using Acr.UserDialogs;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.View;
 using PhoneStore.View.ShipmentViews;
@@ -17,19 +18,24 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public ShipmentViewModel()
         {
-            firebase = new FirebaseHelper();
-            Order = new OrderModel();
-            var carts = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
-            Order.Carts = carts;
-            foreach (var cart in Order.Carts)
+            using (UserDialogs.Instance.Loading("Đang tải..."))
             {
-                TotalPrice += cart.Quantity * cart.Price;
-            }
-            Address = "Chưa có địa chỉ!";
+                firebase = new FirebaseHelper();
+                Order = new OrderModel();
+                var carts = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+                var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                var userDB = Task.Run(async () => await App.SQLiteDb.GetUserAsync(user.Email)).Result;
+                Order.Carts = carts;
+                foreach (var cart in Order.Carts)
+                {
+                    TotalPrice += cart.Quantity * cart.Price;
+                }
+                Address = userDB.Address;
 
-            this.CreateOrder = new Command(CreateNewOrder);
-            this.ChangeLocationTapped = new Command(ChangeLocation);
-            this.BackButton = new Command(Back);
+                this.CreateOrder = new Command(CreateNewOrder);
+                this.ChangeLocationTapped = new Command(ChangeLocation);
+                this.BackButton = new Command(Back);
+            }
         }
 
         private async void Back(object obj)
@@ -38,28 +44,31 @@ namespace PhoneStore.ViewModels
         }
         public ShipmentViewModel(OrderModel order)
         {
-            this.Order = order;
-            Address = Order.Address;
-            Note = Order.Note;
-            switch (Order.Payment)
+            using (UserDialogs.Instance.Loading("Đang tải..."))
             {
-                case OrderModel.PaymentType.COD:
-                    this.isChecked = true;
-                    break;
-                case OrderModel.PaymentType.Bank:
-                    this.isChecked = false;
-                    break;
-                default:
-                    break;
-            }
-            firebase = new FirebaseHelper();
-            foreach (var cart in Order.Carts)
-            {
-                TotalPrice += cart.Quantity * cart.Price;
-            }
+                this.Order = order;
+                Address = Order.Address;
+                Note = Order.Note;
+                switch (Order.Payment)
+                {
+                    case OrderModel.PaymentType.COD:
+                        this.isChecked = true;
+                        break;
+                    case OrderModel.PaymentType.Bank:
+                        this.isChecked = false;
+                        break;
+                    default:
+                        break;
+                }
+                firebase = new FirebaseHelper();
+                foreach (var cart in Order.Carts)
+                {
+                    TotalPrice += cart.Quantity * cart.Price;
+                }
 
-            this.CreateOrder = new Command(CreateNewOrder);
-            this.ChangeLocationTapped = new Command(ChangeLocation);
+                this.CreateOrder = new Command(CreateNewOrder);
+                this.ChangeLocationTapped = new Command(ChangeLocation);
+            }
         }
 
         #region Logic
@@ -81,73 +90,82 @@ namespace PhoneStore.ViewModels
             Application.Current.MainPage.Navigation.PushAsync(new MapsPage(Order));
         }
 
-        private void CreateNewOrder(object obj)
+        private async void CreateNewOrder(object obj)
         {
-            int tempCode = 000000;
-            var allOrders = Task.Run(async () => await firebase.GetAllOrders()).Result;
-            do
+            using (UserDialogs.Instance.Loading("Đang xử lý..."))
             {
-                Random rd = new Random();
-                tempCode = rd.Next(0, 999999);
-            } while (allOrders.Where(it => it.Code == tempCode.ToString()).Count() != 0);
+                if (Address != null)
+                {
+                    int tempCode = 000000;
+                    var allOrders = Task.Run(async () => await firebase.GetAllOrders()).Result;
+                    do
+                    {
+                        Random rd = new Random();
+                        tempCode = rd.Next(0, 999999);
+                    } while (allOrders.Where(it => it.Code == tempCode.ToString()).Count() != 0);
 
-            Order.Code = tempCode.ToString("000000");
-            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
-            Order.UserEmail = user.Email;
-            Order.CreatedOn = DateTime.Now;
-            Order.Note = Note;
-            Order.Address = Address;
-            Order.TotalPrice = TotalPrice;
-            Order.Status = OrderModel.OrderStatus.Ordered;
-            if (isChecked == false)
-            {
-                Order.Payment = OrderModel.PaymentType.COD;
-            }
-            else
-            {
-                Order.Payment = OrderModel.PaymentType.Bank;
-            }
-            #region Tạo thông tin shipment
-            Shipment = new ShipmentDetailModel();
-            Shipment.Title = "Đã đặt hàng";
-            Shipment.Date = DateTime.Now.ToString("dd/MM/yyyy");
-            Shipment.Time = DateTime.Now.ToString("HH:ss");
-            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.InProgress;
-            Shipment.ProgressValue = 0;
-            Order.Shipments.Add(Shipment);
-            Shipment = new ShipmentDetailModel();
-            Shipment.Title = "Đã duyệt";
-            Shipment.Date = "";
-            Shipment.Time = "";
-            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
-            Shipment.ProgressValue = 0;
-            Order.Shipments.Add(Shipment);
-            Shipment = new ShipmentDetailModel();
-            Shipment.Title = "Đang giao";
-            Shipment.Date = "";
-            Shipment.Time = "";
-            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
-            Shipment.ProgressValue = 0;
-            Order.Shipments.Add(Shipment);
-            Shipment = new ShipmentDetailModel();
-            Shipment.Title = "Đã giao";
-            Shipment.Date = "";
-            Shipment.Time = "";
-            Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
-            Shipment.ProgressValue = 0;
-            Order.Shipments.Add(Shipment);
-            #endregion
+                    Order.Code = tempCode.ToString("000000");
+                    var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                    Order.UserEmail = user.Email;
+                    Order.CreatedOn = DateTime.Now;
+                    Order.Note = Note;
+                    Order.TotalPrice = TotalPrice;
+                    Order.Address = Address;
+                    Order.Status = OrderModel.OrderStatus.Ordered;
+                    if (isChecked == false)
+                    {
+                        Order.Payment = OrderModel.PaymentType.COD;
+                    }
+                    else
+                    {
+                        Order.Payment = OrderModel.PaymentType.Bank;
+                    }
+                    #region Tạo thông tin shipment
+                    Shipment = new ShipmentDetailModel();
+                    Shipment.Title = "Đã đặt hàng";
+                    Shipment.Date = DateTime.Now.ToString("dd/MM/yyyy");
+                    Shipment.Time = DateTime.Now.ToString("HH:ss");
+                    Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.InProgress;
+                    Shipment.ProgressValue = 0;
+                    Order.Shipments.Add(Shipment);
+                    Shipment = new ShipmentDetailModel();
+                    Shipment.Title = "Đã duyệt";
+                    Shipment.Date = "";
+                    Shipment.Time = "";
+                    Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
+                    Shipment.ProgressValue = 0;
+                    Order.Shipments.Add(Shipment);
+                    Shipment = new ShipmentDetailModel();
+                    Shipment.Title = "Đang giao";
+                    Shipment.Date = "";
+                    Shipment.Time = "";
+                    Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
+                    Shipment.ProgressValue = 0;
+                    Order.Shipments.Add(Shipment);
+                    Shipment = new ShipmentDetailModel();
+                    Shipment.Title = "Đã giao";
+                    Shipment.Date = "";
+                    Shipment.Time = "";
+                    Shipment.Status = Syncfusion.XForms.ProgressBar.StepStatus.NotStarted;
+                    Shipment.ProgressValue = 0;
+                    Order.Shipments.Add(Shipment);
+                    #endregion
 
-            Task.Run(async () => await firebase.AddUserOrder(Order).ConfigureAwait(true));
-            Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
-            foreach (var item in Order.Carts)
-            {
-                //Task.Run(async () => await firebase.DeleteUserCartInOrder(item, FirebaseHelper.userToken).ConfigureAwait(true));
-                App.SQLiteDb.DeleteItemAsync(item);
-                Task.Delay(500);
+                    await Task.Run(async () => await firebase.AddUserOrder(Order).ConfigureAwait(true));
+                    foreach (var item in Order.Carts)
+                    {
+                        await App.SQLiteDb.DeleteItemAsync(item);
+                        await Task.Delay(500);
+                    }
+                    await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                    Application.Current.MainPage = new NavigationPage(new HomePage());
+                    await Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Thông báo", "Chưa có thông tin địa chỉ!", "Đã hiểu");
+                }
             }
-            Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-            Application.Current.MainPage = new NavigationPage(new HomePage());
         }
         #endregion 
 

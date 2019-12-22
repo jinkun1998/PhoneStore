@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:PhoneStore.ViewModels"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              mc:Ignorable="d"
              x:Name="MyOrders"
              x:Class="PhoneStore.View.MainViews.User.MyOrderViews.MyOrderPage" NavigationPage.HasNavigationBar="False">
@@ -85,6 +86,14 @@
                     </DataTemplate>
                 </listview:SfListView.ItemTemplate>
             </listview:SfListView>
+
+            <forms:AnimationView Animation="EmptyMyOrder.json" Grid.Row="1"
+                                 BackgroundColor="#f9f9f9"
+                                 Loop="True"
+                                 AutoPlay="True" 
+                                 VerticalOptions="FillAndExpand"
+                                 HorizontalOptions="FillAndExpand"
+                                 IsVisible="{Binding IsVisible}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

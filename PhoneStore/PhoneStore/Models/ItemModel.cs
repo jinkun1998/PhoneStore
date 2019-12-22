@@ -29,8 +29,8 @@ namespace PhoneStore.Models
             set { _image = value; }
         }
 
-        private string _rate;
-        public string Rate
+        private double _rate;
+        public double Rate
         {
             get { return _rate; }
             set { _rate = value; OnPropertyChanged(); }
@@ -74,11 +74,27 @@ namespace PhoneStore.Models
             set { _descriptionlink = value; }
         }
 
+        private DateTime _createddate;
+        public DateTime CreatedDate
+        {
+            get { return _createddate; }
+            set { _createddate = value; }
+        }
+        public Category Type { get; set; }
+
         public List<ColorModel> Colors { get; set; }
         public List<RotatorModel> RotatorImages { get; set; }
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs((propertyName)));
+        }
+
+        public enum Category
+        {
+            NA = 0,
+            Phone = 1,
+            Tablet = 2,
+            Watch = 3,
         }
     }
 }

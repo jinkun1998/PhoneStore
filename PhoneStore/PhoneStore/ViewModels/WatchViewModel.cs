@@ -12,16 +12,16 @@ using Xamarin.Forms;
 
 namespace PhoneStore.ViewModels
 {
-    public class PhoneViewModel
+    public class WatchViewModel
     {
         FirebaseHelper firebase;
-        public PhoneViewModel()
+        public WatchViewModel()
         {
             using (UserDialogs.Instance.Loading("Đang tải..."))
             {
                 firebase = new FirebaseHelper();
                 var Items = Task.Run(async () => await firebase.GetAllItems()).Result;
-                ItemCollection = Items.Where(it => it.Type == ItemModel.Category.Phone).ToList();
+                ItemCollection = Items.Where(it => it.Type == ItemModel.Category.Watch).ToList();
                 this.ItemTapped = new Command<object>(GotoDetail);
                 this.BackButton = new Command(Back);
             }

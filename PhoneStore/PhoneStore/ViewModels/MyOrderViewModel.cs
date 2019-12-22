@@ -1,4 +1,5 @@
-﻿using PhoneStore.Firebase;
+﻿using Acr.UserDialogs;
+using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.View.MainViews.User.MyOrderViews;
 using Plugin.FirebaseAuth;
@@ -17,13 +18,18 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public MyOrderViewModel()
         {
-            firebase = new FirebaseHelper();
-            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
-            Orders = Task.Run(async () => await firebase.GetAllUserOrders(user.Email)).Result;
-            OrdersCount = Orders.Count;
+            using (UserDialogs.Instance.Loading("Đang tải..."))
+            {
+                firebase = new FirebaseHelper();
+                var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                Orders = Task.Run(async () => await firebase.GetAllUserOrders(user.Email)).Result;
+                //OrdersCount = Orders.Count;
+                if (Orders.Count == 0)
+                    IsVisible = true;
 
-            this.ItemTapped = new Command(GotoOrderDetail);
-            this.BackButton = new Command(Back);
+                this.ItemTapped = new Command(GotoOrderDetail);
+                this.BackButton = new Command(Back);
+            }
         }
 
 
@@ -56,6 +62,17 @@ namespace PhoneStore.ViewModels
             {
                 _ordersCount = value;
                 OnPropertyChanged(nameof(OrdersCount));
+            }
+        }
+
+        private bool _isvisible;
+        public bool IsVisible
+        {
+            get { return _isvisible; }
+            set
+            {
+                _isvisible = value;
+                OnPropertyChanged(nameof(IsVisible));
             }
         }
         #endregion

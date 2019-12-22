@@ -53,42 +53,48 @@ namespace PhoneStore.ViewModels
                     PhotoSize = PhotoSize.Medium,
                 };
                 var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
-                if (selectedImage != null)
+                using (UserDialogs.Instance.Loading("Đang tải..."))
                 {
-                    var imageLink = Task.Run(async () => await storageHelper.UploadFile(selectedImage.GetStream(), Path.GetFileName(user.Email))).Result;
-                    if (imageLink != null)
+                    if (selectedImage != null)
                     {
-                        Image = imageLink;
+                        var imageLink = Task.Run(async () => await storageHelper.UploadFile(selectedImage.GetStream(), Path.GetFileName(user.Email))).Result;
+                        if (imageLink != null)
+                        {
+                            Image = imageLink;
+                            UserDialogs.Instance.HideLoading();
+                        }
+                        else
+                        {
+                            UserDialogs.Instance.HideLoading();
+                            await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThử lại sau.", "Đã hiểu");
+                        }
                     }
                     else
                     {
-                        await Application.Current.MainPage.DisplayAlert("Lỗi!", "Không thể upload ảnh lên server!\nThwur lại sau.", "Đã hiểu");
+                        await Application.Current.MainPage.DisplayAlert("Lỗi!", "Lỗi chọn hình ảnh!\nThwur lại sau.", "Đã hiểu");
                     }
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Lỗi!", "Lỗi chọn hình ảnh!\nThwur lại sau.", "Đã hiểu");
                 }
             }
         }
 
         private async void Continue(object obj)
         {
-            UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
-            UserModel newUser = new UserModel();
-            newUser.Address = Address;
-            newUser.AvatarLink = Image;
-            newUser.DoB = DoB;
-            newUser.Email = user.Email;
-            newUser.FullName = Name;
-            newUser.Phone = Phone;
-            await App.SQLiteDb.SaveUserAsync(newUser);
-            await firebase.AddUser(newUser);
-            //await Application.Current.MainPage.Navigation.PushAsync(new VerifyEmailPage());
-            await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
-            Application.Current.MainPage = new NavigationPage(new HomePage());
-            UserDialogs.Instance.HideLoading();
+            using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+            {
+                var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                UserModel newUser = new UserModel();
+                newUser.Address = Address;
+                newUser.AvatarLink = Image;
+                newUser.DoB = DoB;
+                newUser.Email = user.Email;
+                newUser.FullName = Name;
+                newUser.Phone = Phone;
+                await App.SQLiteDb.SaveUserAsync(newUser);
+                await firebase.AddUser(newUser);
+                //await Application.Current.MainPage.Navigation.PushAsync(new VerifyEmailPage());
+                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                Application.Current.MainPage = new NavigationPage(new HomePage());
+            }
         }
 
         #region logic
@@ -96,25 +102,25 @@ namespace PhoneStore.ViewModels
         {
             try
             {
-                UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-                await CrossFirebaseAuth.Current.Instance.SignInWithEmailAndPasswordAsync(Email, Pwd);
-                var checkUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
-                //if (checkUser.IsEmailVerified)
-                //{
+                using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+                {
+                    await CrossFirebaseAuth.Current.Instance.SignInWithEmailAndPasswordAsync(Email, Pwd);
+                    var checkUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                    //if (checkUser.IsEmailVerified)
+                    //{
                     var user = Task.Run(async () => await firebase.GetUser(Email)).Result;
                     await App.SQLiteDb.SaveUserAsync(user);
                     await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                     Application.Current.MainPage = new NavigationPage(new HomePage());
-                UserDialogs.Instance.HideLoading();
-                //}
-                //else
-                //{
-                //await Application.Current.MainPage.Navigation.PushAsync(new VerifyEmailPage());
-                //}
+                    //}
+                    //else
+                    //{
+                    //await Application.Current.MainPage.Navigation.PushAsync(new VerifyEmailPage());
+                    //}
+                }
             }
             catch (Exception ex)
             {
-                UserDialogs.Instance.HideLoading();
                 await Application.Current.MainPage.DisplayAlert("Đăng nhập thất bại", "Email hoặc mật khẩu không hợp lệ! \nVui lòng kiểm tra lại.", "Xác nhận");
             }
             
@@ -124,15 +130,15 @@ namespace PhoneStore.ViewModels
         {
             try
             {
-                UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-                await CrossFirebaseAuth.Current.Instance.CreateUserWithEmailAndPasswordAsync(Email, Pwd);
-                await CrossFirebaseAuth.Current.Instance.CurrentUser.SendEmailVerificationAsync();
-                await Application.Current.MainPage.Navigation.PushAsync(new AddnewUserPage());
-                UserDialogs.Instance.HideLoading();
+                using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+                {
+                    await CrossFirebaseAuth.Current.Instance.CreateUserWithEmailAndPasswordAsync(Email, Pwd);
+                    await CrossFirebaseAuth.Current.Instance.CurrentUser.SendEmailVerificationAsync();
+                    await Application.Current.MainPage.Navigation.PushAsync(new AddnewUserPage());
+                }
             }
             catch (Exception ex)
             {
-                UserDialogs.Instance.HideLoading();
                 await Application.Current.MainPage.DisplayAlert("Đăng ký thất bại", "Email hoặc mật khẩu không hợp lệ! \nVui lòng kiểm tra lại.", "Xác nhận");
             }
         }

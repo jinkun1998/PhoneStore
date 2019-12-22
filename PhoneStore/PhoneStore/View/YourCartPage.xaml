@@ -7,6 +7,7 @@
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:viewmodels="clr-namespace:PhoneStore.ViewModels"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.YourCartPage" NavigationPage.HasNavigationBar="False" x:Name="CartPage">
     <ContentPage.BindingContext>
@@ -160,6 +161,13 @@
                                   BackgroundColor="#3fc5f0"
                                   TextColor="White"/>
             </Grid>
+
+            <forms:AnimationView Loop="True" Grid.RowSpan="3" BackgroundColor="#f9f9f9"
+                                 AutoPlay="True"
+                                 Animation="EmptyOrder.json"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand"
+                                 IsVisible="{Binding IsVisbile}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

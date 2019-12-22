@@ -27,7 +27,7 @@ namespace PhoneStore.ViewModels
         {
             firebase = new FirebaseHelper();
             Order = order;
-
+            
             this.CancelOrderTapped = new Command(CancelOrder);
             this.BackButton = new Command(Back);
         }
@@ -38,14 +38,16 @@ namespace PhoneStore.ViewModels
             var result = await Application.Current.MainPage.DisplayAlert("Thông báo", "Bạn có chắc chắn muốn hủy đơn hàng này?", "Chắc chắn", "Hủy bỏ");
             if (result)
             {
-                UserDialogs.Instance.ShowLoading("Vui lòng chờ");
-                Order.Status = OrderModel.OrderStatus.Cancelled;
-                await Task.Run(async () => await firebase.UpdateUserOrder(Order)).ConfigureAwait(true);
-                Thread.Sleep(500);
-                await Application.Current.MainPage.Navigation.PushAsync(new MyOrderPage());
-                Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
-                Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
-                UserDialogs.Instance.HideLoading();
+                using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+                {
+                    Order.Status = OrderModel.OrderStatus.Cancelled;
+                    await Task.Run(async () => await firebase.UpdateUserOrder(Order)).ConfigureAwait(true);
+                    Thread.Sleep(500);
+                    await Application.Current.MainPage.Navigation.PushAsync(new MyOrderPage());
+                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+                }
+                
             }
         }
         #endregion

@@ -34,7 +34,7 @@
                     <buttons:SfButton ImageSource="https://i.imgur.com/HXcVViN.png" IsVisible="{Binding IsEdit, Mode=TwoWay}" ShowIcon="True" Command="{Binding SaveUserTapped}" FontAttributes="Bold" CornerRadius="10" BackgroundColor="White" Grid.Column="2"/>
                 </Grid>
             </pancakeview:PancakeView>
-            <ScrollView Grid.Row="1">
+            <ScrollView Grid.Row="1" Padding="10,0,10,0">
                 <Grid Padding="5" BackgroundColor="#f9f9f9" IsEnabled="{Binding IsEdit, Mode=TwoWay}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
