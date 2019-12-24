@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.quocthao.phonestore" android:installLocation="auto">
-	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="25" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0.19.12.24" package="com.quocthao.phonestore" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="28" />
 	<application android:label="PhoneStore" android:icon="@drawable/icon">
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCcy-j8Sfubfboaoivn1avBvwSY3lSlW74" />
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />

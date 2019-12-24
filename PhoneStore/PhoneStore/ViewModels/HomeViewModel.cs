@@ -92,21 +92,22 @@ namespace PhoneStore.ViewModel
             var result = await Application.Current.MainPage.DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn đăng xuất?", "Chắc chắn", "Hủy");
             if (result)
             {
-                UserDialogs.Instance.Loading("Vui lòng chờ...");
-                CrossFirebaseAuth.Current.Instance.SignOut();
+                using (UserDialogs.Instance.Loading("Vui lòng chờ..."))
+                {
+                    CrossFirebaseAuth.Current.Instance.SignOut();
+                    var items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+                    foreach (var item in items)
+                    {
+                        await App.SQLiteDb.DeleteItemAsync(item);
+                    }
+                    var users = Task.Run(async () => await App.SQLiteDb.GetUsersAsync()).Result;
+                    foreach (var item in users)
+                    {
+                        await App.SQLiteDb.DeleteUserAsync(item);
+                    }
+                }
                 await Application.Current.MainPage.Navigation.PushAsync(new FirstPage());
                 Application.Current.MainPage = new NavigationPage(new FirstPage());
-                var items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
-                foreach (var item in items)
-                {
-                    await App.SQLiteDb.DeleteItemAsync(item);
-                }
-                var users = Task.Run(async () => await App.SQLiteDb.GetUsersAsync()).Result;
-                foreach (var item in users)
-                {
-                    await App.SQLiteDb.DeleteUserAsync(item);
-                }
-                UserDialogs.Instance.HideLoading();
             }
         }
 

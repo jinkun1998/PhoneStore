@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Push;
 
 namespace PhoneStore
 {
@@ -31,6 +35,11 @@ namespace PhoneStore
 
         protected override void OnStart()
         {
+            AppCenter.Start("android=2f9e0ba7-24a1-48c6-ae44-2c26781b8d70;", typeof(Analytics), typeof(Crashes), typeof(Push));
+            //AppCenter.Start("android=2f9e0ba7-24a1-48c6-ae44-2c26781b8d70;" +
+            //      "uwp={Your UWP App secret here};" +
+            //      "ios={Your iOS App secret here}",
+            //      typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()
