@@ -17,6 +17,9 @@ xmlns:barcode="clr-namespace:Syncfusion.SfBarcode.XForms;assembly=Syncfusion.SfB
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="500"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <!--ActionBar-->
             <pancakeview:PancakeView CornerRadius="10,10,0,0" Grid.Row="0" HasShadow="True">
@@ -31,18 +34,23 @@ xmlns:barcode="clr-namespace:Syncfusion.SfBarcode.XForms;assembly=Syncfusion.SfB
                 </Grid>
             </pancakeview:PancakeView>
 
-            <Grid Grid.Row="1" Padding="20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <barcode:SfBarcode Grid.Row="0"
+            <Grid Grid.Row="2" Padding="30">
+                <pancakeview:PancakeView CornerRadius="10" BorderColor="Gray" BorderThickness="1" HasShadow="True" >
+                    <Grid BackgroundColor="White" Padding="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+
+                        <barcode:SfBarcode Grid.Row="0"
                                    Symbology="QRCode" 
                                    Text="{Binding Email}" 
-                                   TextColor="Transparent"
-                                   
+                                   ShowText="False"
+                                    
                                    />
-                <buttons:SfButton Text="Quét mã" Grid.Row="1" Command="{Binding ScanButton}"/>
+                        <buttons:SfButton Text="Quét mã" BackgroundColor="DeepSkyBlue" CornerRadius="10" Grid.Row="1" Command="{Binding ScanButton}"/>
+                    </Grid>
+                </pancakeview:PancakeView>
             </Grid>
 
         </Grid>

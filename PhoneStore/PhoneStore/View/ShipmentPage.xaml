@@ -11,13 +11,13 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
              xmlns:converter="clr-namespace:PhoneStore.Convetrer"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.ShipmentPage" NavigationPage.HasNavigationBar="False">
-    
+
     <ContentPage.Content>
-        <Grid Padding="10" BackgroundColor="#f9f9f9">
+        <Grid BackgroundColor="#f9f9f9">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="70"/>
+                <RowDefinition Height="150"/>
             </Grid.RowDefinitions>
 
             <!--ActionBar-->
@@ -33,66 +33,102 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                 </Grid>
             </pancakeview:PancakeView>
 
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="150"/>
-                    <RowDefinition Height="110"/>
-                </Grid.RowDefinitions>
-
-                <!--Địa chỉ-->
-                <buttons:SfButton TextColor="Black" Grid.Row="0" CornerRadius="10" BackgroundColor="White" Padding="5,5,5,0" Command='{Binding ChangeLocationTapped}'>
-                    <buttons:SfButton.Content>
-                        <Grid>
+            <ScrollView Grid.Row="1" Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="{Binding Height}"/>
+                        <RowDefinition Height="180"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="140"/>
+                    </Grid.RowDefinitions>
+                    <!--Thông tin người nhận-->
+                    <pancakeview:PancakeView Grid.Row="0" CornerRadius="10" >
+                        <Grid BackgroundColor="White" Padding="5,0,5,0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="https://i.imgur.com/q4KEogw.png" Grid.Column="0" Grid.RowSpan="2" Aspect="AspectFit"/>
-                            <Label Text="Địa chỉ:" Grid.Row="0" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" TextColor="Black" FontSize="17" FontAttributes="Bold"/>
-                            <Label Text="{Binding Address}" Grid.Row="1" Grid.Column="1"
+
+                            <Label Text="Thông tin người nhận >" TextColor="Black" Grid.Row="0" Padding="10,7,10,7" FontAttributes="Bold" FontSize="17" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                            <inputLayout:SfTextInputLayout ContainerType="Outlined" Grid.Row="1" Hint="Họ và tên">
+                                <Entry Text="{Binding UserName}"/>
+                            </inputLayout:SfTextInputLayout>
+                            <inputLayout:SfTextInputLayout Grid.Row="2" ContainerType="Outlined" Hint="Số điện thoại" >
+                                <Entry Text="{Binding UserPhone}"/>
+                            </inputLayout:SfTextInputLayout>
+                        </Grid>
+                    </pancakeview:PancakeView>
+
+                    <!--Địa chỉ-->
+                    <buttons:SfButton TextColor="Black" Grid.Row="1" CornerRadius="10" BackgroundColor="White" Padding="5,5,5,0" Command='{Binding ChangeLocationTapped}'>
+                        <buttons:SfButton.Content>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="80"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="https://i.imgur.com/q4KEogw.png" Grid.Column="0" Grid.Row="1" Aspect="AspectFit"/>
+                                <Label Text="Địa chỉ >" Grid.Row="0" Grid.ColumnSpan="2" Padding="10,7,10,7" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" TextColor="Black" FontSize="17" FontAttributes="Bold"/>
+                                <Label Text="{Binding Address}" Grid.Row="1" Grid.Column="1"
                                    HorizontalOptions="StartAndExpand" 
                                    VerticalOptions="CenterAndExpand" 
                                    TextColor="Black" 
                                    FontSize="17"
                                    LineBreakMode="WordWrap"/>
-                        </Grid>
-                    </buttons:SfButton.Content>
-                </buttons:SfButton>
+                                <Label Text="Thay đổi" Grid.RowSpan="2" Grid.Column="2"
+                                       HorizontalOptions="CenterAndExpand" 
+                                       VerticalOptions="CenterAndExpand" 
+                                       TextColor="DeepSkyBlue" 
+                                       FontSize="17"
+                                       Padding="0,0,10,0"
+                                       LineBreakMode="WordWrap"/>
+                            </Grid>
+                        </buttons:SfButton.Content>
+                    </buttons:SfButton>
 
-                <!--Danh sách sản phẩm-->
-                <pancakeview:PancakeView BackgroundColor="White" Grid.Row="1" CornerRadius="10" Padding="5,0,5,0">
-                    <xforms:SfListView  
+                    <!--Danh sách sản phẩm-->
+                    <pancakeview:PancakeView BackgroundColor="White" Grid.Row="2" CornerRadius="10" Padding="5,0,5,0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Label Text="Giỏ hàng >" TextColor="Black" Grid.Row="0" FontSize="17" FontAttributes="Bold" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                            <xforms:SfListView Grid.Row="1" 
                                     ItemsSource="{Binding Order.Carts}"
                                     ItemSize="120"
                                     Orientation="Vertical"
                                     SelectionBackgroundColor="Transparent"
                                     >
-                        <xforms:SfListView.ItemTemplate>
-                            <DataTemplate>
+                                <xforms:SfListView.ItemTemplate>
+                                    <DataTemplate>
 
-                                <Grid HeightRequest="120" Padding="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*"/>
-                                        <ColumnDefinition Width="3*"/>
-                                    </Grid.ColumnDefinitions>
+                                        <Grid HeightRequest="120" Padding="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*"/>
+                                                <ColumnDefinition Width="3*"/>
+                                            </Grid.ColumnDefinitions>
 
-                                    <Image Grid.Column="0" Source="{Binding Image}"                                                           
+                                            <Image Grid.Column="0" Source="{Binding Image}"                                                           
                                                                Aspect="AspectFill"
                                                                HorizontalOptions="CenterAndExpand"
                                                                VerticalOptions="CenterAndExpand"/>
-                                    <Grid Grid.Column="1">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <Label Text="{Binding Name}"
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <Label Text="{Binding Name}"
                                                                    Padding="2,0,2,0"
                                                                    Grid.Row="0"
                                                                    HorizontalOptions="CenterAndExpand"
@@ -100,90 +136,121 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                                                                    HorizontalTextAlignment="Center"
                                                                    FontSize="17"
                                                                    TextColor="Black"/>
-                                        <Grid Grid.Row="1">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.3*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Label Text="Màu sắc:" 
+                                                <Grid Grid.Row="1">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="0.3*"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Label Text="Màu sắc:" 
                                                                    Grid.Column="0"
                                                                    HorizontalOptions="Start"
                                                                    VerticalOptions="Center"
                                                                    FontSize="14"
                                                                    TextColor="Gray"/>
-                                            <Label Text="{Binding Color}" 
+                                                    <Label Text="{Binding Color}" 
                                                                    Grid.Column="1"
                                                                    HorizontalOptions="StartAndExpand"
                                                                    VerticalOptions="Center"
                                                                    FontSize="14"
                                                                    TextColor="Gray"/>
-                                        </Grid>
-                                        <Grid Grid.Row="2">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.5*"/>
-                                                <ColumnDefinition Width="0.3*"/>
-                                                <ColumnDefinition Width="1*"/>
-                                            </Grid.ColumnDefinitions>
+                                                </Grid>
+                                                <Grid Grid.Row="2">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="0.5*"/>
+                                                        <ColumnDefinition Width="0.3*"/>
+                                                        <ColumnDefinition Width="1*"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                            <Label Grid.Column="0" 
+                                                    <Label Grid.Column="0" 
                                                                    Text="Số lượng: "
                                                                    HorizontalOptions="Start"
                                                                    VerticalOptions="Center"
                                                                    Padding="0,0,10,5"
                                                                    FontSize="Small"
                                                                    TextColor="Black"/>
-                                            <Label Grid.Column="1" 
+                                                    <Label Grid.Column="1" 
                                                                    Text="{Binding Quantity}"
                                                                    HorizontalOptions="Start"
                                                                    VerticalOptions="Center"
                                                                    FontSize="Small"
                                                                    TextColor="Black"/>
 
-                                            <Label Grid.Column="2" 
+                                                    <Label Grid.Column="2" 
                                                                    Text="{Binding Price, StringFormat='{0:C}'}"
                                                                    HorizontalOptions="EndAndExpand"
                                                                    VerticalOptions="Center"
                                                                    Padding="0,0,10,5"
                                                                    FontSize="Small"
                                                                    TextColor="Red"/>
+                                                </Grid>
+
+                                            </Grid>
                                         </Grid>
+                                    </DataTemplate>
+                                </xforms:SfListView.ItemTemplate>
+                            </xforms:SfListView>
+                        </Grid>
+                    </pancakeview:PancakeView>
 
-                                    </Grid>
-                                </Grid>
-                            </DataTemplate>
-                        </xforms:SfListView.ItemTemplate>
-                    </xforms:SfListView>
-                </pancakeview:PancakeView>
-
-                <!--Ghi chú-->
-                <pancakeview:PancakeView CornerRadius="10" Grid.Row="2">
-                    <Grid BackgroundColor="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Text="Ghi chú >" TextColor="Black" Grid.Row="0" FontSize="17" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-                        <!--<inputLayout:SfTextInputLayout Hint="Nhập ghi chú ở đây..." Grid.Row="1">
+                    <!--Ghi chú-->
+                    <pancakeview:PancakeView CornerRadius="10" Grid.Row="3" Padding="5,0,5,0" BackgroundColor="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="Ghi chú >" TextColor="Black" Grid.Row="0" FontSize="17" FontAttributes="Bold" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                            <!--<inputLayout:SfTextInputLayout Hint="Nhập ghi chú ở đây..." Grid.Row="1">
                             <Entry Text="{Binding Note}"/>
                         </inputLayout:SfTextInputLayout>-->
-                        <Editor Text="{Binding Note}" Grid.Row="1" BackgroundColor="WhiteSmoke" AutoSize="TextChanges" Placeholder="Nhập ghi chú ở đây..."/>
-                    </Grid>
-                </pancakeview:PancakeView>
-                <!--Phương thức vận chuyển-->
-                <pancakeview:PancakeView CornerRadius="10" Grid.Row="3">
-                    <Grid BackgroundColor="White">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Label Text="Phương thức thanh toán >" TextColor="Black" Grid.Row="0" FontSize="17" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-                        <buttons:SfRadioGroup Grid.Row="1" Padding="10,0,10,0">
-                            <buttons:SfRadioButton Text="Thu tiền khi nhận hàng (COD)" FontSize="17" />
-                            <buttons:SfRadioButton Text="Thanh toán online" FontSize="17" IsChecked="{Binding isChecked, Mode=TwoWay}"/>
-                        </buttons:SfRadioGroup>
-                    </Grid>
-                </pancakeview:PancakeView>
-            </Grid>
+                            <Editor Text="{Binding Note}" Grid.Row="1" BackgroundColor="WhiteSmoke" AutoSize="TextChanges" Placeholder="Nhập ghi chú ở đây..."/>
+                        </Grid>
+                    </pancakeview:PancakeView>
+
+                    <!--Phương thức thanh toán-->
+                    <pancakeview:PancakeView CornerRadius="10" Grid.Row="4" Padding="5,0,5,0" BackgroundColor="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="Phương thức thanh toán >" TextColor="Black" FontAttributes="Bold" Grid.Row="0" FontSize="17" Padding="10,7,10,7" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                            <buttons:SfRadioGroup Grid.Row="1" Padding="10,0,10,0">
+                                <buttons:SfRadioButton Text="Thu tiền khi nhận hàng (COD)" FontSize="17" />
+                                <buttons:SfRadioButton Text="Thanh toán online" FontSize="17" IsChecked="{Binding isChecked, Mode=TwoWay}"/>
+                            </buttons:SfRadioGroup>
+                        </Grid>
+                    </pancakeview:PancakeView>
+
+                    <!--Tính tiền-->
+                    <pancakeview:PancakeView CornerRadius="10" Grid.Row="5" Padding="5,0,5,0" BackgroundColor="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Text="Thành tiền >" TextColor="Black" FontAttributes="Bold" Grid.Row="0" FontSize="17" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label Text="Tiền hàng:" TextColor="Black" Grid.Row="0" Grid.Column="0" FontSize="16" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="{Binding Price, StringFormat='{0:C}'}" Grid.Row="0" Grid.Column="1" FontSize="16" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="Phí vận chuyển:" TextColor="Black" Grid.Row="1" Grid.Column="0" FontSize="16" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="{Binding Shipping, StringFormat='+ {0:C}'}" Grid.Row="1" Grid.Column="1" FontSize="16" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="Giảm giá:" TextColor="Black" Grid.Row="2" Grid.Column="0" FontSize="16" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="{Binding Discount, StringFormat='- {0:C}'}" Grid.Row="2" Grid.Column="1" FontSize="16" Padding="10,0,10,0" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                            </Grid>
+                        </Grid>
+                    </pancakeview:PancakeView>
+                </Grid>
+            </ScrollView>
 
             <shipmentviews:BottomShipmentView Grid.Row="2"/>
         </Grid>

@@ -53,7 +53,7 @@ namespace PhoneStore.ViewModels
                     PhotoSize = PhotoSize.Medium,
                 };
                 var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
-                using (UserDialogs.Instance.Loading("Đang tải..."))
+                using (UserDialogs.Instance.Loading("Đang tải...", null, null, true, MaskType.Gradient))
                 {
                     if (selectedImage != null)
                     {
@@ -79,7 +79,7 @@ namespace PhoneStore.ViewModels
 
         private async void Continue(object obj)
         {
-            using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+            using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
                 UserModel newUser = new UserModel();
@@ -102,7 +102,7 @@ namespace PhoneStore.ViewModels
         {
             try
             {
-                using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+                using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
                 {
                     await CrossFirebaseAuth.Current.Instance.SignInWithEmailAndPasswordAsync(Email, Pwd);
                     var checkUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
@@ -130,7 +130,7 @@ namespace PhoneStore.ViewModels
         {
             try
             {
-                using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+                using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
                 {
                     await CrossFirebaseAuth.Current.Instance.CreateUserWithEmailAndPasswordAsync(Email, Pwd);
                     await CrossFirebaseAuth.Current.Instance.CurrentUser.SendEmailVerificationAsync();

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "975475580379-3kc2dgtra5t2bb61cjc9ef8mksdlp3oc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.quocthao.phonestore",
+            "certificate_hash": "fda44c4d1e50c4ea95e8094088ca94e38afcca30"
+          }
+        },
+        {
           "client_id": "975475580379-8opjfkpq0lifiot5gqdt70267275vm61.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

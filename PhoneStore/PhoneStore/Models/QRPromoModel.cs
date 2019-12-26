@@ -6,6 +6,7 @@ namespace PhoneStore.Models
 {
     public class QRPromoModel
     {
+        public string Code { get; set; }
         public string UserEmail { get; set; }
         public string QREmail { get; set; }
         public decimal Discount { get; set; }

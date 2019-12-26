@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             mc:Ignorable="d"
+             x:Class="PhoneStore.View.MainViews.News.ReadNewsPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--ActionBar-->
+            <pancakeview:PancakeView CornerRadius="10,10,0,0" Grid.Row="0" HasShadow="True">
+                <Grid BackgroundColor="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <buttons:SfButton Command="{Binding BackButton}" ImageSource="backbutton.png" Grid.Column="0" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" ShowIcon="True"/>
+                    <Label Text="Xem tin" Grid.Column="1" FontSize="17" FontAttributes="Bold" TextColor="Black" VerticalTextAlignment="Center" HorizontalOptions="Center"/>
+                </Grid>
+            </pancakeview:PancakeView>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <ProgressBar x:Name="progressBar" Grid.Row="0" BackgroundColor="White" />
+                <WebView Source="{Binding Link}" Grid.Row="1" Navigating="WebView_Navigating" Navigated="WebView_Navigated"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

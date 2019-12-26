@@ -9,23 +9,20 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace PhoneStore.View
+namespace PhoneStore.View.ShipmentViews
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShipmentPage : ContentPage
+    public partial class ChoosePromoPage : ContentPage
     {
-        public ShipmentPage()
+        public ChoosePromoPage()
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel();
-            this.BindingContext = vm;
         }
-        public ShipmentPage(OrderModel order)
+        public ChoosePromoPage(OrderModel order)
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel(order);
+            ChoosePromoViewModel vm = new ChoosePromoViewModel(order);
             this.BindingContext = vm;
         }
-        
     }
 }

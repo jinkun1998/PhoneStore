@@ -23,20 +23,23 @@ namespace PhoneStore.ViewModels
         public FirebaseHelper firebase;
         public CartViewModel()
         {
-            firebase = new FirebaseHelper();
-            Items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
-            if (Items.Count == 0)
-                IsVisbile = true;
-            foreach (var item in Items)
+            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
-                TotalPrice += item.Price * item.Quantity;
-            }
+                firebase = new FirebaseHelper();
+                Items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+                if (Items.Count == 0)
+                    IsVisbile = true;
+                foreach (var item in Items)
+                {
+                    TotalPrice += item.Price * item.Quantity;
+                }
 
-            this.AddQuantityTapped = new Command(AddQuantityChanged);
-            this.RemoveQuantityTapped = new Command(RemoveQuantityChanged);
-            this.TakeOrderTapped = new Command(TakeOrder);
-            this.DeleteItemTapped = new Command(DeleteItem);
-            this.BackButton = new Command(Back);
+                this.AddQuantityTapped = new Command(AddQuantityChanged);
+                this.RemoveQuantityTapped = new Command(RemoveQuantityChanged);
+                this.TakeOrderTapped = new Command(TakeOrder);
+                this.DeleteItemTapped = new Command(DeleteItem);
+                this.BackButton = new Command(Back);
+            }
         }
 
         private void Back(object obj)
@@ -46,7 +49,7 @@ namespace PhoneStore.ViewModels
 
         private void DeleteItem(object obj)
         {
-            using (UserDialogs.Instance.Loading("Đang xử lý..."))
+            using (UserDialogs.Instance.Progress("Đang xử lý...", null, null, true, MaskType.Gradient))
             {
                 var item = obj as CartModel;
                 Task.Run(async () => await App.SQLiteDb.DeleteItemAsync(item));
@@ -73,24 +76,27 @@ namespace PhoneStore.ViewModels
 
         private void RemoveQuantityChanged(object obj)
         {
-            CartModel item = obj as CartModel;
-            if (item.Quantity > 0)
+            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
-                item.Quantity--;
-                if (item.Quantity == 0)
+                CartModel item = obj as CartModel;
+                if (item.Quantity > 0)
                 {
-                    Items.Remove(item);
-                    App.SQLiteDb.DeleteItemAsync(item);
-                    Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
-                    Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+                    item.Quantity--;
+                    if (item.Quantity == 0)
+                    {
+                        Items.Remove(item);
+                        App.SQLiteDb.DeleteItemAsync(item);
+                        Application.Current.MainPage.Navigation.PushAsync(new YourCartPage(), false);
+                        Application.Current.MainPage.Navigation.RemovePage(Application.Current.MainPage.Navigation.NavigationStack[Application.Current.MainPage.Navigation.NavigationStack.Count - 2]);
+                    }
+                    else
+                    {
+                        TotalPrice -= item.Price;
+                    }
                 }
-                else
-                {
-                    TotalPrice -= item.Price;
-                }
-            }
 
-            App.SQLiteDb.SaveItemAsync(item);
+                App.SQLiteDb.SaveItemAsync(item);
+            }
         }
 
         private void AddQuantityChanged(object obj)
@@ -102,8 +108,8 @@ namespace PhoneStore.ViewModels
         }
 
         private List<CartModel> _items;
-        public List<CartModel> Items 
-        { 
+        public List<CartModel> Items
+        {
             get { return _items; }
             set { _items = value; OnPropertyChanged(); }
         }

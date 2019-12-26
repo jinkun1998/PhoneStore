@@ -34,7 +34,7 @@ namespace PhoneStore.ViewModels
         }
         public List<ItemModel> GetUserFavoriteItems()
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
             {
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
                 var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;

@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using Microsoft.Toolkit.Parsers.Rss;
 using PhoneStore.Firebase;
 using PhoneStore.Models;
 using PhoneStore.SQLite;
@@ -14,9 +15,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -28,7 +32,7 @@ namespace PhoneStore.ViewModel
         public HomeViewModel()
         {
 
-            using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
+            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
                 firebase = new FirebaseHelper();
                 var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
@@ -46,6 +50,7 @@ namespace PhoneStore.ViewModel
                     Name = User.FullName;
                     Image = User.AvatarLink;
                 }
+                RSSSources = GetRssSources();
 
                 this.cmdPhone = new Command(GoToPhone);
                 this.cmdTablet = new Command(GoToTablet);
@@ -59,11 +64,39 @@ namespace PhoneStore.ViewModel
                 this.EditProfile = new Command(EditUser);
                 this.AppInfo = new Command(ShowInfo);
                 this.QRCodeTapped = new Command(GotoQRCodeAsync);
+                this.MyPromoTapped = new Command(GotoMyPromo);
+                this.NewsTapped = new Command<object>(GotoNews);
             }
         }
 
-
         #region Logic
+        private void GotoNews(object obj)
+        {
+            using (UserDialogs.Instance.Progress("Đang tải..."))
+            {
+                var detail = (obj as Syncfusion.ListView.XForms.ItemTappedEventArgs).ItemData as RssFeedModel;
+                Application.Current.MainPage.Navigation.PushAsync(new NewsPage(detail));
+            }
+        }
+        private async void GotoMyPromo(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(new PromoPage());
+        }
+
+        private List<RssFeedModel> GetRssSources()
+        {
+            List<RssFeedModel> feeds = new List<RssFeedModel>()
+            {
+                new RssFeedModel("Phần cứng","https://ictnews.vn/rss/cntt/phan-cung","https://image1.ictnews.vn/a/Assets/img/logo.png"),
+                new RssFeedModel("Thế giới số","https://ictnews.vn/rss/the-gioi-so","https://image1.ictnews.vn/a/Assets/img/logo.png"),
+                new RssFeedModel("Công nghệ thông tin","https://ictnews.vn/rss/cntt","https://image1.ictnews.vn/a/Assets/img/logo.png"),
+                new RssFeedModel("Công nghệ 360","https://ictnews.vn/rss/cong-nghe-360","https://image1.ictnews.vn/a/Assets/img/logo.png"),
+                new RssFeedModel("Tinh tế","https://tinhte.vn/rss/","https://photo2.tinhte.vn/data/attachment-files/2017/04/4027554_logo.og.png"),
+                new RssFeedModel("VnReview","http://vnreview.vn/feed/-/rss/home","https://yt3.ggpht.com/a/AGF-l7-WTz7KqtB36dZoma4n5wmGMy_rhd96rukXWA=s900-c-k-c0xffffffff-no-rj-mo"),
+            };
+            return feeds;
+        }
+        
         private async void GotoQRCodeAsync(object obj)
         {
             await Application.Current.MainPage.Navigation.PushAsync(new QRPage());
@@ -92,7 +125,7 @@ namespace PhoneStore.ViewModel
             var result = await Application.Current.MainPage.DisplayAlert("Cảnh báo", "Bạn có chắc chắn muốn đăng xuất?", "Chắc chắn", "Hủy");
             if (result)
             {
-                using (UserDialogs.Instance.Loading("Vui lòng chờ..."))
+                using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
                 {
                     CrossFirebaseAuth.Current.Instance.SignOut();
                     var items = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
@@ -207,6 +240,8 @@ namespace PhoneStore.ViewModel
         public List<ItemModel> DiscountItems { get; set; }
         public CartModel Cart { get; set; }
         public UserModel User { get; set; }
+        public List<RssFeedItemModel> RSSNews { get; set; }
+        public List<RssFeedModel> RSSSources { get; set; }
         #endregion
 
         #region Command
@@ -222,6 +257,8 @@ namespace PhoneStore.ViewModel
         public Command QRCodeTapped { get; }
         public Command EditProfile { get; }
         public Command AppInfo { get; }
+        public Command MyPromoTapped { get; }
+        public Command<object> NewsTapped { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)

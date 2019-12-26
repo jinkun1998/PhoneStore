@@ -12,20 +12,13 @@ using Xamarin.Forms.Xaml;
 namespace PhoneStore.View
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ShipmentPage : ContentPage
+    public partial class NewsPage : ContentPage
     {
-        public ShipmentPage()
+        public NewsPage(RssFeedModel feed)
         {
             InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel();
+            RssFeedViewModel vm = new RssFeedViewModel(feed);
             this.BindingContext = vm;
         }
-        public ShipmentPage(OrderModel order)
-        {
-            InitializeComponent();
-            ShipmentViewModel vm = new ShipmentViewModel(order);
-            this.BindingContext = vm;
-        }
-        
     }
 }

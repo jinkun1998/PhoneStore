@@ -4,7 +4,9 @@ using PhoneStore.Models;
 using PhoneStore.View;
 using PhoneStore.View.ShipmentViews;
 using Plugin.FirebaseAuth;
+using Plugin.Toast;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,7 +20,7 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public ShipmentViewModel()
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
                 firebase = new FirebaseHelper();
                 Order = new OrderModel();
@@ -26,29 +28,45 @@ namespace PhoneStore.ViewModels
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
                 var userDB = Task.Run(async () => await App.SQLiteDb.GetUserAsync(user.Email)).Result;
                 Order.Carts = carts;
+                Shipping = 30000;
                 foreach (var cart in Order.Carts)
                 {
-                    TotalPrice += cart.Quantity * cart.Price;
+                    Price += cart.Quantity * cart.Price;
                 }
+                Height = (120 * Order.Carts.Count) + 60;
                 Address = userDB.Address;
+                UserPhone = userDB.Phone;
+                UserName = userDB.FullName;
+                if (Promo != null)
+                {
+                    IsShow = true;
+                    Discount = (Promo.Discount * Price) / 100;
+                    TotalPrice = Price + Shipping - Discount;
+                }
+                else
+                {
+                    TotalPrice = Price + Shipping;
+                }
 
                 this.CreateOrder = new Command(CreateNewOrder);
                 this.ChangeLocationTapped = new Command(ChangeLocation);
                 this.BackButton = new Command(Back);
+                this.PromoTapped = new Command(PromoCmd);
             }
         }
 
-        private async void Back(object obj)
-        {
-            await Application.Current.MainPage.Navigation.PopAsync();
-        }
         public ShipmentViewModel(OrderModel order)
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
             {
                 this.Order = order;
+                this.Promo = order.Promo;
+                var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
                 Address = Order.Address;
                 Note = Order.Note;
+                UserName = Order.UserName;
+                UserPhone = Order.UserPhone;
+                Shipping = 30000;
                 switch (Order.Payment)
                 {
                     case OrderModel.PaymentType.COD:
@@ -63,15 +81,54 @@ namespace PhoneStore.ViewModels
                 firebase = new FirebaseHelper();
                 foreach (var cart in Order.Carts)
                 {
-                    TotalPrice += cart.Quantity * cart.Price;
+                    Price += cart.Quantity * cart.Price;
+                }
+                Height = (120 * Order.Carts.Count) + 60;
+                if (Promo != null)
+                {
+                    IsShow = true;
+                    Discount = (Promo.Discount * Price) / 100;
+                    TotalPrice = Price + Shipping - Discount;
+                }
+                else
+                {
+                    TotalPrice = Price + Shipping;
                 }
 
                 this.CreateOrder = new Command(CreateNewOrder);
                 this.ChangeLocationTapped = new Command(ChangeLocation);
+                this.BackButton = new Command(Back);
+                this.PromoTapped = new Command(PromoCmd);
             }
         }
-
+        
         #region Logic
+
+        private void PromoCmd(object obj)
+        {
+            var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
+            Order.UserEmail = user.Email;
+            Order.CreatedOn = DateTime.Now;
+            Order.Note = Note;
+            Order.Address = Address;
+            Order.UserName = UserName;
+            Order.UserPhone = UserPhone;
+            Order.Promo = Promo;
+            if (isChecked == false)
+            {
+                Order.Payment = OrderModel.PaymentType.COD;
+            }
+            else
+            {
+                Order.Payment = OrderModel.PaymentType.Bank;
+            }
+            Application.Current.MainPage.Navigation.PushAsync(new ChoosePromoPage(Order));
+        }
+
+        private async void Back(object obj)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
         private void ChangeLocation(object obj)
         {
             var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
@@ -79,6 +136,9 @@ namespace PhoneStore.ViewModels
             Order.CreatedOn = DateTime.Now;
             Order.Note = Note;
             Order.Address = Address;
+            Order.UserName = UserName;
+            Order.UserPhone = UserPhone;
+            Order.Promo = Promo;
             if (isChecked == false)
             {
                 Order.Payment = OrderModel.PaymentType.COD;
@@ -92,7 +152,7 @@ namespace PhoneStore.ViewModels
 
         private async void CreateNewOrder(object obj)
         {
-            using (UserDialogs.Instance.Loading("Đang xử lý..."))
+            using (UserDialogs.Instance.Loading("Đang xử lý...", null, null, true, MaskType.Gradient))
             {
                 if (Address != null)
                 {
@@ -109,7 +169,14 @@ namespace PhoneStore.ViewModels
                     Order.UserEmail = user.Email;
                     Order.CreatedOn = DateTime.Now;
                     Order.Note = Note;
+                    Order.UserPhone = UserPhone;
+                    Order.UserName = UserName;
                     Order.TotalPrice = TotalPrice;
+                    if (Promo != null)
+                    {
+                        Promo.IsUsed = true;
+                        Order.Promo = Promo;
+                    }
                     Order.Address = Address;
                     Order.Status = OrderModel.OrderStatus.Ordered;
                     if (isChecked == false)
@@ -157,9 +224,11 @@ namespace PhoneStore.ViewModels
                         await App.SQLiteDb.DeleteItemAsync(item);
                         await Task.Delay(500);
                     }
+                    
+                    await firebase.UpdateUserPromo(Promo);
+                    await Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "Đã hiểu");
                     await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                     Application.Current.MainPage = new NavigationPage(new HomePage());
-                    await Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "OK");
                 }
                 else
                 {
@@ -186,17 +255,72 @@ namespace PhoneStore.ViewModels
                 OnPropertyChanged(nameof(Order));
             }
         }
+        
         public bool isChecked { get; set; }
+
+        private bool _canshow;
+        public bool IsShow
+        {
+            get { return _canshow; }
+            set
+            {
+                _canshow = value; ;
+                OnPropertyChanged(nameof(IsShow));
+            }
+        }
+
         private decimal _totalPrice;
         public decimal TotalPrice
         {
             get { return _totalPrice; }
             set
             {
-                _totalPrice = value;
+                _totalPrice = value; ;
                 OnPropertyChanged(nameof(TotalPrice));
             }
         }
+        private decimal _discount;
+        public decimal Discount
+        {
+            get { return _discount; }
+            set
+            {
+                _discount = value; ;
+                OnPropertyChanged(nameof(Discount));
+            }
+        }
+        private decimal _price;
+        public decimal Price
+        {
+            get { return _price; }
+            set
+            {
+                _price = value;
+                OnPropertyChanged(nameof(Price));
+            }
+        }
+
+        private QRPromoModel _promo;
+        public QRPromoModel Promo
+        {
+            get { return _promo; }
+            set
+            {
+                _promo = value;
+                OnPropertyChanged(nameof(Promo));
+            }
+        }
+        private decimal _shipping;
+        public decimal Shipping
+        {
+            get { return _shipping; }
+            set
+            {
+                _shipping = value;
+                OnPropertyChanged(nameof(Shipping));
+            }
+        }
+
         private string _address;
         public string Address
         {
@@ -207,6 +331,26 @@ namespace PhoneStore.ViewModels
                 OnPropertyChanged(nameof(Address));
             }
         }
+        private string _username;
+        public string UserName
+        {
+            get { return _username; }
+            set
+            {
+                _username = value;
+                OnPropertyChanged(nameof(UserName));
+            }
+        }
+        private string _userphone;
+        public string UserPhone
+        {
+            get { return _userphone; }
+            set
+            {
+                _userphone = value;
+                OnPropertyChanged(nameof(UserPhone));
+            }
+        }
         private string _note;
         public string Note
         {
@@ -215,6 +359,17 @@ namespace PhoneStore.ViewModels
             {
                 _note = value;
                 OnPropertyChanged(nameof(Note));
+            }
+        }
+
+        private int _height;
+        public int Height
+        {
+            get { return _height; }
+            set
+            {
+                _height = value;
+                OnPropertyChanged(nameof(Height));
             }
         }
         private ShipmentDetailModel _shipment;
@@ -234,6 +389,8 @@ namespace PhoneStore.ViewModels
         public Command ChooseDelivery { get; }
         public Command ChangeLocationTapped { get; }
         public Command BackButton { get; }
+        public Command PromoTapped { get; }
+        public Command ItemTapped { get; }
         #endregion
     }
 }

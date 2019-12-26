@@ -1,4 +1,5 @@
-﻿using PhoneStore.Models;
+﻿using Acr.UserDialogs;
+using PhoneStore.Models;
 using PhoneStore.View;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
@@ -52,29 +53,32 @@ namespace PhoneStore.ViewModels
 
                 if (status == PermissionStatus.Granted)
                 {
-                    Xamarin.Forms.Maps.Map map = obj as Xamarin.Forms.Maps.Map;
-                    var locator = CrossGeolocator.Current;
-                    locator.DesiredAccuracy = 1;
-
-                    var location = await locator.GetPositionAsync(TimeSpan.FromTicks(10000));
-                    Xamarin.Forms.Maps.Position position = new Xamarin.Forms.Maps.Position(location.Latitude, location.Longitude);
-                    map.Pins.Clear();
-                    if (position != null)
+                    using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
                     {
-                        var placemarks = await Geocoding.GetPlacemarksAsync(position.Latitude, position.Longitude);
-                        var placemark = placemarks?.FirstOrDefault();
-                        Pin pin = new Pin
+                        Xamarin.Forms.Maps.Map map = obj as Xamarin.Forms.Maps.Map;
+                        var locator = CrossGeolocator.Current;
+                        locator.DesiredAccuracy = 1;
+
+                        var location = await locator.GetPositionAsync(TimeSpan.FromTicks(10000));
+                        Xamarin.Forms.Maps.Position position = new Xamarin.Forms.Maps.Position(location.Latitude, location.Longitude);
+                        map.Pins.Clear();
+                        if (position != null)
                         {
-                            Position = position,
-                            Label = placemark.SubThoroughfare + " " + placemark.Thoroughfare,
-                            Address = placemark.SubThoroughfare + " " + placemark.Thoroughfare + ", " + placemark.SubAdminArea + ", " + placemark.CountryName,
-                            Type = PinType.Place,
-                        };
-                        Address = pin.Address;
-                        map.Pins.Add(pin);
-                        map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(50)));
+                            var placemarks = await Geocoding.GetPlacemarksAsync(position.Latitude, position.Longitude);
+                            var placemark = placemarks?.FirstOrDefault();
+                            Pin pin = new Pin
+                            {
+                                Position = position,
+                                Label = placemark.SubThoroughfare + " " + placemark.Thoroughfare,
+                                Address = placemark.SubThoroughfare + " " + placemark.Thoroughfare + ", " + placemark.SubAdminArea + ", " + placemark.CountryName,
+                                Type = PinType.Place,
+                            };
+                            Address = pin.Address;
+                            map.Pins.Add(pin);
+                            map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(50)));
+                        }
+                        //Permission granted, do what you want do.
                     }
-                    //Permission granted, do what you want do.
                 }
                 else if (status != PermissionStatus.Unknown)
                 {
@@ -113,28 +117,31 @@ namespace PhoneStore.ViewModels
 
                 if (status == PermissionStatus.Granted)
                 {
-                    Xamarin.Forms.Maps.Map map = obj as Xamarin.Forms.Maps.Map;
-                    map.Pins.Clear();
-                    var positions = new List<Xamarin.Forms.Maps.Position>(await new Geocoder().GetPositionsForAddressAsync(Address));
-                    Xamarin.Forms.Maps.Position position = positions.FirstOrDefault();
-                    if (position != null)
+                    using (UserDialogs.Instance.Loading("Vui lòng chờ...", null, null, true, MaskType.Gradient))
                     {
-                        var placemarks = await Geocoding.GetPlacemarksAsync(position.Latitude, position.Longitude);
-                        var placemark = placemarks?.FirstOrDefault();
-                        Pin pin = new Pin
+                        Xamarin.Forms.Maps.Map map = obj as Xamarin.Forms.Maps.Map;
+                        map.Pins.Clear();
+                        var positions = new List<Xamarin.Forms.Maps.Position>(await new Geocoder().GetPositionsForAddressAsync(Address));
+                        Xamarin.Forms.Maps.Position position = positions.FirstOrDefault();
+                        if (position != null)
                         {
-                            Position = position,
-                            Label = placemark.SubThoroughfare + " " + placemark.Thoroughfare,
-                            Address = placemark.SubThoroughfare + " " + placemark.Thoroughfare + ", " + placemark.SubAdminArea + ", " + placemark.CountryName,
-                            Type = PinType.Place,
-                        };
-                        Address = pin.Address;
-                        map.Pins.Add(pin);
-                        map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(50)));
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Lỗi", "Không tìm thấy địa điểm!", "Đã hiểu");
+                            var placemarks = await Geocoding.GetPlacemarksAsync(position.Latitude, position.Longitude);
+                            var placemark = placemarks?.FirstOrDefault();
+                            Pin pin = new Pin
+                            {
+                                Position = position,
+                                Label = placemark.SubThoroughfare + " " + placemark.Thoroughfare,
+                                Address = placemark.SubThoroughfare + " " + placemark.Thoroughfare + ", " + placemark.SubAdminArea + ", " + placemark.CountryName,
+                                Type = PinType.Place,
+                            };
+                            Address = pin.Address;
+                            map.Pins.Add(pin);
+                            map.MoveToRegion(MapSpan.FromCenterAndRadius(position, Distance.FromMeters(50)));
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Lỗi", "Không tìm thấy địa điểm!", "Đã hiểu");
+                        }
                     }
                     //Permission granted, do what you want do.
                 }

@@ -254,9 +254,10 @@ namespace PhoneStore.Firebase
         public async Task DeleteUserOrder(OrderModel order)
         {
             var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
-            await firebaseClient
-                .Child("Orders")
-                .PostAsync(order).ConfigureAwait(true);
+            var toDeleteCart = (await firebaseClient
+            .Child("Orders")
+            .OnceAsync<CartModel>().ConfigureAwait(true)).Where(a => a.Object.UserEmail == order.UserEmail && a.Object.Code == order.Code).FirstOrDefault();
+            await firebaseClient.Child("Carts").Child(toDeleteCart.Key).DeleteAsync().ConfigureAwait(true);
         }
 
         public async Task<List<OrderModel>> GetAllOrders()
@@ -276,6 +277,9 @@ namespace PhoneStore.Firebase
                   Status = item.Object.Status,
                   TotalPrice = item.Object.TotalPrice,
                   Shipments = item.Object.Shipments,
+                  UserName = item.Object.UserName,
+                  UserPhone = item.Object.UserPhone,
+                  Promo = item.Object.Promo,
               }).ToList();
         }
 
@@ -298,15 +302,18 @@ namespace PhoneStore.Firebase
               .PutAsync(new OrderModel()
               {
                   Code = order.Code,
+                  UserEmail = order.UserEmail,
                   Address = order.Address,
                   Carts = order.Carts,
                   CreatedOn = order.CreatedOn,
                   Note = order.Note,
                   Payment = order.Payment,
-                  Shipments = order.Shipments,
                   Status = order.Status,
                   TotalPrice = order.TotalPrice,
-                  UserEmail = order.UserEmail,
+                  Shipments = order.Shipments,
+                  UserName = order.UserName,
+                  UserPhone = order.UserPhone,
+                  Promo = order.Promo,
               }).ConfigureAwait(true);
         }
         #endregion
@@ -333,12 +340,40 @@ namespace PhoneStore.Firebase
                   QREmail = item.Object.QREmail,
                   IsUsed = item.Object.IsUsed,
                   Discount = item.Object.Discount,
+                  Code = item.Object.Code,
               }).ToList();
         }
         public async Task<List<QRPromoModel>> GetAllUserPromo(string userEmail)
         {
             var allOrders = GetAllPromos().Result;
             return allOrders.Where(it => it.UserEmail == userEmail && it.IsUsed == false).ToList();
+        }
+        public async Task DeleteUserPromo(QRPromoModel promo)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            var toDeleteCart = (await firebaseClient
+            .Child("Promos")
+            .OnceAsync<CartModel>().ConfigureAwait(true)).Where(a => a.Object.UserEmail == promo.UserEmail && a.Object.Code == promo.Code).FirstOrDefault();
+            await firebaseClient.Child("Promos").Child(toDeleteCart.Key).DeleteAsync().ConfigureAwait(true);
+        }
+        public async Task UpdateUserPromo(QRPromoModel promo)
+        {
+            var firebaseClient = new FirebaseClient("https://thebossapp-dee9f.firebaseio.com/");
+            var toUpdateItem = (await firebaseClient
+              .Child("Promos")
+              .OnceAsync<QRPromoModel>().ConfigureAwait(true)).Where(a => a.Object.UserEmail == promo.UserEmail && a.Object.Code == promo.Code).FirstOrDefault();
+
+            await firebaseClient
+              .Child("Promos")
+              .Child(toUpdateItem.Key)
+              .PutAsync(new QRPromoModel()
+              {
+                  Code = promo.Code,
+                  UserEmail = promo.UserEmail,
+                  Discount = promo.Discount,
+                  IsUsed = promo.IsUsed,
+                  QREmail = promo.QREmail,
+              }).ConfigureAwait(true);
         }
         #endregion
     }

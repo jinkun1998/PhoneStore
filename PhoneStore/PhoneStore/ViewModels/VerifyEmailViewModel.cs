@@ -18,7 +18,7 @@ namespace PhoneStore.ViewModels
 
         private async void CheckVerifyEmail(object obj)
         {
-            using (UserDialogs.Instance.Loading("Đang kiểm tra..."))
+            using (UserDialogs.Instance.Loading("Đang kiểm tra...", null, null, true, MaskType.Gradient))
             {
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
                 if (user.IsEmailVerified)

@@ -17,7 +17,7 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public WatchViewModel()
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
             {
                 firebase = new FirebaseHelper();
                 var Items = Task.Run(async () => await firebase.GetAllItems()).Result;

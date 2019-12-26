@@ -18,7 +18,7 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public MyOrderViewModel()
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
             {
                 firebase = new FirebaseHelper();
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;

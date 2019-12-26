@@ -5,16 +5,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:local="clr-namespace:PhoneStore.ViewModels"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.SearchPage" NavigationPage.HasNavigationBar="False">
+    <ContentPage.BindingContext>
+        <local:SearchViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <SearchBar Placeholder="Bạn muốn tìm gì?..." Grid.Row="0" />
-            <xforms:SfListView Grid.Row="1"
+            <SearchBar Placeholder="Bạn muốn tìm gì?..." Grid.Row="0" Text="{Binding Text, Mode=TwoWay}" SearchCommand="{Binding SearchCmd}" SearchCommandParameter="{x:Reference listView}"/>
+            
+            <xforms:SfListView Grid.Row="1" x:Name="listView"
                 ItemsSource="{Binding ItemCollection}"
                 ItemSize="230"
                 ItemSpacing="5"
@@ -73,6 +79,14 @@
                     </DataTemplate>
                 </xforms:SfListView.ItemTemplate>
             </xforms:SfListView>
+
+            <forms:AnimationView Grid.Row="1"
+                                 Loop="True"
+                                 AutoPlay="True"
+                                 HorizontalOptions="CenterAndExpand"
+                                 VerticalOptions="CenterAndExpand"
+                                 Animation="nosearch.json"
+                                 IsVisible="{Binding IsVisible}"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

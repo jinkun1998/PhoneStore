@@ -23,7 +23,7 @@ namespace PhoneStore.ViewModels
         public FirebaseStorageHelper firebaseStorage;
         public EditUserViewModel()
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Đang lưu...", null, null, true, MaskType.Gradient))
             {
                 firebase = new FirebaseHelper();
                 firebaseStorage = new FirebaseStorageHelper();
@@ -60,7 +60,7 @@ namespace PhoneStore.ViewModels
                 var selectedImage = await CrossMedia.Current.PickPhotoAsync(mediaOptions);
                 if (selectedImage != null)
                 {
-                    using (UserDialogs.Instance.Loading("Đang xử lý..."))
+                    using (UserDialogs.Instance.Progress("Đang xử lý...", null, null, true, MaskType.Gradient))
                     {
                         var imageLink = Task.Run(async () => await firebaseStorage.UploadFile(selectedImage.GetStream(), Path.GetFileName(User.Email))).Result;
                         if (imageLink != null)
@@ -87,7 +87,7 @@ namespace PhoneStore.ViewModels
 
         private async void SaveUser(object obj)
         {
-            using (UserDialogs.Instance.Loading("Vui lòng chờ"))
+            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
                 UserModel user = new UserModel();
                 user.Address = Address;

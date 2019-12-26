@@ -1,20 +1,67 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
+             xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:xforms="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.MainViews.News.NewsView">
     <ContentView.Content>
-        <ScrollView>
-            <shimmer:SfShimmer x:Name="orderShimmer" Type="Persona" VerticalOptions="FillAndExpand" IsActive ="True">
-                <shimmer:SfShimmer.Content>
-                    <Grid>
-                        <Label Text="Hello! News Tab" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"></Label>
-                    </Grid>
-                </shimmer:SfShimmer.Content>
-            </shimmer:SfShimmer>
-        </ScrollView>
+        <Grid BackgroundColor="#f9f9f9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <!--<rotator:SfRotator ItemsSource="{Binding RSSNews}" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White" EnableAutoPlay="True">
+                <rotator:SfRotator.ItemTemplate>
+                    <DataTemplate>
+                        <pancakeview:PancakeView CornerRadius="10">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <WebView Source="{Binding desHtml}" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                                <Label Text="{Binding title}" Grid.Row="1"/>
+                            </Grid>
+                        </pancakeview:PancakeView>
+                    </DataTemplate>
+                </rotator:SfRotator.ItemTemplate>
+            </rotator:SfRotator>-->
+            <Label Text="Các kênh thông tin phổ biến" Grid.Row="0" Padding="20,0,20,0" HorizontalOptions="StartAndExpand" FontAttributes="Bold"  VerticalOptions="CenterAndExpand" FontSize="18" TextColor="Black" LineBreakMode="WordWrap"/>
+            <xforms:SfListView Grid.Row="1"
+                               ItemsSource="{Binding RSSSources}"
+                               ItemSize="200"
+                               ItemSpacing="5"
+                               Padding="10,0,10,0"
+                               Orientation="Vertical"
+                               TapCommand="{Binding NewsTapped}"
+                               SelectionMode="None"
+                               LoadMoreOption="AutoOnScroll">
+                <xforms:SfListView.LayoutManager>
+                    <xforms:GridLayout SpanCount="2" />
+                </xforms:SfListView.LayoutManager>
+                <xforms:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <pancakeview:PancakeView CornerRadius="10" BorderColor="Gray" BorderThickness="1">
+                                <Grid BackgroundColor="White" Padding="10" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="120"/>
+                                        <RowDefinition Height="80"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding image}" Aspect="AspectFit" Grid.Row="0" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="{Binding name}" Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="18" TextColor="Black" LineBreakMode="WordWrap"/>
+                                </Grid>
+                            </pancakeview:PancakeView>
+                        </ViewCell>
+                    </DataTemplate>
+                </xforms:SfListView.ItemTemplate>
+            </xforms:SfListView>
+
+        </Grid>
     </ContentView.Content>
 </ContentView>

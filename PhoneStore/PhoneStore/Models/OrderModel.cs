@@ -17,10 +17,13 @@ namespace PhoneStore.Models
         public List<ShipmentDetailModel> Shipments { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Address { get; set; }
+        public string UserName { get; set; }
+        public string UserPhone { get; set; }
         public string Note { get; set; }
         public PaymentType Payment { get; set; }
         public string UserEmail { get; set; }
         public decimal TotalPrice { get; set; }
+        public QRPromoModel Promo { get; set; }
         public OrderStatus Status { get; set; }
 
         public enum PaymentType

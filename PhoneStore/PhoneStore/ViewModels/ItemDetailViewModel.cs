@@ -27,7 +27,7 @@ namespace PhoneStore.ViewModels
         public FirebaseHelper firebase;
         public ItemDetailViewModel(ItemModel item)
         {
-            using (UserDialogs.Instance.Loading("Đang tải..."))
+            using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
             {
                 firebase = new FirebaseHelper();
                 Item = item;
@@ -48,7 +48,7 @@ namespace PhoneStore.ViewModels
         }
         public void CheckFavorite()
         {
-            using (UserDialogs.Instance.Loading("Vui lòng chờ..."))
+            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
                 var allItems = Task.Run(async () => await firebase.GetAllFavoriteItems()).Result;
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
@@ -93,7 +93,7 @@ namespace PhoneStore.ViewModels
             }
             else
             {
-                using (UserDialogs.Instance.Loading("Đang xử lý..."))
+                using (UserDialogs.Instance.Progress("Đang xử lý...", null, null, true, MaskType.Gradient))
                 {
                     var exitsCart = App.SQLiteDb.GetItemAsync(Item.Code).Result;
                     if (exitsCart == null)
@@ -164,7 +164,7 @@ namespace PhoneStore.ViewModels
 
         public void ShareUri(object ojb)
         {
-            using (UserDialogs.Instance.Loading("Đang xử lý..."))
+            using (UserDialogs.Instance.Progress("Đang xử lý...", null, null, true, MaskType.Gradient))
             {
                 Share.RequestAsync(new ShareTextRequest
                 {
@@ -176,7 +176,7 @@ namespace PhoneStore.ViewModels
 
         private void GotoDescription(object obj)
         {
-            using (UserDialogs.Instance.Loading("Đang xử lý..."))
+            using (UserDialogs.Instance.Progress("Đang xử lý...", null, null, true, MaskType.Gradient))
             {
                 Application.Current.MainPage.Navigation.PushAsync(new DescriptionPage(Item));
             }

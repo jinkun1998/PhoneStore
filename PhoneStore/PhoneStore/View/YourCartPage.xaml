@@ -45,7 +45,7 @@
                                 >
                 <xforms:SfListView.RightSwipeTemplate>
                     <DataTemplate>
-                        <buttons:SfButton Text="Xóa" Command="{Binding Path=BindingContext.DeleteItemTapped, Source={x:Reference CartPage}}" CommandParameter="{Binding .}"/>
+                        <ImageButton Source="https://i.imgur.com/4f3lQol.png" BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Command="{Binding Path=BindingContext.DeleteItemTapped, Source={x:Reference CartPage}}" CommandParameter="{Binding .}"/>
                     </DataTemplate>
                 </xforms:SfListView.RightSwipeTemplate>
                 <xforms:SfListView.ItemTemplate>
