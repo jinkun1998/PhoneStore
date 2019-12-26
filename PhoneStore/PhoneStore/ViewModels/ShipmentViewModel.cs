@@ -176,6 +176,7 @@ namespace PhoneStore.ViewModels
                     {
                         Promo.IsUsed = true;
                         Order.Promo = Promo;
+                        await firebase.UpdateUserPromo(Promo);
                     }
                     Order.Address = Address;
                     Order.Status = OrderModel.OrderStatus.Ordered;
@@ -225,7 +226,6 @@ namespace PhoneStore.ViewModels
                         await Task.Delay(500);
                     }
                     
-                    await firebase.UpdateUserPromo(Promo);
                     await Application.Current.MainPage.DisplayAlert("Thông báo", "Đã đặt hàng thành công!", "Đã hiểu");
                     await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                     Application.Current.MainPage = new NavigationPage(new HomePage());
