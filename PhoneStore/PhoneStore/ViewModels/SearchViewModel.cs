@@ -36,34 +36,42 @@ namespace PhoneStore.ViewModels
         {
             SfListView lv = obj as SfListView;
             UserDialogs.Instance.ShowLoading("Đang tìm kiếm...");
-            var allItems = Task.Run(async () => await firebase.GetAllItems()).Result;
-            var foundItem3 = allItems.Where(it => it.Name.Contains(Text)).ToList();
-            var foundItem1 = allItems.Where(it => it.Name.Contains(Text.ToLower())).ToList();
-            var foundItem2 = allItems.Where(it => it.Name.Contains(Text.ToUpper())).ToList();
-            List<ItemModel> items = new List<ItemModel>();
-            foreach (var item in foundItem3)
+            try
             {
-                items.Add(item);
+                var allItems = Task.Run(async () => await firebase.GetAllItems()).Result;
+                var foundItem3 = allItems.Where(it => it.Name.Contains(Text)).ToList();
+                var foundItem1 = allItems.Where(it => it.Name.Contains(Text.ToLower())).ToList();
+                var foundItem2 = allItems.Where(it => it.Name.Contains(Text.ToUpper())).ToList();
+                List<ItemModel> items = new List<ItemModel>();
+                foreach (var item in foundItem3)
+                {
+                    items.Add(item);
+                }
+                foreach (var item in foundItem1)
+                {
+                    items.Add(item);
+                }
+                foreach (var item in foundItem2)
+                {
+                    items.Add(item);
+                }
+                if (items.Count > 0)
+                {
+                    lv.IsVisible = true;
+                    ItemCollection = items;
+                    UserDialogs.Instance.HideLoading();
+                    IsVisible = false;
+                }
+                else
+                {
+                    lv.IsVisible = false;
+                    ItemCollection.Clear();
+                    UserDialogs.Instance.HideLoading();
+                    IsVisible = true;
+                }
             }
-            foreach (var item in foundItem1)
+            catch (Exception)
             {
-                items.Add(item);
-            }
-            foreach (var item in foundItem2)
-            {
-                items.Add(item);
-            }
-            if (items.Count > 0)
-            {
-                ItemCollection = items;
-                UserDialogs.Instance.HideLoading();
-                IsVisible = false;
-            }
-            else
-            {
-                lv.IsVisible = false;
-                ItemCollection.Clear();
-                UserDialogs.Instance.HideLoading();
                 IsVisible = true;
             }
         }
