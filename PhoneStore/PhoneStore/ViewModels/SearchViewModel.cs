@@ -34,6 +34,7 @@ namespace PhoneStore.ViewModels
 
         private void Search(object obj)
         {
+            SfListView lv = obj as SfListView;
             UserDialogs.Instance.ShowLoading("Đang tìm kiếm...");
             var allItems = Task.Run(async () => await firebase.GetAllItems()).Result;
             var foundItem3 = allItems.Where(it => it.Name.Contains(Text)).ToList();
@@ -60,6 +61,7 @@ namespace PhoneStore.ViewModels
             }
             else
             {
+                lv.IsVisible = false;
                 ItemCollection.Clear();
                 UserDialogs.Instance.HideLoading();
                 IsVisible = true;
