@@ -72,6 +72,7 @@ namespace PhoneStore.ViewModels
             }
             catch (Exception)
             {
+                UserDialogs.Instance.HideLoading();
                 IsVisible = true;
             }
         }
