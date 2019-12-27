@@ -8,6 +8,7 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              xmlns:avatarview="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
              xmlns:textinputlayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.MainViews.User.EditUser.InfomationPage" NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
@@ -52,13 +53,23 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <buttons:SfButton Text="Thay đổi ảnh" Command="{Binding ChangeAvatarTapped}" CornerRadius="10" TextColor="Black" BackgroundColor="White" Grid.Row="1"/>
-                        <avatarview:SfAvatarView Grid.Row="0"
+                        <abstractions:CircleImage WidthRequest="100"
+                                                  HeightRequest="100"
+                                                  Source="{Binding Image}"
+                                                  HorizontalOptions="Center"
+                                                  VerticalOptions="Center"
+                                                  Aspect="AspectFill"
+                                                  IsAnimationPlaying="True"
+                                                  BorderColor="Black"
+                                                  Grid.Row="0"
+                                                  BorderThickness="1"/>
+                        <!--<avatarview:SfAvatarView Grid.Row="0"
                                              ContentType="Custom" CornerRadius="10"
                                              ImageSource="{Binding Image}" 
                                              AvatarShape="Circle" 
                                              AvatarSize="Large" 
                                              AvatarColorMode="Default" 
-                                             BorderColor="White"/>
+                                             BorderColor="White"/>-->
                     </Grid>
 
                     <!--Thông tin cá nhân-->

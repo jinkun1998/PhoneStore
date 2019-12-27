@@ -18,7 +18,7 @@
                     <shimmer:SfShimmer.Content>
                         <Grid Padding="8,0,8,0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="150"/>
                                 <RowDefinition Height="100"/>
                                 <RowDefinition Height="350"/>
                                 <RowDefinition Height="350"/>
@@ -63,17 +63,17 @@
                                 <listview:SfListView
                                     Grid.Row="1"
                                     ItemsSource="{Binding HotItems}"
-                                    ItemSize="300"
+                                    ItemSize="200"
                                     ItemSpacing="5"
                                     Orientation="Horizontal"
                                     TapCommand="{Binding cmdLoadItem}"
-                                    SelectionBackgroundColor="Transparent"
-                                    AutoFitMode="DynamicHeight"
+                                    SelectionBackgroundColor="DeepSkyBlue"
+                                    SelectionMode="Single"
                                     >
                                     <listview:SfListView.ItemTemplate>
                                         <DataTemplate>
                                             <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
-                                                <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
+                                                <Grid HeightRequest="200" BackgroundColor="White" Padding="2">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="2.5*"/>
                                                         <RowDefinition Height="1*"/>
@@ -135,7 +135,7 @@
                                 <listview:SfListView
                                     Grid.Row="1"
                                     ItemsSource="{Binding NewItems}"
-                                    ItemSize="300"
+                                    ItemSize="200"
                                     ItemSpacing="5"
                                     Orientation="Horizontal"
                                     TapCommand="{Binding cmdLoadItem}"
@@ -145,7 +145,7 @@
                                     <listview:SfListView.ItemTemplate>
                                         <DataTemplate>
                                             <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
-                                                <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
+                                                <Grid HeightRequest="200" BackgroundColor="White" Padding="2">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="2.5*"/>
                                                         <RowDefinition Height="1*"/>
@@ -207,7 +207,7 @@
                                 <listview:SfListView
                                     Grid.Row="1"
                                     ItemsSource="{Binding DiscountItems}"
-                                    ItemSize="300"
+                                    ItemSize="200"
                                     ItemSpacing="5"
                                     Orientation="Horizontal"
                                     TapCommand="{Binding cmdLoadItem}"
@@ -217,7 +217,7 @@
                                     <listview:SfListView.ItemTemplate>
                                         <DataTemplate>
                                             <pancakeview:PancakeView BackgroundColor="#f9f9f9" CornerRadius="10">
-                                                <Grid HeightRequest="300" BackgroundColor="White" Padding="2">
+                                                <Grid HeightRequest="200" BackgroundColor="White" Padding="2">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="2.5*"/>
                                                         <RowDefinition Height="1*"/>

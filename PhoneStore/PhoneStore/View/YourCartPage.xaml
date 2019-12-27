@@ -101,15 +101,23 @@
 
                                         <Grid Grid.Column="0">
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="40"/>
+                                                <ColumnDefinition Width="40"/>
                                             </Grid.ColumnDefinitions>
-                                            <buttons:SfButton Command="{Binding Path=BindingContext.RemoveQuantityTapped, Source={x:Reference CartPage}}" CommandParameter="{Binding .}" Text="-" Grid.Column="1" BackgroundColor="#f9f9f9" TextColor="Black"/>
-                                            <Label Grid.Column="2" Text="{Binding Quantity}" VerticalOptions="Center" HorizontalOptions="Center"/>
-                                            <buttons:SfButton Command="{Binding Path=BindingContext.AddQuantityTapped, Source={x:Reference CartPage}}" CommandParameter="{Binding .}" Text="+" Grid.Column="3" BackgroundColor="#f9f9f9" TextColor="Black"/>
+                                            <buttons:SfButton Command="{Binding Path=BindingContext.RemoveQuantityTapped, Source={x:Reference CartPage}}" 
+                                                              CommandParameter="{Binding .}" 
+                                                              ImageSource="https://i.imgur.com/LJjIGuj.png"
+                                                              ShowIcon="True" Grid.Column="0"
+                                                              BackgroundColor="Transparent"
+                                                              TextColor="Black"/>
+                                            <Label Grid.Column="1" Text="{Binding Quantity}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                            <buttons:SfButton Command="{Binding Path=BindingContext.AddQuantityTapped, Source={x:Reference CartPage}}" 
+                                                              CommandParameter="{Binding .}" 
+                                                              ImageSource="https://i.imgur.com/nAYItEd.png"
+                                                              ShowIcon="True" Grid.Column="2"
+                                                              BackgroundColor="Transparent"
+                                                              TextColor="Black"/>
                                         </Grid>
 
                                         <Label Grid.Column="1" 

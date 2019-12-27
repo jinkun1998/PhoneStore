@@ -15,26 +15,28 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
         <local:UserViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid BackgroundColor="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <ScrollView BackgroundColor="White">
+            <StackLayout Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <!--<Grid BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>-->
 
-            <Image Source="logo_splash.png" Grid.Row="1" Aspect="AspectFill" VerticalOptions="End"/>
-            <StackLayout Grid.Row="2" Padding="15,0,15,0" Spacing="10" Orientation="Vertical">
-                <inputLayout:SfTextInputLayout Hint="Email" 
+                <Image Source="loginlogo.png"  Aspect="AspectFit" VerticalOptions="EndAndExpand"/>
+                <StackLayout  Padding="15,0,15,0" Spacing="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
+                    <inputLayout:SfTextInputLayout Hint="Email" 
                                                ContainerType="Outlined"
                                                ErrorText="Email không hợp lệ!"
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
                                                VerticalOptions="End"
                                                >
-                    <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email" ClearButtonVisibility="WhileEditing"/>
-                </inputLayout:SfTextInputLayout>
-                <inputLayout:SfTextInputLayout Hint="Mật khẩu" 
+                        <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email"/>
+                    </inputLayout:SfTextInputLayout>
+                    <inputLayout:SfTextInputLayout Hint="Mật khẩu" 
                                                ContainerType="Outlined"
                                                ErrorText="Mật khẩu không hợp lệ!"
                                                HasError="False"
@@ -42,11 +44,13 @@ xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Sync
                                                VerticalOptions="End"
                                                EnablePasswordVisibilityToggle ="True"
                                                >
-                    <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" ClearButtonVisibility="WhileEditing" />
-                </inputLayout:SfTextInputLayout>
-                <buttons:SfButton Command="{Binding LoginTapped}" Text="Đăng nhập" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/>
-                <buttons:SfButton Command="{Binding ForgotPassTapped}" Text="Quên mật khẩu?" CornerRadius="20" BackgroundColor="Transparent" TextColor="Black" FontAttributes="Bold" FontSize="15" HeightRequest="35"/>
+                        <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
+                    </inputLayout:SfTextInputLayout>
+                    <buttons:SfButton Text="Đăng nhập" Command="{Binding LoginTapped}" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/>
+                    <buttons:SfButton Command="{Binding ForgotPassTapped}" Text="Quên mật khẩu?" CornerRadius="20" BackgroundColor="Transparent" TextColor="Black" FontAttributes="Bold" FontSize="15" HeightRequest="35"/>
+                </StackLayout>
+                <!--</Grid>-->
             </StackLayout>
-        </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

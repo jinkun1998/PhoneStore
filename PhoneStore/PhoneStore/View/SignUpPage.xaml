@@ -12,26 +12,28 @@
         <vm:UserViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <Grid BackgroundColor="White">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <ScrollView BackgroundColor="White">
+            <StackLayout Padding="10" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+                <!--<Grid BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>-->
 
-            <Image Source="logo_splash.png" Grid.Row="1" Aspect="AspectFill" VerticalOptions="End"/>
-            <StackLayout Grid.Row="2" Padding="15,0,15,0" Spacing="10" Orientation="Vertical">
-                <inputLayout:SfTextInputLayout Hint="Email" 
+                <Image Source="loginlogo.png"  Aspect="AspectFit" VerticalOptions="EndAndExpand"/>
+                <StackLayout  Padding="15,0,15,0" Spacing="10" Orientation="Vertical" VerticalOptions="StartAndExpand">
+                    <inputLayout:SfTextInputLayout Hint="Email" 
                                                ContainerType="Outlined"
                                                ErrorText="Email không hợp lệ!"
                                                HasError="False"
                                                ReserveSpaceForAssistiveLabels="False"
                                                VerticalOptions="End"
                                                >
-                    <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email"/>
-                </inputLayout:SfTextInputLayout>
-                <inputLayout:SfTextInputLayout Hint="Mật khẩu" 
+                        <Entry Text="{Binding Email, Mode=TwoWay}" Keyboard="Email"/>
+                    </inputLayout:SfTextInputLayout>
+                    <inputLayout:SfTextInputLayout Hint="Mật khẩu" 
                                                ContainerType="Outlined"
                                                ErrorText="Mật khẩu không hợp lệ!"
                                                HasError="False"
@@ -39,10 +41,12 @@
                                                VerticalOptions="End"
                                                EnablePasswordVisibilityToggle ="True"
                                                >
-                    <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
-                </inputLayout:SfTextInputLayout>
-                <buttons:SfButton Text="Đăng ký" Command="{Binding RegisterTapped}" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/> 
+                        <Entry Text="{Binding Pwd, Mode=TwoWay}" IsPassword="True" />
+                    </inputLayout:SfTextInputLayout>
+                    <buttons:SfButton Text="Đăng ký" Command="{Binding RegisterTapped}" CornerRadius="20" BackgroundColor="DeepSkyBlue" FontSize="17" HeightRequest="50"/>
+                </StackLayout>
+                <!--</Grid>-->
             </StackLayout>
-        </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

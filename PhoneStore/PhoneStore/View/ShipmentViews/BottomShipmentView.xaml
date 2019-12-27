@@ -10,22 +10,22 @@ xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusi
              mc:Ignorable="d"
              x:Class="PhoneStore.View.ShipmentViews.BottomShipmentView">
     <ContentView.Content>
-        <pancakeview:PancakeView CornerRadius="10">
+        <pancakeview:PancakeView CornerRadius="10" HasShadow="True" BackgroundColor="Transparent">
             <Grid Padding="10" BackgroundColor="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="110"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <Label Text="Tổng tiền:" 
                        Grid.Column="0" 
                        Grid.Row="1" 
-                       FontSize="20" 
+                       FontSize="18" 
                        VerticalOptions="Center" 
                        HorizontalOptions="StartAndExpand"
                        TextColor="Black"/>
@@ -33,7 +33,7 @@ xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusi
                        Padding="10,0,10,0"
                        Grid.Column="1" 
                        Grid.Row="1"
-                       FontSize="20" 
+                       FontSize="17" 
                        VerticalOptions="Center" 
                        HorizontalOptions="EndAndExpand"
                        TextColor="Red"/>
@@ -41,7 +41,7 @@ xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusi
                 <button:SfButton Text="Đặt hàng"  
                                  Grid.Column="2"
                                  Grid.Row="1"
-                                 FontSize="20" 
+                                 FontSize="18" 
                                  CornerRadius="10"
                                  BackgroundColor="#3fc5f0"
                                  TextColor="White"

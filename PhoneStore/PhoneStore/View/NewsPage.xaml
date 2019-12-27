@@ -40,7 +40,10 @@
                                Orientation="Vertical"
                                TapCommand="{Binding FeedLoadTapped}"
                                LoadMoreOption="AutoOnScroll"
-                               SelectionMode="None">
+                               FocusBorderColor="DeepSkyBlue"
+                               SelectionBackgroundColor="DeepSkyBlue"
+                               FocusBorderThickness="1"
+                               SelectionMode="Single">
                 <xforms:SfListView.LayoutManager>
                     <xforms:GridLayout SpanCount="2" />
                 </xforms:SfListView.LayoutManager>

@@ -39,7 +39,10 @@
                                Padding="10,0,10,0"
                                Orientation="Vertical"
                                TapCommand="{Binding NewsTapped}"
-                               SelectionMode="None"
+                               FocusBorderColor="DeepSkyBlue"
+                               SelectionBackgroundColor="DeepSkyBlue"
+                               FocusBorderThickness="1"
+                               SelectionMode="Single"
                                LoadMoreOption="AutoOnScroll">
                 <xforms:SfListView.LayoutManager>
                     <xforms:GridLayout SpanCount="2" />

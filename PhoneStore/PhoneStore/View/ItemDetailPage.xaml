@@ -40,7 +40,7 @@
                         <RowDefinition Height="300"/>
                         <RowDefinition Height="120"/>
                         <RowDefinition Height="50"/>
-                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="250"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -65,7 +65,7 @@
                                HorizontalOptions="StartAndExpand"/>
                             <rating:SfRating Grid.Row="1" Grid.Column="0"
                                         ItemCount="5"
-                                        Value="2.56"
+                                        Value="{Binding Item.Rate}"
                                         ReadOnly="True"
                                         ItemSize="15"
                                         Precision="Exact"
@@ -113,7 +113,7 @@
                                 <RowDefinition Height="40"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Text="Thông tin sản phẩm" FontSize="Body" FontAttributes="Bold" Padding="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Start"/>
+                            <Label Grid.Row="0" Text="Thông tin cấu hình" FontSize="Body" FontAttributes="Bold" Padding="5,5,5,0" VerticalOptions="Center" HorizontalOptions="Start"/>
                             <Label Grid.Row="1" Text="{Binding Item.Shortdescription}" FontSize="Body" Padding="10,0,10,0" VerticalOptions="StartAndExpand"/>
                         </Grid>
                     </pancakeview:PancakeView>

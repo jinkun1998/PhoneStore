@@ -40,7 +40,21 @@ namespace PhoneStore.ViewModels
 
         private async void ResetPass(object obj)
         {
-            await CrossFirebaseAuth.Current.Instance.SendPasswordResetEmailAsync(Email);
+            if (Email == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Thông báo", "Vui lòng nhập email để tiếp tục!", "Đã hiểu");
+            }
+            else
+            {
+                using (UserDialogs.Instance.Loading("Đang xử lý", null, null, true, MaskType.Gradient))
+                {
+                    await CrossFirebaseAuth.Current.Instance.SendPasswordResetEmailAsync(Email);
+                    await Application.Current.MainPage.Navigation.PushAsync(new FirstPage());
+                    Application.Current.MainPage = new NavigationPage(new FirstPage());
+                    await Application.Current.MainPage.DisplayAlert("Thông báo", "Kiểm tra hộp thư email của bạn và làm theo hướng dẫn!", "Đã hiểu");
+                }
+            }
+            
         }
 
         private async void ChangeAvatar(object obj)

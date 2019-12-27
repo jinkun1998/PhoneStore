@@ -23,8 +23,9 @@ namespace PhoneStore.ViewModels
         public FirebaseStorageHelper firebaseStorage;
         public EditUserViewModel()
         {
-            using (UserDialogs.Instance.Progress("Đang lưu...", null, null, true, MaskType.Gradient))
+            using (IProgressDialog pg = UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
             {
+                pg.PercentComplete = 10;
                 firebase = new FirebaseHelper();
                 firebaseStorage = new FirebaseStorageHelper();
                 var user = CrossFirebaseAuth.Current.Instance.CurrentUser;
@@ -36,11 +37,12 @@ namespace PhoneStore.ViewModels
                 Address = User.Address;
                 DoB = User.DoB;
                 IsEdit = false;
-
+                pg.PercentComplete = 70;
                 this.SaveUserTapped = new Command(SaveUser);
                 this.BackButton = new Command(Back);
                 this.ChangeAvatarTapped = new Command(ChangeAvatar);
                 this.EditTapped = new Command(Edit);
+                pg.PercentComplete = 100;
             }
         }
 
@@ -87,8 +89,9 @@ namespace PhoneStore.ViewModels
 
         private async void SaveUser(object obj)
         {
-            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
+            using (IProgressDialog pg = UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
+                pg.PercentComplete = 10;
                 UserModel user = new UserModel();
                 user.Address = Address;
                 user.AvatarLink = Image;
@@ -96,8 +99,10 @@ namespace PhoneStore.ViewModels
                 user.Email = Email;
                 user.FullName = Name;
                 user.Phone = Phone;
+                pg.PercentComplete = 60;
                 await App.SQLiteDb.SaveUserAsync(user);
                 await firebase.UpdateUser(user);
+                pg.PercentComplete = 90;
                 await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
                 Application.Current.MainPage = new NavigationPage(new HomePage());
             }

@@ -7,6 +7,7 @@
              xmlns:shimmer="clr-namespace:Syncfusion.XForms.Shimmer;assembly=Syncfusion.Core.XForms"
              xmlns:sfAvatarView="clr-namespace:Syncfusion.XForms.AvatarView;assembly=Syncfusion.Core.XForms"
              xmlns:pancakeview="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              mc:Ignorable="d"
              x:Class="PhoneStore.View.MainViews.User.UserView">
     <ContentView.Content>
@@ -26,9 +27,19 @@
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
 
-                                <sfAvatarView:SfAvatarView HeightRequest="80" WidthRequest="80"
+                                <abstractions:CircleImage WidthRequest="100"
+                                                          HeightRequest="100"
+                                                          Grid.Column="0"
+                                                          Source="{Binding Image}"
+                                                          HorizontalOptions="Center"
+                                                          VerticalOptions="Center"
+                                                          Aspect="AspectFill"
+                                                          IsAnimationPlaying="True"
+                                                          BorderColor="Black"
+                                                          BorderThickness="1"/>
+                                <!--<sfAvatarView:SfAvatarView HeightRequest="80" WidthRequest="80"
                                                        ContentType="Custom" CornerRadius="10"
-                                                       ImageSource="{Binding Image}" Grid.Column="0" AvatarShape="Circle" AvatarSize="Large" AvatarColorMode="Default" BorderColor="White"/>
+                                                       ImageSource="{Binding Image}" Grid.Column="0" AvatarShape="Circle" AvatarSize="Large" AvatarColorMode="Default" BorderColor="White"/>-->
                                 <Grid Grid.Column="1">
                                     <!--<Grid.RowDefinitions>
                                         <RowDefinition Height="1*"/>

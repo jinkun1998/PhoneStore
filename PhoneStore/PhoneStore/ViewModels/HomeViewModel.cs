@@ -32,8 +32,9 @@ namespace PhoneStore.ViewModel
         public HomeViewModel()
         {
 
-            using (UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
+            using (IProgressDialog progress = UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
             {
+                progress.PercentComplete = 10;
                 firebase = new FirebaseHelper();
                 var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
                 if (cart != null)
@@ -51,7 +52,7 @@ namespace PhoneStore.ViewModel
                     Image = User.AvatarLink;
                 }
                 RSSSources = GetRssSources();
-
+                progress.PercentComplete = 70;
                 this.cmdPhone = new Command(GoToPhone);
                 this.cmdTablet = new Command(GoToTablet);
                 this.cmdWatch = new Command(GoToWatch);
@@ -60,6 +61,7 @@ namespace PhoneStore.ViewModel
                 this.SearchTapped = new Command(GotoSearch);
                 this.MyOrderTapped = new Command(GotoMyOrder);
                 this.SignOutTapped = new Command(SignOutCmd);
+                progress.PercentComplete = 90;
                 this.MyFavoriteTapped = new Command(FavoriteCmd);
                 this.EditProfile = new Command(EditUser);
                 this.AppInfo = new Command(ShowInfo);
