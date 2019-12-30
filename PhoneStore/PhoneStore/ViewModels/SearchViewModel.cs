@@ -20,10 +20,17 @@ namespace PhoneStore.ViewModels
         FirebaseHelper firebase;
         public SearchViewModel()
         {
-            firebase = new FirebaseHelper();
+            try
+            {
+                firebase = new FirebaseHelper();
 
-            this.SearchCmd = new Command(Search);
-            this.ItemTapped = new Command(LoadItem);
+                this.SearchCmd = new Command(Search);
+                this.ItemTapped = new Command(LoadItem);
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         private void LoadItem(object obj)
@@ -39,26 +46,34 @@ namespace PhoneStore.ViewModels
             try
             {
                 var allItems = Task.Run(async () => await firebase.GetAllItems()).Result;
-                var foundItem3 = allItems.Where(it => it.Name.Contains(Text)).ToList();
-                var foundItem1 = allItems.Where(it => it.Name.Contains(Text.ToLower())).ToList();
-                var foundItem2 = allItems.Where(it => it.Name.Contains(Text.ToUpper())).ToList();
-                List<ItemModel> items = new List<ItemModel>();
-                foreach (var item in foundItem3)
+                List<ItemModel> lowerItems = new List<ItemModel>();
+                foreach (var item in allItems)
                 {
-                    items.Add(item);
+                    ItemModel newItem = new ItemModel();
+                    newItem.Code = item.Code;
+                    newItem.Colors = item.Colors;
+                    newItem.CreatedDate = item.CreatedDate;
+                    newItem.Description = item.Description;
+                    newItem.DescriptionLink = item.DescriptionLink;
+                    newItem.Image = item.Image;
+                    newItem.Name = item.Name.ToLower();
+                    newItem.Price = item.Price;
+                    newItem.Rate = item.Rate;
+                    newItem.RotatorImages = item.RotatorImages;
+                    newItem.Shortdescription = item.Shortdescription;
+                    newItem.Type = item.Type;
+                    lowerItems.Add(newItem);
                 }
-                foreach (var item in foundItem1)
+                var foundItems = lowerItems.Where(it => it.Name.Contains(Text.ToLower())).ToList();
+                var normalItems = new List<ItemModel>();
+                foreach (var item in foundItems)
                 {
-                    items.Add(item);
+                    normalItems.Add(allItems.Where(it => it.Code == item.Code).FirstOrDefault());
                 }
-                foreach (var item in foundItem2)
-                {
-                    items.Add(item);
-                }
-                if (items.Count > 0)
+                if (normalItems.Count > 0)
                 {
                     lv.IsVisible = true;
-                    ItemCollection = items;
+                    ItemCollection = normalItems;
                     UserDialogs.Instance.HideLoading();
                     IsVisible = false;
                 }

@@ -22,12 +22,12 @@
             
             <xforms:SfListView Grid.Row="1" x:Name="listView"
                 ItemsSource="{Binding ItemCollection}"
-                ItemSize="230"
+                ItemSize="300"
                 ItemSpacing="5"
                 TapCommand="{Binding ItemTapped}"
                 LoadMoreOption="AutoOnScroll"
                 SelectionMode="Single"
-                SelectionBackgroundColor="Transparent"
+                SelectionBackgroundColor="DeepSkyBlue"
                 LoadMorePosition="Bottom"
                 >
                 <xforms:SfListView.ItemTemplate>

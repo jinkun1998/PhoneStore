@@ -58,7 +58,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image Grid.Column="0" Source="{Binding Image}"                                                           
-                                                           Aspect="Fill"
+                                                           Aspect="AspectFit"
                                                            HorizontalOptions="CenterAndExpand"
                                                            VerticalOptions="CenterAndExpand"/>
                                 <Grid Grid.Column="1">

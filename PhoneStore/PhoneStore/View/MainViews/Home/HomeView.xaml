@@ -26,7 +26,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" >
-                                <pancakeview:PancakeView CornerRadius="8" VerticalOptions="StartAndExpand">
+                                <pancakeview:PancakeView CornerRadius="10" VerticalOptions="StartAndExpand">
                                     <rotator:SfRotator
                                                NavigationDelay="3000"
                                                SelectedIndex="0"
@@ -38,7 +38,7 @@
                                                ItemsSource="{Binding RotatorModels}">
                                         <rotator:SfRotator.ItemTemplate>
                                             <DataTemplate>
-                                                <Image Source="{Binding Image}" Aspect="AspectFill"/>
+                                                <Image Source="{Binding Image}" Aspect="AspectFit"/>
                                             </DataTemplate>
                                         </rotator:SfRotator.ItemTemplate>
                                     </rotator:SfRotator>
@@ -63,7 +63,7 @@
                                 <listview:SfListView
                                     Grid.Row="1"
                                     ItemsSource="{Binding HotItems}"
-                                    ItemSize="200"
+                                    ItemSize="250"
                                     ItemSpacing="5"
                                     Orientation="Horizontal"
                                     TapCommand="{Binding cmdLoadItem}"

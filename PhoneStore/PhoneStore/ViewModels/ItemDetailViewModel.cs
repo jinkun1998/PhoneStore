@@ -27,17 +27,24 @@ namespace PhoneStore.ViewModels
         public FirebaseHelper firebase;
         public ItemDetailViewModel(ItemModel item)
         {
-            using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
+            try
             {
-                firebase = new FirebaseHelper();
-                Item = item;
-                CheckFavorite();
-                this.DescriptionTapped = new Command(GotoDescription);
-                this.CartTapped = new Command(GotoCart);
-                this.ShareAction = new Command(ShareUri);
-                this.AddCarttapped = new Command(AddCart);
-                this.FavoriteTapped = new Command(FavoriteCmd);
-                this.BackButton = new Command(Back);
+                using (UserDialogs.Instance.Progress("Đang tải...", null, null, true, MaskType.Gradient))
+                {
+                    firebase = new FirebaseHelper();
+                    Item = item;
+                    CheckFavorite();
+                    this.DescriptionTapped = new Command(GotoDescription);
+                    this.CartTapped = new Command(GotoCart);
+                    this.ShareAction = new Command(ShareUri);
+                    this.AddCarttapped = new Command(AddCart);
+                    this.FavoriteTapped = new Command(FavoriteCmd);
+                    this.BackButton = new Command(Back);
+                }
+            }
+            catch (Exception)
+            {
+
             }
         }
 

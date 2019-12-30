@@ -9,6 +9,7 @@ using PhoneStore.View.MainViews.User.EditUser;
 using PhoneStore.View.MainViews.User.FavoriteViews;
 using PhoneStore.View.MainViews.User.MyOrderViews;
 using Plugin.FirebaseAuth;
+using Plugin.Toast;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -31,43 +32,49 @@ namespace PhoneStore.ViewModel
         public FirebaseHelper firebase;
         public HomeViewModel()
         {
-
-            using (IProgressDialog progress = UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
+            try
             {
-                progress.PercentComplete = 10;
-                firebase = new FirebaseHelper();
-                var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
-                if (cart != null)
-                    ItemCount = cart.Count;
-                RotatorModels = Task.Run(async () => await getRotatorsAsync().ConfigureAwait(true)).Result;
-                ItemModels = Task.Run(async () => await getAllItemAsync().ConfigureAwait(true)).Result;
-                NewItems = ItemModels.OrderBy(it => it.CreatedDate).ToList();
-                HotItems = ItemModels.Where(it => it.Rate >= 3.5).ToList();
-                DiscountItems = ItemModels.OrderBy(it => it.Price).ToList();
-                var currentUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
-                User = Task.Run(async () => await App.SQLiteDb.GetUserAsync(currentUser.Email)).Result;
-                if (User != null)
+                using (IProgressDialog progress = UserDialogs.Instance.Progress("Vui lòng chờ...", null, null, true, MaskType.Gradient))
                 {
-                    Name = User.FullName;
-                    Image = User.AvatarLink;
+                    progress.PercentComplete = 10;
+                    firebase = new FirebaseHelper();
+                    var cart = Task.Run(async () => await App.SQLiteDb.GetItemsAsync()).Result;
+                    if (cart != null)
+                        ItemCount = cart.Count;
+                    RotatorModels = Task.Run(async () => await getRotatorsAsync().ConfigureAwait(true)).Result;
+                    ItemModels = Task.Run(async () => await getAllItemAsync().ConfigureAwait(true)).Result;
+                    NewItems = ItemModels.OrderBy(it => it.CreatedDate).ToList();
+                    HotItems = ItemModels.Where(it => it.Rate >= 3.5).ToList();
+                    DiscountItems = ItemModels.OrderBy(it => it.Price).ToList();
+                    var currentUser = CrossFirebaseAuth.Current.Instance.CurrentUser;
+                    User = Task.Run(async () => await App.SQLiteDb.GetUserAsync(currentUser.Email)).Result;
+                    if (User != null)
+                    {
+                        Name = User.FullName;
+                        Image = User.AvatarLink;
+                    }
+                    RSSSources = GetRssSources();
+                    progress.PercentComplete = 60;
+                    this.cmdPhone = new Command(GoToPhone);
+                    this.cmdTablet = new Command(GoToTablet);
+                    this.cmdWatch = new Command(GoToWatch);
+                    this.cmdLoadItem = new Command<object>(GotoItemDetail);
+                    this.CartTapped = new Command(GotoCart);
+                    this.SearchTapped = new Command(GotoSearch);
+                    this.MyOrderTapped = new Command(GotoMyOrder);
+                    this.SignOutTapped = new Command(SignOutCmd);
+                    progress.PercentComplete = 80;
+                    this.MyFavoriteTapped = new Command(FavoriteCmd);
+                    this.EditProfile = new Command(EditUser);
+                    this.AppInfo = new Command(ShowInfo);
+                    this.QRCodeTapped = new Command(GotoQRCodeAsync);
+                    this.MyPromoTapped = new Command(GotoMyPromo);
+                    this.NewsTapped = new Command<object>(GotoNews);
                 }
-                RSSSources = GetRssSources();
-                progress.PercentComplete = 70;
-                this.cmdPhone = new Command(GoToPhone);
-                this.cmdTablet = new Command(GoToTablet);
-                this.cmdWatch = new Command(GoToWatch);
-                this.cmdLoadItem = new Command<object>(GotoItemDetail);
-                this.CartTapped = new Command(GotoCart);
-                this.SearchTapped = new Command(GotoSearch);
-                this.MyOrderTapped = new Command(GotoMyOrder);
-                this.SignOutTapped = new Command(SignOutCmd);
-                progress.PercentComplete = 90;
-                this.MyFavoriteTapped = new Command(FavoriteCmd);
-                this.EditProfile = new Command(EditUser);
-                this.AppInfo = new Command(ShowInfo);
-                this.QRCodeTapped = new Command(GotoQRCodeAsync);
-                this.MyPromoTapped = new Command(GotoMyPromo);
-                this.NewsTapped = new Command<object>(GotoNews);
+            }
+            catch (Exception)
+            {
+                CrossToastPopUp.Current.ShowToastError("Có lỗi xảy ra!");
             }
         }
 
@@ -108,6 +115,7 @@ namespace PhoneStore.ViewModel
             Application.Current.MainPage.DisplayAlert("Thông tin ứng dụng", "Copyright © PhoneStore 2019\n" +
                 "Chủ sở hữu: Đoàn Lê Quốc Thảo\n" +
                 "Lớp: 10DHPM01\n" +
+                "MSSV: 1631102050\n" +
                 "Trường: Đại học Gia Định\n" +
                 "Khóa: 10\n" +
                 "Email:quocthao23061998.tg@gmail.com", "Đã hiểu");
