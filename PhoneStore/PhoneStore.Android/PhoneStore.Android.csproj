@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -212,7 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PhoneStore\PhoneStore.csproj">
-      <Project>{E242B30E-0B04-40C7-AEAC-36463745DD54}</Project>
+      <Project>{8B3A7503-B7A6-458A-A4E9-87C39E9E9E8C}</Project>
       <Name>PhoneStore</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,17 +1,10 @@
 ﻿using Acr.UserDialogs;
-using Android.Content.Res;
 using PhoneStore.Firebase;
 using PhoneStore.Models;
-using PhoneStore.SQLite;
 using PhoneStore.View;
-using PhoneStore.ViewModel;
-using SQLite;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
